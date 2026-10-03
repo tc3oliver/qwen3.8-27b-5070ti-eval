@@ -1,0 +1,27 @@
+12:06:26 == arena run arena-2026-10 configs: qwen38-27b-iq3s qwen38-27b-official-iq3s qwen38-27b-unsloth-q3kxl ornith-1.5-35b-a3b-apex muse-glimmer-30b-q2kxl ornith-1.5-9b-q6k
+12:06:40 baseline WSL shared GPU memory 1 MiB
+12:06:40 [qwen38-27b-iq3s] try 65536:q4_0:0:all:1
+12:06:53 [qwen38-27b-iq3s] 65536:q4_0:0:all:1: {"candidate": "65536:q4_0:0:all:1", "spill_mib_after_load": 152, "raw_decode_tps": 81.46273721211422, "chat_answer": "台北是一座古老與摩登並存的城市，在巷弄的阿嬤紅茶與林立的摩天大樓之間，找到獨特的生活節奏。", "chat_reasoning_chars": 19, "chat_finish": "stop", "spill_mib_after_sanity": 168, "wsl_dedicated_mib": 13253, "result": "chosen"}
+12:06:59 [qwen38-27b-iq3s] frozen 65536:q4_0:0:all:1 spill 168 MiB decode 81.5 tok/s
+12:06:59 [qwen38-27b-official-iq3s] try 65536:q4_0:0:all:1
+12:07:19 [qwen38-27b-official-iq3s] 65536:q4_0:0:all:1: {"candidate": "65536:q4_0:0:all:1", "spill_mib_after_load": 152, "raw_decode_tps": 69.97723260432117, "chat_answer": "台北是一座在古蹟與摩天樓之間、夜市熱氣與文藝咖啡香中並存的現代都會。", "chat_reasoning_chars": 74, "chat_finish": "stop", "spill_mib_after_sanity": 168, "wsl_dedicated_mib": 13255, "result": "chosen"}
+12:07:24 [qwen38-27b-official-iq3s] frozen 65536:q4_0:0:all:1 spill 168 MiB decode 70.0 tok/s
+12:07:24 [qwen38-27b-unsloth-q3kxl] try 65536:q8_0:0:all:1
+12:07:39 [qwen38-27b-unsloth-q3kxl] 65536:q8_0:0:all:1: {"candidate": "65536:q8_0:0:all:1", "spill_mib_after_load": 484, "result": "spill"}
+12:07:47 [qwen38-27b-unsloth-q3kxl] try 65536:q4_0:0:all:1
+12:07:56 [qwen38-27b-unsloth-q3kxl] 65536:q4_0:0:all:1: {"candidate": "65536:q4_0:0:all:1", "spill_mib_after_load": 484, "result": "spill"}
+12:08:01 [qwen38-27b-unsloth-q3kxl] try 49152:q4_0:0:all:1
+12:08:09 [qwen38-27b-unsloth-q3kxl] 49152:q4_0:0:all:1: {"candidate": "49152:q4_0:0:all:1", "spill_mib_after_load": 452, "result": "spill"}
+12:08:15 [qwen38-27b-unsloth-q3kxl] try 32768:q4_0:0:all:1
+12:08:33 [qwen38-27b-unsloth-q3kxl] 32768:q4_0:0:all:1: {"candidate": "32768:q4_0:0:all:1", "spill_mib_after_load": 176, "raw_decode_tps": 51.462632860714564, "chat_answer": "台北是一座現代與傳統交融、山景與市井氣息並存，且美食與文創皆具活力的城市。", "chat_reasoning_chars": 80, "chat_finish": "stop", "spill_mib_after_sanity": 218, "wsl_dedicated_mib": 13819, "result": "chosen"}
+12:08:38 [qwen38-27b-unsloth-q3kxl] frozen 32768:q4_0:0:all:1 spill 218 MiB decode 51.5 tok/s
+12:08:38 [ornith-1.5-35b-a3b-apex] try 65536:q8_0:0:all:0
+12:08:57 [ornith-1.5-35b-a3b-apex] 65536:q8_0:0:all:0: {"candidate": "65536:q8_0:0:all:0", "spill_mib_after_load": 266, "raw_decode_tps": 103.42710180972998, "chat_answer": "台北是台灣的首都，一座融合現代繁華與古韻生活、緊鄰群山又夜市場林立，充滿活力與溫度的都市。", "chat_reasoning_chars": 404, "chat_finish": "stop", "spill_mib_after_sanity": 294, "wsl_dedicated_mib": 13851, "result": "chosen"}
+12:09:03 [ornith-1.5-35b-a3b-apex] frozen 65536:q8_0:0:all:0 spill 294 MiB decode 103.4 tok/s
+12:09:03 [muse-glimmer-30b-q2kxl] try 65536:q8_0:0:all:0
+12:09:33 [muse-glimmer-30b-q2kxl] 65536:q8_0:0:all:0: {"candidate": "65536:q8_0:0:all:0", "spill_mib_after_load": 158, "raw_decode_tps": 44.03421354374522, "chat_answer": "台北是台灣的首都，一座將傳統市集、現代摩天大樓與山海景致交織而成的繁華都市，以夜市小吃和便利捷運聞名。", "chat_reasoning_chars": 1240, "chat_finish": "stop", "spill_mib_after_sanity": 158, "wsl_dedicated_mib": 11775, "result": "chose
+12:09:38 [muse-glimmer-30b-q2kxl] frozen 65536:q8_0:0:all:0 spill 158 MiB decode 44.0 tok/s
+12:09:38 [ornith-1.5-9b-q6k] try 65536:q8_0:0:all:0
+12:09:52 [ornith-1.5-9b-q6k] 65536:q8_0:0:all:0: {"candidate": "65536:q8_0:0:all:0", "spill_mib_after_load": 146, "raw_decode_tps": 75.87321406701338, "chat_answer": "台北是台灣的首都，一座融合歷史古蹟與現代繁華、夜市小吃與科技創新交織的活力城市。", "chat_reasoning_chars": 115, "chat_finish": "stop", "spill_mib_after_sanity": 146, "wsl_dedicated_mib": 7999, "result": "chosen"}
+12:09:57 [ornith-1.5-9b-q6k] frozen 65536:q8_0:0:all:0 spill 146 MiB decode 75.9 tok/s
+12:09:57 production service restarted
