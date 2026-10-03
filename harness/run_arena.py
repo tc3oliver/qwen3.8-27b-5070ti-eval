@@ -8,7 +8,7 @@ import argparse, json, os, shlex, signal, subprocess, sys, time, urllib.request
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONFIGS = os.path.join(ROOT, "configs")
 ORDER = ["qwen38-27b-iq3s", "qwen38-27b-official-iq3s", "qwen38-27b-unsloth-q3kxl", "ornith-1.5-35b-a3b-apex",
-         "gemma-4-26b-a4b-iq4xs", "muse-glimmer-30b-iq3m", "gpt-oss-20b-mxfp4"]
+         "muse-glimmer-30b-q2kxl", "ornith-1.5-9b-q6k"]
 BINS = {"recipe": "/home/oliver/llama-api/src/llama.cpp-qwen38-v3/build/bin/llama-server",
         "stock": "/home/oliver/llama-api/src/llama.cpp-stock/build/bin/llama-server"}
 RECIPE = "/home/oliver/llama-api/src/recipes-qwen3.8-27b-5070ti"

@@ -77,5 +77,13 @@ earlier models on this machine; HumanEval+ may be in some models' training data 
   - **Speculative decoding** follows each model's own published llama.cpp usage: recipe MTP (subject/control),
     upstream MTP n=2 (Unsloth), DFlash drafter (Muse); none for Ornith (its card's llama.cpp example has none),
     Gemma and gpt-oss.
-  - **Uniform `max_tokens` 16000** for every suite item, including 10Q (whose per-question budgets are overridden). Preliminary Qwen3.8 numbers in `results/qwen38-27b-iq3s/2026-10-03-prelim/`
+  - **Uniform `max_tokens` 16000** for every suite item, including 10Q (whose per-question budgets are overridden).
+- 2026-10-03 (still before any comparison run): **no further downloads** (owner's constraint). The measured set
+  becomes the models already on this machine: the subject, the official-weights control, Unsloth UD-Q3_K_XL,
+  Ornith-1.5-35B-A3B APEX-I-Mini (already downloaded), Muse-Glimmer-30B **UD-Q2_K_XL** (local file; a lower
+  quant than the survey's IQ3_M and without its DFlash drafter — a disadvantage to Muse), and Ornith-1.5-9B
+  Q6_K (this machine's previous production model). Gemma-4-26B-A4B and gpt-oss-20b are **not measured**;
+  they appear only as published numbers. Results are graded by evidence level (`EVIDENCE.md`), and only
+  level-A results can decide a ranking. The claim is therefore limited to "best among the measured models",
+  with the unmeasured candidates listed. Preliminary Qwen3.8 numbers in `results/qwen38-27b-iq3s/2026-10-03-prelim/`
   were measured before this protocol and are kept for reference only; they are not part of the comparison.

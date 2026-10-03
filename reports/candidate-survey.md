@@ -33,6 +33,11 @@ its own quants and no measurements.
 
 ## Selection
 
+> **Revised the same day, before any run:** no further downloads. Measured set: subject, official-weights
+> control, Unsloth, Ornith-35B (already downloaded), Muse-Glimmer-30B as the local UD-Q2_K_XL (not IQ3_M + DFlash),
+> and Ornith-1.5-9B Q6_K added as this machine's previous production model. Gemma-4-26B-A4B and gpt-oss-20b
+> are covered by published numbers only (evidence level C, `EVIDENCE.md`). The original selection is kept below.
+
 Chosen 2026-10-03, before any comparison run: all six candidates, plus the subject.
 
 | Config | Model / quant | Build | Role |
