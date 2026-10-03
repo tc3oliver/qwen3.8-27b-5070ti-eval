@@ -1,0 +1,19 @@
+12:03:13 == arena run arena-2026-10 configs: qwen38-27b-iq3s qwen38-27b-official-iq3s qwen38-27b-unsloth-q3kxl ornith-1.5-35b-a3b-apex muse-glimmer-30b-q2kxl ornith-1.5-9b-q6k
+12:03:25 baseline WSL shared GPU memory 1 MiB
+12:03:25 [qwen38-27b-iq3s] try 65536:q4_0:0:all:1
+12:03:46 [qwen38-27b-iq3s] 65536:q4_0:0:all:1: {"candidate": "65536:q4_0:0:all:1", "spill_mib_after_load": 152, "raw_decode_tps": 57.127563149573014, "chat_answer": "台北是一座将千年历史底蕴与前沿科技、夜市烟火气无缝交织的都市，节奏快却藏着慢下来品茶的巷弄温柔。", "chat_reasoning_chars": 34, "chat_finish": "stop", "spill_mib_after_sanity": 168, "wsl_dedicated_mib": 13253, "result": "chosen"}
+12:03:51 [qwen38-27b-iq3s] frozen 65536:q4_0:0:all:1 spill 168 MiB decode 57.1 tok/s
+12:03:51 [qwen38-27b-official-iq3s] try 65536:q4_0:0:all:1
+12:04:06 [qwen38-27b-official-iq3s] 65536:q4_0:0:all:1: {"candidate": "65536:q4_0:0:all:1", "spill_mib_after_load": 152, "raw_decode_tps": 68.31005233518184, "chat_answer": "台北是一座在传统与摩登之间自在呼吸的城市，一碗蚵仔麵線與一杯手沖咖啡，同框即日常。", "chat_reasoning_chars": 60, "chat_finish": "stop", "spill_mib_after_sanity": 232, "wsl_dedicated_mib": 13189, "result": "spill"}
+12:04:14 [qwen38-27b-official-iq3s] try 49152:q4_0:0:all:1
+12:04:28 [qwen38-27b-official-iq3s] 49152:q4_0:0:all:1: {"candidate": "49152:q4_0:0:all:1", "spill_mib_after_load": 136, "raw_decode_tps": 63.92883462264872, "chat_answer": "台北是台灣的首都，一座融合傳統廟宇與現代摩天大樓、街頭小吃與高鐵便捷的亞洲都會。", "chat_reasoning_chars": 24, "chat_finish": "stop", "spill_mib_after_sanity": 152, "wsl_dedicated_mib": 12933, "result": "chosen"}
+12:04:33 [qwen38-27b-official-iq3s] frozen 49152:q4_0:0:all:1 spill 152 MiB decode 63.9 tok/s
+12:04:33 [qwen38-27b-unsloth-q3kxl] try 65536:q8_0:0:all:1
+12:05:00 [qwen38-27b-unsloth-q3kxl] 65536:q8_0:0:all:1: {"candidate": "65536:q8_0:0:all:1", "spill_mib_after_load": 484, "result": "spill"}
+12:05:05 [qwen38-27b-unsloth-q3kxl] try 65536:q4_0:0:all:1
+12:05:14 [qwen38-27b-unsloth-q3kxl] 65536:q4_0:0:all:1: {"candidate": "65536:q4_0:0:all:1", "spill_mib_after_load": 484, "result": "spill"}
+12:05:19 [qwen38-27b-unsloth-q3kxl] try 49152:q4_0:0:all:1
+12:05:30 [qwen38-27b-unsloth-q3kxl] 49152:q4_0:0:all:1: {"candidate": "49152:q4_0:0:all:1", "spill_mib_after_load": 452, "result": "spill"}
+12:05:35 [qwen38-27b-unsloth-q3kxl] try 32768:q4_0:0:all:1
+12:05:50 [qwen38-27b-unsloth-q3kxl] 32768:q4_0:0:all:1: {"candidate": "32768:q4_0:0:all:1", "spill_mib_after_load": 176, "raw_decode_tps": 56.84643718312028, "chat_answer": "台北是融合了傳統文化、多元美食、創新科技與都會活力的城市。", "chat_reasoning_chars": 59, "chat_finish": "stop", "spill_mib_after_sanity": 218, "wsl_dedicated_mib": 13819, "result": "spill"}
+12:05:53 production service restarted

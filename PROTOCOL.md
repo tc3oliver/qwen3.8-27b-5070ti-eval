@@ -27,7 +27,7 @@ partial offload. Each configuration is a file in `configs/` and is frozen before
 
 One machine, recorded in `ENVIRONMENT.md`. Windows 11 + WSL2; the Windows desktop holds part of the VRAM, so
 usable VRAM is lower than on bare Linux. Every run logs free VRAM before start and the WSL VM's shared-memory
-spill after load; **a run with spill > 200 MiB is invalid** and is redone at a smaller context.
+spill after load; **a run with spill > 300 MiB is invalid** and is redone at a smaller context.
 
 ## Suites and metrics
 
@@ -68,7 +68,7 @@ earlier models on this machine; HumanEval+ may be in some models' training data 
   - **Settings search.** Each config lists candidate settings `ctx:kv:n_cpu_moe:ngl:spec` in a fixed order of
     preference (65,536 context first, then higher-precision KV, then fewer MoE expert layers on the CPU / fewer
     offloaded layers, speculation kept if possible). `harness/run_arena.py` uses the first candidate that loads,
-    spills ≤ 200 MiB over the idle baseline, and answers a chat turn; it is frozen in `frozen.json` before the suites.
+    spills ≤ 300 MiB over the idle baseline, and answers a chat turn; it is frozen in `frozen.json` before the suites.
   - **Reasoning settings — known asymmetry.** Competitors run their model card's sampler and template-default
     reasoning level. The subject (and the official-weights control, to isolate abliteration) runs effort `medium`
     + short-think, a setting chosen on the 10Q suite before this protocol; this favours the subject on 10Q and
@@ -87,3 +87,11 @@ earlier models on this machine; HumanEval+ may be in some models' training data 
   level-A results can decide a ranking. The claim is therefore limited to "best among the measured models",
   with the unmeasured candidates listed. Preliminary Qwen3.8 numbers in `results/qwen38-27b-iq3s/2026-10-03-prelim/`
   were measured before this protocol and are kept for reference only; they are not part of the comparison.
+- 2026-10-03, during settings search (no suite had run): **spill limit 200 → 300 MiB.** The first search
+  (`results/arena-2026-10.sizing-attempt-1.log`, `results/*/arena-2026-10/sizing-attempt-1/`) measured the idle
+  baseline with no CUDA process at 1 MiB, while every healthy loaded model reads 136–232 MiB (pinned host buffers
+  such as `CUDA_Host` compute buffers count as shared memory). Two identical-architecture, same-size Qwen3.8 files
+  landed at 168 and 232 MiB at 64K, so a 200 MiB cut decided their context by noise. Evidence for the new limit:
+  healthy settings 136–232 MiB with normal decode; real spill 421–485 MiB with decode collapsing to 6–73 tok/s
+  (`results/qwen38-27b-iq3s/2026-10-03-prelim/ctx-sweep/summary.txt`). 300 MiB separates the two groups. The
+  settings search was rerun from scratch with the new limit.

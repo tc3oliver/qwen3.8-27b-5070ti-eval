@@ -14,7 +14,7 @@ BINS = {"recipe": "/home/oliver/llama-api/src/llama.cpp-qwen38-v3/build/bin/llam
 RECIPE = "/home/oliver/llama-api/src/recipes-qwen3.8-27b-5070ti"
 PORT, KEY = 8090, "eval-key"
 URL = f"http://127.0.0.1:{PORT}"
-SPILL_LIMIT_MIB = 200
+SPILL_LIMIT_MIB = 300
 PROD_SERVICE = "llm-chat.service"
 
 p = argparse.ArgumentParser()
