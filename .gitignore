@@ -1,0 +1,4 @@
+data/*.gz
+__pycache__/
+*.pyc
+.omc/

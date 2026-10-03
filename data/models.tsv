@@ -1,0 +1,8 @@
+# repo	revision	file	sha256
+ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF	d562806dbafae37109975e970aae91b43e73b440	Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf
+unsloth/Qwen3.8-27B-GGUF	4ca720788d1e01f1bff70c033e0d0028fd02e502	Qwen3.8-27B-UD-Q3_K_XL.gguf
+SC117/Ornith-1.5-35B-A3B-MTP-APEX-GGUF	20fd61f5905145c412ae3bcc3efcbab8ab16ec35	Ornith-1.5-35B-A3B-MTP-APEX-I-Mini.gguf
+AtomicChat/gemma-4-26B-A4B-it-GGUF	036b8d62f569a75b43064379283ca51a1d2bfe50	gemma-4-26B-A4B-it-IQ4_XS.gguf
+bartowski/Muse-Glimmer-30B-GGUF	01e1b7c30e19e1823ee9a73dec51d12f59ec4857	Muse-Glimmer-30B-IQ3_M.gguf
+bartowski/Muse-Glimmer-30B-GGUF	01e1b7c30e19e1823ee9a73dec51d12f59ec4857	dflash-Muse-Glimmer-30B-Q4_0.gguf
+ggml-org/gpt-oss-20b-GGUF	ef9b12f2ff56c69cf32153a02784e7a3c88bf524	gpt-oss-20b-MXFP4.gguf

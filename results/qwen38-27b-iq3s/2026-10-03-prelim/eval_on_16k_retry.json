@@ -1,0 +1,37 @@
+{
+  "Q1": {
+    "content": "cat sits blue moon by starlight with seven stars in dark sky",
+    "reasoning_chars": 47387,
+    "tok": 13852,
+    "finish": "stop",
+    "sec": 140.5
+  },
+  "Q8": {
+    "content": "唯一問題：sum 被多協程併發 +=，非原子，資料競爭；Go1.22 迴圈變數與 wg 無問題。",
+    "reasoning_chars": 5094,
+    "tok": 1900,
+    "finish": "stop",
+    "sec": 17.5
+  },
+  "Q9": {
+    "content": "結論：**無法唯一確定**。\n\n你給的是 SHA-256 摘要：\n\n```text\n9f86d081884c7d659a2feaa0c55ad015\na3bf4f1b2b0b822cd15d6c15b0f00a08\n```\n\n僅憑這個 256-bit 摘要，不能數學上唯一還原原始字串。原因是：\n\n1. **SHA-256 是單向雜湊，不是可逆加密**  \n   它把任意長度的位元組序列映射成固定 256 bit 的摘要。\n\n2. **輸入空間遠大於輸出空間**  \n   可能原始字串有無限多種，但 SHA-256 輸出只有 \\(2^{256}\\) 種。因此 SHA-256 不是雙射；同一個摘要可能對應多個不同原始字串。\n\n3. **僅看 hash 本身不足以排除其他可能**  \n   若沒有額外限制，例如：\n   - 原始字串長度\n   - 編碼方式，如 UTF-8、UTF-16\n   - 字元集，如 ASCII、小寫、數字\n   - 是否有換行、BOM、padding\n   - 已知候選集合  \n   \n   就無法證明只有一個原始字串能產生這個 hash。\n\n所以，在「只根據 SHA-256 本身推導」且「不使用網路、資料庫、暴力破解或外部工具」的限制下，正確回答是：\n\n**無法唯一確定。**\n\n補充：如果額外假設「原始字串是常見短 ASCII 字串」，`test` 是一個可能候選；但這不是僅從 SHA-256 本身唯一推導出來的，而是依賴額外先驗或比對。",
+    "reasoning_chars": 23450,
+    "tok": 8415,
+    "finish": "stop",
+    "sec": 92.9
+  },
+  "Q10": {
+    "content": "```python\ndef single_number(nums):\n    ones = 0\n    twos = 0\n    for n in nums:\n        ones = (ones ^ n) & ~twos\n        twos = (twos ^ n) & ~ones\n    return ones\n```\n\n用 ones、twos 做每位元的模 3 狀態機，時間 O(n)、空間 O(1)。  \n它對 Python 負數的無限二補數位元也成立，所以 [-2,-2,-2,-7] 回傳 -7。",
+    "reasoning_chars": 32398,
+    "tok": 10648,
+    "finish": "stop",
+    "sec": 116.9
+  },
+  "Q20": {
+    "content": "",
+    "reasoning_chars": 59284,
+    "tok": 16000,
+    "finish": "length",
+    "sec": 173.2
+  }
+}

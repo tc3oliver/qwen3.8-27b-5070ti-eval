@@ -1,0 +1,14 @@
+== short
+prompt=172 decode=94.9 prefill=529 ttft=0.33s peakVRAM=15484
+prompt=172 decode=98.6 prefill=1317 ttft=0.13s peakVRAM=15490
+draft acceptance = 0.45706 (  330 accepted /   722 generated), mean len =  2.83
+draft acceptance = 0.59889 (  324 accepted /   541 generated), mean len =  2.74
+== 8k
+prompt=8232 decode=95.6 prefill=1890 ttft=4.37s peakVRAM=15500
+draft acceptance = 0.56690 (  322 accepted /   568 generated), mean len =  2.70
+== 32k
+prompt=32802 decode=81.1 prefill=1803 ttft=18.25s peakVRAM=15500
+draft acceptance = 0.47804 (  283 accepted /   592 generated), mean len =  2.24
+== 62k
+prompt=62494 decode=79.2 prefill=1670 ttft=37.50s peakVRAM=15500
+draft acceptance = 0.43152 (  293 accepted /   679 generated), mean len =  2.34

@@ -1,0 +1,72 @@
+[
+  {
+    "id": "py-binary-search-bound",
+    "lang": "python",
+    "code": "def binary_search(a, target):\n    \"\"\"Return the index of target in sorted list a, or -1.\"\"\"\n    lo, hi = 0, len(a)\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == target:\n            return mid\n        if a[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1\n",
+    "bug_lines": ["lo, hi = 0, len(a)", "while lo <= hi:"],
+    "cause": "(out of range|index ?error|len\\(a\\) ?- ?1|越界|超出|off.by.one|IndexError|hi.*len)"
+  },
+  {
+    "id": "py-mutable-default",
+    "lang": "python",
+    "code": "def add_tag(tag, tags=[]):\n    \"\"\"Return a new list with tag appended (no duplicates).\"\"\"\n    if tag not in tags:\n        tags.append(tag)\n    return tags\n\n\ndef make_labels(names):\n    out = []\n    for n in names:\n        out.append(add_tag(n.lower()))\n    return out\n",
+    "bug_lines": ["def add_tag(tag, tags=[]):"],
+    "cause": "(mutable default|可變.*預設|預設.*可變|shared.*(call|default)|共用|共享|default argument)"
+  },
+  {
+    "id": "js-foreach-async",
+    "lang": "javascript",
+    "code": "const db = require('./db');\n\nasync function saveAll(records) {\n  let saved = 0;\n  records.forEach(async (r) => {\n    await db.insert(r);\n    saved += 1;\n  });\n  console.log(`saved ${saved} records`);\n  return saved;\n}\n\nmodule.exports = { saveAll };\n",
+    "bug_lines": ["records.forEach(async (r) => {"],
+    "cause": "(forEach.*(await|wait|promise)|not awaited|does not wait|不會等|沒有等|未等待|Promise\\.all|for\\s*\\.\\.\\.\\s*of|for of)"
+  },
+  {
+    "id": "go-defer-in-loop",
+    "lang": "go",
+    "code": "package report\n\nimport (\n\t\"bufio\"\n\t\"os\"\n)\n\n// CountLines returns the total number of lines across many files.\nfunc CountLines(paths []string) (int, error) {\n\ttotal := 0\n\tfor _, p := range paths {\n\t\tf, err := os.Open(p)\n\t\tif err != nil {\n\t\t\treturn 0, err\n\t\t}\n\t\tdefer f.Close()\n\t\ts := bufio.NewScanner(f)\n\t\tfor s.Scan() {\n\t\t\ttotal++\n\t\t}\n\t}\n\treturn total, nil\n}\n",
+    "bug_lines": ["defer f.Close()"],
+    "cause": "(defer.*(loop|迴圈|function returns|函式結束|返回)|file descriptor|檔案描述|too many open|leak|洩漏|累積|until the function)"
+  },
+  {
+    "id": "py-sql-injection",
+    "lang": "python",
+    "code": "import sqlite3\n\n\ndef find_user(conn: sqlite3.Connection, username: str):\n    cur = conn.cursor()\n    cur.execute(f\"SELECT id, email FROM users WHERE name = '{username}'\")\n    row = cur.fetchone()\n    if row is None:\n        return None\n    return {\"id\": row[0], \"email\": row[1]}\n",
+    "bug_lines": ["cur.execute(f\"SELECT id, email FROM users WHERE name = '{username}'\")"],
+    "cause": "(sql ?injection|SQL 注入|注入|parameteri[sz]ed|參數化|placeholder|佔位|\\?)"
+  },
+  {
+    "id": "c-malloc-nul",
+    "lang": "c",
+    "code": "#include <stdlib.h>\n#include <string.h>\n\n/* Returns a heap copy of s with all spaces removed. Caller frees. */\nchar *strip_spaces(const char *s) {\n    size_t n = strlen(s);\n    char *out = malloc(n);\n    if (!out) return NULL;\n    size_t j = 0;\n    for (size_t i = 0; i < n; i++) {\n        if (s[i] != ' ') out[j++] = s[i];\n    }\n    out[j] = '\\0';\n    return out;\n}\n",
+    "bug_lines": ["char *out = malloc(n);", "out[j] = '\\0';"],
+    "cause": "(n ?\\+ ?1|NUL|null terminator|terminat|結尾|終止|overflow|溢位|越界|out of bounds|one byte)"
+  },
+  {
+    "id": "js-assignment-in-if",
+    "lang": "javascript",
+    "code": "function canDelete(user, doc) {\n  if (doc.locked) {\n    return false;\n  }\n  if (user.role = 'admin') {\n    return true;\n  }\n  return doc.ownerId === user.id;\n}\n\nmodule.exports = { canDelete };\n",
+    "bug_lines": ["if (user.role = 'admin') {"],
+    "cause": "(assign|指派|賦值|=== ?|==|always true|永遠|恆為)"
+  },
+  {
+    "id": "py-remove-while-iterating",
+    "lang": "python",
+    "code": "from dataclasses import dataclass\n\n\n@dataclass\nclass Session:\n    id: str\n    expired: bool\n\n\ndef purge_expired(sessions: list[Session]) -> list[Session]:\n    \"\"\"Remove expired sessions in place and return the list.\"\"\"\n    for s in sessions:\n        if s.expired:\n            sessions.remove(s)\n    return sessions\n",
+    "bug_lines": ["sessions.remove(s)", "for s in sessions:"],
+    "cause": "(while iterating|during iteration|迭代|遍歷|skip|跳過|漏掉|modif)"
+  },
+  {
+    "id": "py-lock-check-then-act",
+    "lang": "python",
+    "code": "import threading\n\n\nclass Counter:\n    def __init__(self):\n        self._lock = threading.Lock()\n        self._counts = {}\n\n    def incr(self, key):\n        with self._lock:\n            current = self._counts.get(key, 0)\n        self._counts[key] = current + 1\n\n    def get(self, key):\n        with self._lock:\n            return self._counts.get(key, 0)\n",
+    "bug_lines": ["self._counts[key] = current + 1", "current = self._counts.get(key, 0)"],
+    "cause": "(outside the lock|outside of the lock|鎖外|鎖之外|race|競爭|競態|lost update|遺失|atomic|原子)"
+  },
+  {
+    "id": "sql-not-in-null",
+    "lang": "sql",
+    "code": "-- Customers who have never placed an order.\n-- orders.customer_id is nullable (guest checkouts store NULL).\nSELECT c.id, c.name\nFROM customers c\nWHERE c.id NOT IN (\n    SELECT o.customer_id\n    FROM orders o\n)\nORDER BY c.id;\n",
+    "bug_lines": ["WHERE c.id NOT IN (", "SELECT o.customer_id"],
+    "cause": "(NULL|null|NOT EXISTS|空集合|empty|no rows|沒有任何|三值|unknown)"
+  }
+]

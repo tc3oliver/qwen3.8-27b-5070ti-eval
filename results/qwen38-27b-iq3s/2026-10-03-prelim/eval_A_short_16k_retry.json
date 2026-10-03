@@ -1,0 +1,26 @@
+{
+  "low_Q1": {
+    "content": "Upon a blue moon a cat sits seven stars of light around",
+    "reasoning_chars": 10121,
+    "tok": 3959,
+    "finish": "stop"
+  },
+  "low_Q10": {
+    "content": "```python\ndef single_number(nums):\n    neg_count = 0\n    for n in nums:\n        if n < 0:\n            neg_count += 1\n    ones = twos = 0\n    for n in nums:\n        a = abs(n)\n        ones, twos = (ones ^ a) & ~twos, (twos & ~a) | (ones & a)\n    result = ones\n    if neg_count % 3:\n        result = -result\n    return result\n```\n\n對每個 bit 用 `(ones, twos)` 狀態機追蹤出現次數 mod 3，最終 `ones` 即唯一數的絕對值；負號由負數個數 mod 3 決定。",
+    "reasoning_chars": 24746,
+    "tok": 10795,
+    "finish": "stop"
+  },
+  "medium_Q1": {
+    "content": "Cat upon blue moon, soft fur glows, seven stars hang in void",
+    "reasoning_chars": 4109,
+    "tok": 1679,
+    "finish": "stop"
+  },
+  "medium_Q10": {
+    "content": "```python\ndef single_number(nums):\n    if not nums:\n        return 0\n    max_val = max(abs(n) for n in nums)\n    bits = max_val.bit_length() + 1\n    result = 0\n    for i in range(bits):\n        count = sum(1 for n in nums if (n >> i) & 1)\n        if count % 3 != 0:\n            result |= (1 << i)\n    if result & (1 << (bits - 1)):\n        result -= (1 << bits)\n    return result\n```\n\n對每個 bit 位元統計出現次數，mod 3 不為零的位元即為唯一數字；最後依最高位判斷正負並還原符號。",
+    "reasoning_chars": 9882,
+    "tok": 3817,
+    "finish": "stop"
+  }
+}

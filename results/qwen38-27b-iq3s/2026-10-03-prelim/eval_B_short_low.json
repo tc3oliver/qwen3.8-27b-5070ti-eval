@@ -1,0 +1,72 @@
+{
+  "Q11": {
+    "content": "IMPOSSIBLE",
+    "reasoning": "c = 4, a + e = 8, b + d = 10, total = 20. Check: a + b + c + d + e = (a+e) + (b+d) + c = 8 + 10 + 4 = 22 ≠ 20. Contradiction.\n",
+    "finish": "stop",
+    "tok": 81,
+    "sec": 0.6
+  },
+  "Q12": {
+    "content": "3 | A→C→E",
+    "reasoning": "Let me find all paths from A to E and calculate the cost with one edge discounted to 0.\n\nPaths from A to E:\n1. A→B→E: costs 4+8=12, with discount: min(4,8)=4, so 12-8=4 or 12-4=8. Best: 4\n2. A→B→D→E: costs 4+4+2=10, with discount: 10-4=6 (discount B→D or A→B) or 10-2=8. Best: 6\n3. A→C→E: costs 3+9=12, with discount: 12-9=3 or 12-3=9. Best: 3\n4. A→C→D→E: costs 3+6+2=11, with discount: 11-6=5 or 11-3=8 or 11-2=9. Best: 5\n\nSo the minimum is 3 via A→C→E (discount C→E).\n",
+    "finish": "stop",
+    "tok": 257,
+    "sec": 1.9
+  },
+  "Q13": {
+    "content": "5",
+    "reasoning": "Let me work through this step by step.\n\nConstraints:\n- A before C\n- B before C\n- C before D\n- B before E\n- E before D\n\nSo the constraints are:\n- A < C\n- B < C\n- C < D\n- B < E\n- E < D\n\nLet me think about what this means. We need to count the number of linear extensions of this partial order.\n\nThe constraints form a DAG:\n- A → C → D\n- B → C → D\n- B → E → D\n\nSo D must be last (since C < D and E < D, and C requires A and B before it, E requires B before it).\n\nActually, let me verify D is last. D must come after C and E. C must come after A and B. E must come after B. So D is after A, B, C, E. Yes, D is last.\n\nNow I need to arrange A, B, C, E in the first 4 positions with constraints:\n- A < C\n- B < C\n- B < E\n\nLet me enumerate all permutations of A, B, C, E and check which satisfy the constraints.\n\nPermutations of {A, B, C, E}:\n1. A B C E: A<C ✓, B<C ✓, B<E ✓ → valid\n2. A B E C: A<C ✓, B<C ✓, B<E ✓ → valid\n3. A C B E: A<C ✓, B<C ✗ → invalid\n4. A C E B: A<C ✓, B<C ✗ → invalid\n5. A E B C: A<C ✓, B<C ✓, B<E ✗ → invalid\n6. A E C B: A<C ✓, B<C ✗ → invalid\n7. B A C E: A<C ✓, B<C ✓, B<E ✓ → valid\n8. B A E C: A<C ✓, B<C ✓, B<E ✓ → valid\n9. B C A E: A<C ✗ → invalid\n10. B C E A: A<C ✗ → invalid\n11. B E A C: A<C ✓, B<C ✓, B<E ✓ → valid\n12. B E C A: A<C ✗ → invalid\n\nSo valid permutations: 1, 2, 7, 8, 11 → 5 valid.\n\nEach valid permutation of {A, B, C, E} followed by D gives a valid complete ordering.\n\nSo the answer is 5.\n",
+    "finish": "stop",
+    "tok": 558,
+    "sec": 3.8
+  },
+  "Q14": {
+    "content": "```python\nreturn user[\"active\"] and not user[\"suspended\"] and (user[\"role\"] == \"admin\" or user[\"owns_resource\"])\n```",
+    "reasoning": "Let me parse the requirements:\n\n1. account must be active\n2. account must NOT be suspended\n3. AND at least one of:\n   - role is admin\n   - owns_resource is True\n\nSo the logic is:\nactive AND NOT suspended AND (role == \"admin\" OR owns_resource)\n\nThe current code:\n```\nreturn user[\"active\"] and user[\"role\"] == \"admin\" or user[\"owns_resource\"] and not user[\"suspended\"]\n```\n\nThis is wrong due to operator precedence. `and` binds tighter than `or`, so it's parsed as:\n`(active AND role==\"admin\") OR (owns_resource AND NOT suspended)`\n\nThe correct expression:\n```\nreturn user[\"active\"] and not user[\"suspended\"] and (user[\"role\"] == \"admin\" or user[\"owns_resource\"])\n```\n",
+    "finish": "stop",
+    "tok": 217,
+    "sec": 4.5
+  },
+  "Q15": {
+    "content": "run_test → search_docs → read_doc → edit_file → run_test → restart_service",
+    "reasoning": "Let me trace through the constraints:\n\n1. First action must reproduce the failing test → run_test\n2. payment_timeout correct value must come from official docs → search_docs then read_doc\n3. search_docs only gives ID, must read_doc to see value\n4. No edit_file before reproducing failure\n5. After edit, must run the same test again\n6. Only after test PASS can restart_service\n7. Use minimum tool calls\n\nSo the sequence is:\n1. run_test (reproduce failure)\n2. search_docs (find the doc ID)\n3. read_doc (get the correct value)\n4. edit_file (apply the fix)\n5. run_test (verify fix)\n6. restart_service (deploy)\n\nThat's 6 calls, which is the minimum given the constraints.\n",
+    "finish": "stop",
+    "tok": 193,
+    "sec": 1.5
+  },
+  "Q16": {
+    "content": "[\"a\",\"c\",\"d\",\"b\"]",
+    "reasoning": "Let me work through this step by step.\n\nInput:\n- a: score 7, tags [\"x\",\"y\"]\n- b: score 8, tags [\"y\"]\n- c: score 7, tags [\"x\"]\n- d: score 9, tags []\n- e: score 6, tags [\"x\"]\n\nStep 1: Remove score < 7\n- Remove e (score 6)\n- Remaining: a(7), b(8), c(7), d(9)\n\nStep 2: If tags contain \"x\", score + 2\n- a: has \"x\" → 7+2 = 9\n- b: no \"x\" → 8\n- c: has \"x\" → 7+2 = 9\n- d: no \"x\" → 9\n\nStep 3: Sort by modified score descending\n- a: 9, c: 9, d: 9, b: 8\n\nStep 4: Score tie → id alphabetical ascending\n- a(9), c(9), d(9), b(8)\n\nStep 5: Keep only id\n[\"a\",\"c\",\"d\",\"b\"]\n",
+    "finish": "stop",
+    "tok": 271,
+    "sec": 1.8
+  },
+  "Q17": {
+    "content": "[DENY, ALLOW, DENY]",
+    "reasoning": "Let me evaluate each case:\n\n① role=editor, team=red, clearance=2, account_suspended=false, resource.team=red, resource.classification=restricted\n\n- R1 ALLOW: role=editor ✓, user.team=red = resource.team=red ✓ → ALLOW hit\n- R2 ALLOW: role=admin? No\n- R3 DENY: resource.classification=restricted ✓, clearance=2 < 3 ✓ → DENY hit\n- R4 DENY: account_suspended=false? No\n\nDENY hit → DENY\n\n② role=editor, team=blue, clearance=3, account_suspended=false, resource.team=blue, resource.classification=restricted\n\n- R1 ALLOW: role=editor ✓, user.team=blue = resource.team=blue ✓ → ALLOW hit\n- R2 ALLOW: role=admin? No\n- R3 DENY: resource.classification=restricted ✓, clearance=3 < 3? No (3 is not < 3) → No\n- R4 DENY: account_suspended=false? No\n\nNo DENY hit, ALLOW hit → ALLOW\n\n③ role=admin, team=red, clearance=1, account_suspended=false, resource.team=green, resource.classification=restricted\n\n- R1 ALLOW: role=editor? No\n- R2 ALLOW: role=admin ✓ → ALLOW hit\n- R3 DENY: resource.classification=restricted ✓, clearance=1 < 3 ✓ → DENY hit\n- R4 DENY: account_suspended=false? No\n\nDENY hit → DENY\n",
+    "finish": "stop",
+    "tok": 344,
+    "sec": 2.3
+  },
+  "Q18": {
+    "content": "12",
+    "reasoning": "Let me analyze this pipeline problem.\n\nEach request needs:\n- Prompt stage: 1200 tokens / 1200 tokens/s = 1 second\n- Decode stage: 300 tokens / 60 tokens/s = 5 seconds\n\nSo each request takes 1s in prompt stage and 5s in decode stage.\n\nWith pipelining, the system is limited by the bottleneck stage. The decode stage takes 5 seconds per request, and the prompt stage takes 1 second per request.\n\nSince decode is the bottleneck (5s > 1s), the maximum throughput is limited by the decode stage.\n\nIn steady state, the decode engine can process one request every 5 seconds.\n\nSo throughput = 1 request / 5 seconds = 12 requests/minute.\n\nWait, let me verify. The prompt stage takes 1s, decode takes 5s. In a pipeline:\n- At time 0: Request A starts prompt\n- At time 1: Request A finishes prompt, starts decode. Request B starts prompt.\n- At time 2: Request B finishes prompt, but decode is busy with A until time 6. Request C starts prompt.\n- At time 3: Request C finishes prompt, decode still busy.\n- At time 4: Request D finishes prompt, decode still busy.\n- At time 5: Request E finishes prompt, decode still busy.\n- At time 6: Request A finishes decode. Request B starts decode.\n- At time 7: Request C starts decode.\n- At time 8: Request D starts decode.\n- At time 9: Request E starts decode.\n- At time 11: Request B finishes decode. Next request starts decode.\n\nSo in steady state, one request completes decode every 5 seconds. That's 12 requests/minute.\n\nThe answer is 12.\n",
+    "finish": "stop",
+    "tok": 411,
+    "sec": 2.8
+  },
+  "Q19": {
+    "content": "ROOT_CAUSE=No idempotency key to deduplicate retried requests\nFIX=Add idempotency key to deduplicate requests",
+    "reasoning": "Let me analyze this production log:\n\n1. 10:00:00 - Request order=817 received\n2. 10:00:01 - Payment charge SUCCESS\n3. 10:00:01 - Response write FAILED: connection reset\n\n4. 10:00:04 - Request order=817 received (retry after 3s)\n5. 10:00:05 - Payment charge SUCCESS (second charge!)\n6. 10:00:05 - Response 200\n\nThe problem: The server charged successfully but failed to send the response. The client retried, and the server charged again because there's no idempotency mechanism.\n\nROOT_CAUSE: The server charged twice because it has no idempotency key to deduplicate the retried request.\n\nThe most direct cause: \"No idempotency key to deduplicate retried requests\" - that's 8 words. Or \"Server lacks idempotency key for duplicate request handling\" - 8 words.\n\nLet me think more precisely. The root cause is that the server processes the same order twice without deduplication. The most direct cause is the absence of idempotency key.\n\nROOT_CAUSE: \"No idempotency key to deduplicate retried requests\" (8 words) ✓\n\nFIX: The core mechanism should be idempotency key. \"Add idempotency key to deduplicate requests\" (7 words) ✓\n\nLet me count:\n- \"No idempotency key to deduplicate retried requests\" = No(1) idempotency(2) key(3) to(4) deduplicate(5) retried(6) requests(7) = 7 words ✓\n- \"Add idempotency key to deduplicate requests\" = Add(1) idempotency(2) key(3) to(4) deduplicate(5) requests(6) = 6 words ✓\n\nBoth under 12 words. Good.\n",
+    "finish": "stop",
+    "tok": 478,
+    "sec": 3.5
+  },
+  "Q20": {
+    "content": "```python\ndef compare_versions(a: str, b: str) -> int:\n    parts_a = a.split(\".\")\n    parts_b = b.split(\".\")\n    \n    n = max(len(parts_a), len(parts_b))\n    \n    for i in range(n):\n        ca = parts_a[i] if i < len(parts_a) else \"0\"\n        cb = parts_b[i] if i < len(parts_b) else \"0\"\n        \n        # 去掉前導 0\n        ca = ca.lstrip(\"0\") or \"0\"\n        cb = cb.lstrip(\"0\") or \"0\"\n        \n        if len(ca) != len(cb):\n            return -1 if len(ca) < len(cb) else 1\n        if ca != cb:\n            return -1 if ca < cb else 1\n    \n    return 0\n```",
+    "reasoning": "關鍵思路：\n1. 將 a 和 b 按 \".\" 分割成 components\n2. 逐位比較，去掉前導 0 後比較字串長度，再比較字串本身\n3. 尾端全 0 的 component 不影響版本，所以比較完所有非零 component 後，剩餘的都是 0，視為相等\n\n具體做法：\n- 用 zip_longest 或手動索引逐對比較\n- 對每個 component，去掉前導 0（如果全 0 則視為 \"0\"）\n- 先比長度，長度不同則長的大\n- 長度相同則比字串（lexicographic）\n\n這樣就是 O(len(a) + len(b))，因為每個字元最多被處理常數次。\n",
+    "finish": "stop",
+    "tok": 360,
+    "sec": 2.9
+  }
+}

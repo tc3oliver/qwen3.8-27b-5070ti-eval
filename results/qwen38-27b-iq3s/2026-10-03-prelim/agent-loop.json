@@ -1,0 +1,159 @@
+{
+  "aggregate": {
+    "effort": "medium",
+    "turns": 8,
+    "final_prompt_context": 18196,
+    "prompt_tokens_processed": 14840,
+    "generated_tokens": 19355,
+    "prefill_tps": 1842.8574125089783,
+    "decode_tps": 116.04346917008314,
+    "draft_n": 26460,
+    "draft_accepted": 14062,
+    "peak_vram_mib": 15506,
+    "final_answer_chars": 55433,
+    "last_finish": "length",
+    "acceptance": 0.5314436885865458
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "finish": "tool_calls",
+      "prompt_n": 3315,
+      "cache_n": 0,
+      "predicted_n": 323,
+      "prefill_tps": 1928.2616851785606,
+      "decode_tps": 143.01824459761906,
+      "prompt_ms": 1719.165,
+      "predicted_ms": 2251.461,
+      "draft_n": 370,
+      "draft_accepted": 249,
+      "wall_s": 3.9915263039874844,
+      "tools": [
+        "bash({\"command\":\"ls -la /home/oliver/llama-api && ls -la /home/oliver/llama-api/tests)",
+        "bash({\"command\":\"find /home/oliver/llama-api -name \\\"conftest.py\\\" -o -name \\\"pytest.)"
+      ]
+    },
+    {
+      "turn": 2,
+      "finish": "tool_calls",
+      "prompt_n": 38,
+      "cache_n": 3638,
+      "predicted_n": 113,
+      "prefill_tps": 811.1858255950475,
+      "decode_tps": 130.55895552835577,
+      "prompt_ms": 46.845,
+      "predicted_ms": 857.85,
+      "draft_n": 135,
+      "draft_accepted": 87,
+      "wall_s": 0.914615782967303,
+      "tools": [
+        "bash({\"command\":\"ls /home/oliver/llama-api\"})",
+        "bash({\"command\":\"find /home/oliver/llama-api -maxdepth 2 -type f | head -50\"})"
+      ]
+    },
+    {
+      "turn": 3,
+      "finish": "tool_calls",
+      "prompt_n": 216,
+      "cache_n": 3790,
+      "predicted_n": 97,
+      "prefill_tps": 1679.404744318403,
+      "decode_tps": 153.95397097005434,
+      "prompt_ms": 128.617,
+      "predicted_ms": 623.563,
+      "draft_n": 100,
+      "draft_accepted": 76,
+      "wall_s": 0.7620746309985407,
+      "tools": [
+        "bash({\"command\":\"ls /home/oliver/llama-api/tests\"})",
+        "bash({\"command\":\"ls /home/oliver/llama-api/src\"})"
+      ]
+    },
+    {
+      "turn": 4,
+      "finish": "tool_calls",
+      "prompt_n": 131,
+      "cache_n": 4102,
+      "predicted_n": 115,
+      "prefill_tps": 1301.9021685118562,
+      "decode_tps": 157.75555361820668,
+      "prompt_ms": 100.622,
+      "predicted_ms": 722.637,
+      "draft_n": 120,
+      "draft_accepted": 90,
+      "wall_s": 0.8351800669915974,
+      "tools": [
+        "read_file({\"path\":\"tests/test_chat_suite.py\"})",
+        "bash({\"command\":\"ls /home/oliver/llama-api/results\"})"
+      ]
+    },
+    {
+      "turn": 5,
+      "finish": "tool_calls",
+      "prompt_n": 3896,
+      "cache_n": 4347,
+      "predicted_n": 2488,
+      "prefill_tps": 1910.7049500794,
+      "decode_tps": 92.67439984289696,
+      "prompt_ms": 2039.038,
+      "predicted_ms": 26835.89,
+      "draft_n": 4465,
+      "draft_accepted": 1596,
+      "wall_s": 28.892534454003908,
+      "tools": [
+        "bash({\"command\":\"ls /home/oliver/llama-api/venv\"})",
+        "bash({\"command\":\"cat /home/oliver/llama-api/tests/test_model_eval.py\"})"
+      ]
+    },
+    {
+      "turn": 6,
+      "finish": "tool_calls",
+      "prompt_n": 6818,
+      "cache_n": 10732,
+      "predicted_n": 150,
+      "prefill_tps": 1825.425298927449,
+      "decode_tps": 130.5206283911274,
+      "prompt_ms": 3735.02,
+      "predicted_ms": 1141.582,
+      "draft_n": 180,
+      "draft_accepted": 114,
+      "wall_s": 4.905949009989854,
+      "tools": [
+        "bash({\"command\":\"cat /home/oliver/llama-api/venv/pyvenv.cfg\"})",
+        "bash({\"command\":\"ls /home/oliver/llama-api/venv/bin\"})"
+      ]
+    },
+    {
+      "turn": 7,
+      "finish": "tool_calls",
+      "prompt_n": 125,
+      "cache_n": 17700,
+      "predicted_n": 69,
+      "prefill_tps": 1436.583459752678,
+      "decode_tps": 144.14383859281696,
+      "prompt_ms": 87.012,
+      "predicted_ms": 471.751,
+      "draft_n": 70,
+      "draft_accepted": 56,
+      "wall_s": 0.5924425590201281,
+      "tools": [
+        "bash({\"command\":\"ls /home/oliver/llama-api/venv/lib/python3.12/site-packages\"})"
+      ]
+    },
+    {
+      "turn": 8,
+      "finish": "length",
+      "prompt_n": 301,
+      "cache_n": 17895,
+      "predicted_n": 16000,
+      "prefill_tps": 1532.6411837489115,
+      "decode_tps": 119.4969949556867,
+      "prompt_ms": 196.393,
+      "predicted_ms": 133886.212,
+      "draft_n": 21020,
+      "draft_accepted": 11794,
+      "wall_s": 134.1254098220379,
+      "tools": []
+    }
+  ]
+}

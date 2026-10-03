@@ -1,0 +1,15 @@
+ctx=122880 run=1 used=15928MiB decode=7.7 tok/s acc=155/429
+ctx=122880 run=2 used=15928MiB decode=6.2 tok/s acc=136/464
+ctx=122880 vmwp_shared=484.89453125MiB
+ctx=114688 run=1 used=15921MiB decode=18.8 tok/s acc=154/446
+ctx=114688 run=2 used=15921MiB decode=22.1 tok/s acc=138/377
+ctx=114688 vmwp_shared=460.89453125MiB
+ctx=98304 run=1 used=15857MiB decode=73.5 tok/s acc=160/379
+ctx=98304 run=2 used=15857MiB decode=40.8 tok/s acc=146/387
+ctx=98304 vmwp_shared=420.89453125MiB
+ctx=65536 run=1 used=15353MiB decode=85.5 tok/s acc=158/380
+ctx=65536 run=2 used=15353MiB decode=92.4 tok/s acc=162/368
+ctx=65536 vmwp_shared=168.89453125MiB
+ctx=32768 run=1 used=14725MiB decode=87.7 tok/s acc=161/378
+ctx=32768 run=2 used=14725MiB decode=77.8 tok/s acc=136/317
+ctx=32768 vmwp_shared=136.89453125MiB

@@ -1,0 +1,72 @@
+{
+  "Q11": {
+    "content": "1,3,4,7,7",
+    "reasoning": "",
+    "finish": "stop",
+    "tok": 10,
+    "sec": 0.2
+  },
+  "Q12": {
+    "content": "6 | A→C→D→E",
+    "reasoning": "",
+    "finish": "stop",
+    "tok": 10,
+    "sec": 0.1
+  },
+  "Q13": {
+    "content": "12",
+    "reasoning": "",
+    "finish": "stop",
+    "tok": 3,
+    "sec": 0.1
+  },
+  "Q14": {
+    "content": "return user[\"active\"] and not user[\"suspended\"] and (user[\"role\"] == \"admin\" or user[\"owns_resource\"])",
+    "reasoning": "",
+    "finish": "stop",
+    "tok": 29,
+    "sec": 0.2
+  },
+  "Q15": {
+    "content": "run_test → search_docs → read_doc → edit_file → run_test → restart_service",
+    "reasoning": "",
+    "finish": "stop",
+    "tok": 18,
+    "sec": 0.2
+  },
+  "Q16": {
+    "content": "[\n  \"d\",\n  \"a\",\n  \"c\",\n  \"b\"\n]",
+    "reasoning": "",
+    "finish": "stop",
+    "tok": 24,
+    "sec": 0.3
+  },
+  "Q17": {
+    "content": "[ALLOW, DENY, DENY]",
+    "reasoning": "",
+    "finish": "stop",
+    "tok": 10,
+    "sec": 0.2
+  },
+  "Q18": {
+    "content": "120",
+    "reasoning": "",
+    "finish": "stop",
+    "tok": 4,
+    "sec": 0.2
+  },
+  "Q19": {
+    "content": "ROOT_CAUSE=Missing idempotency key for duplicate requests\nFIX=Implement idempotency key for request deduplication",
+    "reasoning": "",
+    "finish": "stop",
+    "tok": 28,
+    "sec": 0.3
+  },
+  "Q20": {
+    "content": "```python\ndef compare_versions(a: str, b: str) -> int:\n    # Split into components\n    a_parts = a.split('.')\n    b_parts = b.split('.')\n    \n    n = max(len(a_parts), len(b_parts))\n    \n    for i in range(n):\n        a_comp = a_parts[i] if i < len(a_parts) else '0'\n        b_comp = b_parts[i] if i < len(b_parts) else '0'\n        \n        # Strip leading zeros\n        a_comp = a_comp.lstrip('0') or '0'\n        b_comp = b_comp.lstrip('0') or '0'\n        \n        # Compare lengths first\n        if len(a_comp) < len(b_comp):\n            return -1\n        elif len(a_comp) > len(b_comp):\n            return 1\n        else:\n            # Same length, compare lexicographically\n            if a_comp < b_comp:\n                return -1\n            elif a_comp > b_comp:\n                return 1\n    \n    return 0\n```",
+    "reasoning": "",
+    "finish": "stop",
+    "tok": 232,
+    "sec": 1.8
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "low_Q1": {
+    "content": "A fat blue cat sits on moon seven stars glow around it",
+    "tok": 3945,
+    "finish": "stop",
+    "sec": 31.9
+  },
+  "low_Q4": {
+    "content": "13/27",
+    "tok": 421,
+    "finish": "stop",
+    "sec": 2.6
+  },
+  "low_Q10": {
+    "content": "```python\ndef single_number(nums):\n    max_bits = max(abs(n).bit_length() for n in nums)\n    result = 0\n    for i in range(max_bits + 1):\n        count = sum((n >> i) & 1 for n in nums)\n        if count % 3 != 0:\n            result |= (1 << i)\n    if result & (1 << max_bits):\n        result -= 1 << (max_bits + 1)\n    return result\n```\n\n對每一位元統計所有數字中該位為 1 的個數，若不被 3 整除則該位屬於唯一數字。最後若最高檢查位為 1，則以二補數還原負號。",
+    "tok": 10525,
+    "finish": "stop",
+    "sec": 74.3
+  },
+  "medium_Q1": {
+    "content": "A small blue cat sits on moon, seven stars glow so bright",
+    "tok": 1768,
+    "finish": "stop",
+    "sec": 11.7
+  },
+  "medium_Q4": {
+    "content": "13/27",
+    "tok": 443,
+    "finish": "stop",
+    "sec": 2.8
+  },
+  "medium_Q5": {
+    "content": "A=-9, B=-11, C=1, D=-8",
+    "tok": 413,
+    "finish": "stop",
+    "sec": 5.2
+  },
+  "medium_Q8": {
+    "content": "`sum` 的讀-改-寫非原子，多協程並發寫入構成資料競態，會丟失更新。\n\n（Go 1.22 已修正迴圈變數語意，`n` 不再共享，故無此問題。）",
+    "tok": 1416,
+    "finish": "stop",
+    "sec": 9.7
+  },
+  "medium_Q10": {
+    "content": "```python\ndef single_number(nums):\n    ones = twos = 0\n    for n in nums:\n        ones = (ones ^ n) & ~twos\n        twos = (twos ^ n) & ~ones\n    return ones\n```\n\n`ones` 記錄「出現過一次」的位元、`twos` 記錄「出現過兩次」的位元，每次以 XOR 更新後用 `~` 互斥掉已達上限的位元，使狀態在 0→1→2→0 循環。Python 整數精度無限，XOR 與 NOT 天然支援負數，無需假設固定位寬。",
+    "tok": 14060,
+    "finish": "stop",
+    "sec": 97.8
+  }
+}

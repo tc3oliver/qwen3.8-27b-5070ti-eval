@@ -1,0 +1,102 @@
+[
+ {
+  "id": 1,
+  "category": "explain",
+  "prompt": "什麼是 B+ tree？它跟一般的 B tree 有什麼差別？請簡單說明。"
+ },
+ {
+  "id": 2,
+  "category": "explain",
+  "prompt": "請用白話解釋 TCP 三向交握（three-way handshake）在做什麼。"
+ },
+ {
+  "id": 3,
+  "category": "explain",
+  "prompt": "什麼是資料庫的交易隔離等級？請簡短列出常見的四種。"
+ },
+ {
+  "id": 4,
+  "category": "explain",
+  "prompt": "為什麼 Python 的 GIL 會影響多執行緒效能？"
+ },
+ {
+  "id": 5,
+  "category": "code",
+  "prompt": "寫一個 Python 函式，判斷一個字串是不是回文，忽略大小寫與標點符號。"
+ },
+ {
+  "id": 6,
+  "category": "code",
+  "prompt": "請用 Python 寫一個函式，讀取 CSV 檔並回傳每個欄位的平均值（只處理數值欄位）。"
+ },
+ {
+  "id": 7,
+  "category": "code",
+  "prompt": "用 JavaScript 寫一個 debounce 函式，並簡單說明用法。"
+ },
+ {
+  "id": 8,
+  "category": "code",
+  "prompt": "寫一個 Bash 指令，找出目前資料夾下最大的五個檔案。"
+ },
+ {
+  "id": 9,
+  "category": "summary",
+  "prompt": "請用兩三句話摘要下面這段文字：\n\n近年來，台灣的都市通勤問題日益受到關注。隨著機車與汽車持有數量持續增加，尖峰時段的道路壅塞造成的時間損失與空氣污染也愈發明顯。政府雖然陸續推動捷運路網延伸、公車專用道與共享運具等政策，但民眾對大眾運輸的接受度仍受到班距、轉乘便利性與票價的影響。有研究指出，若能整合各種運具的票證與即時資訊，並在郊區提供足夠的轉乘停車空間，通勤者改搭大眾運輸的意願將明顯提高。此外，彈性上下班制度與遠距工作也有助於分散尖峰流量，減輕交通系統的負擔。部分城市已開始試辦低碳交通區與擁堵收費，初步成效顯示車流量下降，但商家與居民對公平性仍有疑慮，後續政策還需要更多溝通與配套。"
+ },
+ {
+  "id": 10,
+  "category": "summary",
+  "prompt": "請把下面這段文字濃縮成三個重點條列：\n\n近年來，台灣的都市通勤問題日益受到關注。隨著機車與汽車持有數量持續增加，尖峰時段的道路壅塞造成的時間損失與空氣污染也愈發明顯。政府雖然陸續推動捷運路網延伸、公車專用道與共享運具等政策，但民眾對大眾運輸的接受度仍受到班距、轉乘便利性與票價的影響。有研究指出，若能整合各種運具的票證與即時資訊，並在郊區提供足夠的轉乘停車空間，通勤者改搭大眾運輸的意願將明顯提高。此外，彈性上下班制度與遠距工作也有助於分散尖峰流量，減輕交通系統的負擔。部分城市已開始試辦低碳交通區與擁堵收費，初步成效顯示車流量下降，但商家與居民對公平性仍有疑慮，後續政策還需要更多溝通與配套。"
+ },
+ {
+  "id": 11,
+  "category": "translate_zh_en",
+  "prompt": "請把這句話翻成英文：「這個版本修正了多項效能問題，並新增了離線模式，歡迎大家升級後回報使用狀況。」"
+ },
+ {
+  "id": 12,
+  "category": "translate_zh_en",
+  "prompt": "請翻譯成英文：「由於天候不佳，原訂於週六舉行的戶外活動將延期至下週，造成不便敬請見諒。」"
+ },
+ {
+  "id": 13,
+  "category": "translate_en_zh",
+  "prompt": "請把這段英文翻成台灣用語的繁體中文：\"Please make sure to back up your data before upgrading, as the migration process cannot be undone.\""
+ },
+ {
+  "id": 14,
+  "category": "translate_en_zh",
+  "prompt": "Translate into Traditional Chinese (Taiwan usage): \"The new policy aims to reduce carbon emissions by encouraging companies to adopt renewable energy.\""
+ },
+ {
+  "id": 15,
+  "category": "advice",
+  "prompt": "我想開始學程式，請列三點給完全新手的學習建議。"
+ },
+ {
+  "id": 16,
+  "category": "compare",
+  "prompt": "請列三點比較 SQLite 與 PostgreSQL 各適合什麼情境。"
+ },
+ {
+  "id": 17,
+  "category": "email",
+  "prompt": "幫我寫一封簡短的請假信給主管，下週二要去看醫生，需要請半天假。"
+ },
+ {
+  "id": 18,
+  "category": "regex",
+  "prompt": "請寫一個正規表示式，可以比對台灣的手機號碼（例如 0912-345-678 或 0912345678），並解釋每個部分。"
+ },
+ {
+  "id": 19,
+  "category": "sql",
+  "prompt": "有一張 orders 表（id, customer_id, amount, created_at），請寫 SQL 找出每位客戶最近一筆訂單。"
+ },
+ {
+  "id": 20,
+  "category": "sql",
+  "prompt": "SQL 的 INNER JOIN 和 LEFT JOIN 有什麼差別？請各舉一個簡短的例子。"
+ }
+]
