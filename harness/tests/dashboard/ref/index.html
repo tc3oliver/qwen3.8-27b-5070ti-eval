@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RTX 5070 Ti 本機模型評測</title>
+<script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div>
+      <h1>RTX 5070 Ti 本機模型評測</h1>
+      <p class="sub">本機部署模型的程式能力、速度與長上下文表現比較</p>
+    </div>
+    <button id="theme-toggle" type="button" aria-label="切換淺色／深色模式"><span id="theme-icon" aria-hidden="true">☾</span><span id="theme-label">深色模式</span></button>
+  </div>
+</header>
+<main class="wrap">
+  <section class="kpis" aria-label="重點指標">
+    <div class="card kpi"><span class="kpi-label">最高 HumanEval 通過率</span><strong class="kpi-value" data-kpi="humaneval">—</strong></div>
+    <div class="card kpi"><span class="kpi-label">最高解碼速度</span><strong class="kpi-value" data-kpi="decode">—</strong></div>
+    <div class="card kpi"><span class="kpi-label">評測模型數</span><strong class="kpi-value" data-kpi="models">—</strong></div>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <h2>模型比較</h2>
+      <label class="field">指標
+        <select id="metric">
+          <option value="humaneval_pass_pct">HumanEval 通過率 (%)</option>
+          <option value="tenq_score">十題評測得分</option>
+          <option value="tenq_tokens">十題評測 token 用量</option>
+        </select>
+      </label>
+    </div>
+    <svg id="bar-chart" role="img" aria-label="模型長條圖"></svg>
+    <p class="note" id="bar-note"></p>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>解碼速度時間線</h2><span class="muted">每個長請求的 tok/s，依時間排序</span></div>
+    <div class="chart-box">
+      <svg id="line-chart" role="img" aria-label="解碼速度折線圖"></svg>
+      <div id="tooltip" role="tooltip" hidden></div>
+    </div>
+    <div id="legend" class="legend"></div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>完整結果</h2><span class="muted">點擊欄位標題排序</span></div>
+    <div class="table-scroll">
+      <table id="results-table"><thead></thead><tbody></tbody></table>
+    </div>
+    <p class="note"><span class="badge badge-A">A</span> 本輪實測　<span class="badge badge-B">B</span> 先前實測（僅供參考）　— 表示未測量</p>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

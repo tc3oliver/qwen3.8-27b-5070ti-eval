@@ -31,13 +31,14 @@ Levels: **A** measured here under `PROTOCOL.md` · **B** measured here, outside 
 | E22 | Ornith-1.5-35B-A3B 10Q (from the invalid run; correctness is unaffected by speed) | 32/40 using 57,346 tokens (4.8× the subject) | B | `…/invalid-spill-1/10q_grades_r1.json` |
 | E24 | Reasoning effort: `medium` + short-think vs the vendor default `xhigh` (10Q, 4× budget, 1 run each) | 35/40 with 9,878 tokens vs 30/40 with 25,688 tokens (38 % of the tokens); thinking off 16/40 | B (preliminary) | `results/qwen38-27b-iq3s/2026-10-03-prelim/effort-sweep.md` |
 | E25 | Identical temperature-0 request from a fresh server: adaptive MTP vs fixed draft length 5 | adaptive: 885–1,219 tokens across 5 runs (answer 5); fixed: 3,080 tokens ×5 (answer 7); a long-running adaptive server reproduces the fixed output exactly | B (dedicated experiment, 1 prompt) | `results/qwen38-27b-iq3s/determinism-2026-10/README.md` |
+| E30 | Pi coding agent + subject builds the dashboard task from scratch (1 run, production server) | 320 s, 28 turns, 27 tool calls (read 2, bash 16, write 5, edit 4), 0 tool errors, 25,678 output tokens; hidden browser checks 20/20 (validated grader) | B (dedicated experiment) | `results/qwen38-27b-iq3s/pi-2026-10/dashboard-r1/summary.json`, `grade-v3/` |
+| E31 | The dashboard grader separates correct from broken work | reference solution 20/20; copy with 6 injected defects 13/20, all 6 caught | B | `harness/tests/dashboard/README.md` |
 | E23 | 128K context on this machine (subject) | loads, then decodes 5.9 tok/s (spill 484 MiB); 64K is the largest healthy setting | B (preliminary) | `results/qwen38-27b-iq3s/2026-10-03-prelim/ctx-sweep/summary.txt` |
 
 ## Pending evidence (do not quote yet)
 
 | ID | Claim | Status |
 |---|---|---|
-| T03 | Pi coding agent builds the dashboard task | run in progress (`results/qwen38-27b-iq3s/pi-2026-10/`) |
 
 ## Published elsewhere (level C)
 

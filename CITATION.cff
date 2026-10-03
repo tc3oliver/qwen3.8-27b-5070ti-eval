@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use these results, please cite them as below and keep the evidence level with each number."
+title: "Qwen3.8-27B on RTX 5070 Ti — does the fastest recipe also win on quality?"
+type: dataset
+authors:
+  - family-names: Yu
+    given-names: Oliver
+repository-code: "https://github.com/tc3oliver/qwen3.8-27b-5070ti-eval"
+license: CC-BY-4.0
+date-released: 2026-10-03
+keywords: [llama.cpp, local LLM, RTX 5070 Ti, speculative decoding, MTP, benchmark, Qwen3.8, coding agent]

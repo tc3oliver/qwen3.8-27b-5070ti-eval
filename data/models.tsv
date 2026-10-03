@@ -1,4 +1,5 @@
 # repo	revision	file	sha256
+huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF	3f101cd22b7999228bbd5d79a33975414eb9758b	Huihui-Qwen3.8-27B-abliterated-GSQ-RCO-IQ3_S-mtp.gguf
 ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF	d562806dbafae37109975e970aae91b43e73b440	Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf
 unsloth/Qwen3.8-27B-GGUF	4ca720788d1e01f1bff70c033e0d0028fd02e502	Qwen3.8-27B-UD-Q3_K_XL.gguf
 SC117/Ornith-1.5-35B-A3B-MTP-APEX-GGUF	20fd61f5905145c412ae3bcc3efcbab8ab16ec35	Ornith-1.5-35B-A3B-MTP-APEX-I-Mini.gguf

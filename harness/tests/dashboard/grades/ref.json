@@ -1,0 +1,106 @@
+{
+ "passed": 20,
+ "total": 20,
+ "checks": [
+  {
+   "check": "files exist",
+   "ok": true,
+   "detail": "index.html, style.css, app.js"
+  },
+  {
+   "check": "title text",
+   "ok": true,
+   "detail": "header title present"
+  },
+  {
+   "check": "kpi humaneval",
+   "ok": true,
+   "detail": "'92.1%' should contain '92.1%'"
+  },
+  {
+   "check": "kpi decode",
+   "ok": true,
+   "detail": "'88.5 tok/s' should contain '88.5tok/s'"
+  },
+  {
+   "check": "kpi models",
+   "ok": true,
+   "detail": "'2' should contain '2'"
+  },
+  {
+   "check": "bar chart humaneval_pass_pct",
+   "ok": true,
+   "detail": "1 bars, proportional, common origin at 0"
+  },
+  {
+   "check": "bar chart tenq_score",
+   "ok": true,
+   "detail": "2 bars, proportional, common origin at 0"
+  },
+  {
+   "check": "bar chart tenq_tokens",
+   "ok": true,
+   "detail": "2 bars, proportional, common origin at 0"
+  },
+  {
+   "check": "line chart series and points",
+   "ok": true,
+   "detail": "2 series, 198 points, colours {'rgb(217, 72, 15)', 'rgb(37, 99, 235)'}"
+  },
+  {
+   "check": "tooltip on hover",
+   "ok": true,
+   "detail": "hidden before=True visible on hover=True text='Qwen3.8-27B IQ3_S + MTP\\n181.1 tok/s\\u3000@ 9.18 分'"
+  },
+  {
+   "check": "table sort (numbers)",
+   "ok": true,
+   "detail": "desc ['57346', '11886'] asc ['11886', '57346']"
+  },
+  {
+   "check": "table sort (empty cells last)",
+   "ok": true,
+   "detail": "desc ['92.1', '—'] asc ['92.1', '—']"
+  },
+  {
+   "check": "table rows",
+   "ok": true,
+   "detail": "one row per model"
+  },
+  {
+   "check": "empty cells shown as —",
+   "ok": true,
+   "detail": "empty humaneval cells render as —"
+  },
+  {
+   "check": "desktop: tables/charts not clipped",
+   "ok": true,
+   "detail": "clipped without scroll: []"
+  },
+  {
+   "check": "evidence labels",
+   "ok": true,
+   "detail": "A/B explained in the table or a legend"
+  },
+  {
+   "check": "dark mode + persistence",
+   "ok": true,
+   "detail": "dark=True stored='dark' kept after reload=True"
+  },
+  {
+   "check": "mobile 375px no horizontal scroll",
+   "ok": true,
+   "detail": "scrollWidth=375"
+  },
+  {
+   "check": "no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "no external requests",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}
