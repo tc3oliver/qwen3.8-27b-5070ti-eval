@@ -10,11 +10,11 @@
 The [feveromo recipe](https://github.com/feveromo/recipes-qwen3.8-27b-5070ti) runs a 27B model on a 16 GB card;
 its author reports 1.9× the decode speed of stock llama.cpp on real agent sessions with the same weights
 ([C01](EVIDENCE-INDEX.md)). Speed was never the open question. This repository asks the other one: on a single
-RTX 5070 Ti, measured on coding, agents, long Chinese documents and latency, is it the model you should run — and
+RTX 5070 Ti, measured on coding, agents, long Chinese documents and latency, is it the model you should run? And
 what does it take to measure that honestly on a desktop GPU?
 
 **Status: round 1 (2026-10-03).** The subject has a complete, valid run; the first competitor's run was invalidated
-by VRAM spill and is being repeated. Round 1 therefore contains **no comparative claim** — only measurements of the
+by VRAM spill and is being repeated. Round 1 therefore contains **no comparative claim**, only measurements of the
 subject and what we learned about measuring on this card.
 
 <p align="center">
@@ -29,14 +29,14 @@ against a reference solution (one run, level B — <a href="EVIDENCE-INDEX.md">E
   <img src="results/qwen38-27b-iq3s/pi-2026-10/dashboard-r1/grade-v3/desktop-light.png" width="820" alt="Dashboard built by the local model">
 </p>
 
-**Video (51 s):** [round-1 explainer](media/qwen38-5070ti-round1.mp4) — TypeScript + three.js, rendered frame by frame; every number on screen carries its evidence ID ([`video/`](video/)).
+**Video (61 s):** [round-1 explainer](media/qwen38-5070ti-round1.mp4), rendered frame by frame in TypeScript + three.js; every number on screen carries its evidence ID ([`video/`](video/)).
 
 <p align="center"><a href="media/qwen38-5070ti-round1.mp4"><img src="media/qwen38-5070ti-round1-poster.png" width="820" alt="Round-1 explainer video"></a></p>
 
 ## What we found
 
 Every claim cites [`EVIDENCE-INDEX.md`](EVIDENCE-INDEX.md), which points at the raw data. **A** = measured under the
-pre-registered protocol; **B** = measured here outside it (context, not ranking) — see [`EVIDENCE.md`](EVIDENCE.md).
+pre-registered protocol; **B** = measured here outside it (context, not ranking); see [`EVIDENCE.md`](EVIDENCE.md).
 
 1. **On one 16 GB card the subject scores 92.1 % on HumanEval+** (151/164, 95 % CI 86.9–95.3), finds all 10
    planted bugs with the right cause, completes 12/12 tool-calling episodes without a malformed call, recalls all
@@ -59,7 +59,7 @@ pre-registered protocol; **B** = measured here outside it (context, not ranking)
 5. **A preliminary hint on thinking budgets.** In a single-run sweep on our reasoning set (4× token budget), the
    vendor-default effort `xhigh` used 25,688 tokens and scored 30/40; effort `medium` plus a one-line short-think
    instruction used 9,878 tokens and scored 35/40. Five `xhigh` answers hit the token cap, and the same `medium`
-   setting scored 33/40 in the round-1 run — this shows token cost, not a proven quality ranking. [E24, B]
+   setting scored 33/40 in the round-1 run. This shows token cost; it is not a proven quality ranking. [E24, B]
 
 ## Round 1 results (2026-10-03)
 
@@ -75,7 +75,7 @@ pre-registered protocol; **B** = measured here outside it (context, not ranking)
 | Everyday Chinese prompts: first answer token p50 / p90 | 1.45 s / 2.46 s | not valid |
 | Decode, Chinese prose / code | 88.5 tok/s mean (74–106) / 155 tok/s median | not valid |
 
-**Coding agent, one run (level B):** Pi + the subject built the dashboard task in 320 s — 28 turns, 27 tool calls,
+**Coding agent, one run (level B):** Pi + the subject built the dashboard task in 320 s: 28 turns, 27 tool calls,
 0 tool errors, 25,678 output tokens, 20/20 grader checks ([E30](EVIDENCE-INDEX.md)).
 
 Raw results: [`results/`](results/) · combined table: [`results/arena-2026-10-summary.md`](results/arena-2026-10-summary.md).
@@ -90,8 +90,8 @@ differences between the two setups, and quality was not measured. [E20, A]
 - **Pre-registered.** [`PROTOCOL.md`](PROTOCOL.md) fixed the suites, the settings search and the definition of
   "best" before any comparison run; every later change and deviation is logged there with its reason, and invalid
   runs stay in the repository.
-- **Settings per model.** Each model runs its model card's sampler and reasoning mode — except the subject and its
-  official-weights control, which use the tuned effort-`medium` + short-think setting (see Limits) — and the first
+- **Settings per model.** Each model runs its model card's sampler and reasoning mode (except the subject and its
+  official-weights control, which use the tuned effort-`medium` + short-think setting; see Limits), and the first
   context size on a fixed list, starting at 64K, that loads with at most 300 MiB of spill as read from the Windows
   driver's counters. Speculative decoding follows each model's own published usage. Settings are frozen in
   `frozen.json` before the suites.
@@ -102,7 +102,7 @@ differences between the two setups, and quality was not measured. [E20, A]
 - **Graders are tested before they are trusted.** The HumanEval+ checker passes all 164 canonical solutions
   [E32]; the six Python/SQL planted bugs reproduce when run (the four JS/Go/C ones were not executed) [E33]; the
   10Q grader agrees with earlier hand grading on one run and differs on one item (Q8) on another, documented in
-  `PROTOCOL.md` — Q8 and Q9 are flagged for human review and counted unreviewed in 33/40; the dashboard grader
+  `PROTOCOL.md`; Q8 and Q9 are flagged for human review and counted unreviewed in 33/40; the dashboard grader
   passes a reference solution 20/20 and catches all six defects planted in a broken copy [E31].
 
 ## Reproduce
@@ -117,7 +117,7 @@ python3 harness/summarize.py                           # results/<run>-summary.m
 ```
 
 Build paths are set at the top of `harness/run_arena.py`. The runner stops a production service named `llm-chat`
-while it runs and restarts it afterwards — change `PROD_SERVICE` if yours differs.
+while it runs and restarts it afterwards. Change `PROD_SERVICE` if yours differs.
 
 ## Limits and known biases
 
