@@ -132,6 +132,7 @@ python3 harness/summarize.py                           # results/<run>-summary.m
 [ISTA-DASLab](https://huggingface.co/ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF)、[Unsloth](https://huggingface.co/unsloth/Qwen3.8-27B-GGUF)、
 [SC117](https://huggingface.co/SC117/Ornith-1.5-35B-A3B-MTP-APEX-GGUF)。Coding agent：[Pi](https://github.com/badlogic/pi-mono)。
 Benchmark：[EvalPlus HumanEval+](https://github.com/evalplus/evalplus)。填充文本：中文维基百科（CC BY-SA 4.0）。
+视频配乐：原创，由 [`video/scripts/music.ts`](video/scripts/music.ts) 用代码合成。
 
 ## 许可与引用
 

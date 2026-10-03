@@ -141,6 +141,7 @@ here). Weights: [huihui-ai](https://huggingface.co/huihui-ai/Huihui-Qwen3.8-27B-
 [ISTA-DASLab](https://huggingface.co/ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF), [Unsloth](https://huggingface.co/unsloth/Qwen3.8-27B-GGUF),
 [SC117](https://huggingface.co/SC117/Ornith-1.5-35B-A3B-MTP-APEX-GGUF). Coding agent: [Pi](https://github.com/badlogic/pi-mono).
 Benchmark: [EvalPlus HumanEval+](https://github.com/evalplus/evalplus). Filler text: Chinese Wikipedia (CC BY-SA 4.0).
+Video soundtrack: original, synthesized in code by [`video/scripts/music.ts`](video/scripts/music.ts).
 
 ## License and citation
 

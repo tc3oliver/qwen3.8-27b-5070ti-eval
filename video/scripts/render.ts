@@ -1,6 +1,7 @@
 // Renders dist/ frame by frame in headless Chromium (software WebGL, so the GPU stays free for the model) and
 // encodes H.264 with ffmpeg-static. Usage: npm run render [-- --fps 30 --from 0 --to <s> --out ../media/x.mp4]
 // Stills: --still 3,22 → stills/t3.0.png …; --poster 17 → stills/poster-candidate.png (media/ is not touched).
+// A full-length render gets the soundtrack (out/music.wav, from `npm run music`) muxed on via scripts/mux.ts.
 import { spawn } from "node:child_process";
 import { createReadStream, existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
 import { createServer } from "node:http";
@@ -9,12 +10,14 @@ import { dirname, extname, join, resolve } from "node:path";
 import { parseArgs } from "node:util";
 import ffmpeg from "ffmpeg-static";
 import { chromium } from "playwright-core";
+import { mux } from "./mux";
 
 const { values: a } = parseArgs({ options: {
   fps: { type: "string", default: "30" }, from: { type: "string", default: "0" }, to: { type: "string" },
   out: { type: "string", default: "../media/qwen38-5070ti-round1.mp4" }, still: { type: "string" }, poster: { type: "string" },
   chrome: { type: "string" },
 } });
+const audio = "out/music.wav";
 const dist = resolve("dist");
 const types: Record<string, string> = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".png": "image/png", ".jpg": "image/jpeg", ".json": "application/json" };
 const server = createServer((req, res) => {
@@ -65,6 +68,8 @@ if (a.poster) {
   enc.stdin.end();
   await new Promise((r) => enc.on("close", r));
   console.log(`wrote ${out} (${frames} frames, ${duration.toFixed(1)} s timeline) in ${((Date.now() - t0) / 1000).toFixed(0)} s`);
+  if (from === 0 && to === duration && existsSync(audio)) mux(out, audio);
+  else console.log(`no soundtrack muxed (partial render or ${audio} missing)`);
 }
 await browser.close();
 server.close();
