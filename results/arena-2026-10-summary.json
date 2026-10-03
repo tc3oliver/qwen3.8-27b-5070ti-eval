@@ -1,0 +1,82 @@
+{
+ "qwen38-27b-iq3s": {
+  "frozen": "65536:q4_0:0:all:1",
+  "spill_end_mib": 168,
+  "humanevalplus": {
+   "pass": 151,
+   "n": 164,
+   "pass_at_1": 0.9207317073170732,
+   "ci95": [
+    0.8691110864554287,
+    0.9530927056914528
+   ],
+   "median_tok": 266,
+   "total_sec": 510.6,
+   "truncated": 0
+  },
+  "10q": {
+   "1": {
+    "score": 33,
+    "max": 40,
+    "tokens": 11886
+   }
+  },
+  "code_review": {
+   "n": 10,
+   "line_ok": 10,
+   "line_and_cause_ok": 10,
+   "format_ok": 10,
+   "repeats": 1,
+   "per_repeat_ok": [
+    10
+   ]
+  },
+  "agent": {
+   "n": 12,
+   "success": 12,
+   "malformed_calls": 0,
+   "server_errors": 0,
+   "leaked_episodes": 0,
+   "median_turns": 2.5,
+   "median_wall_sec": 1.4
+  },
+  "longctx": {
+   "16000": {
+    "recalled": 4,
+    "prefill_tps": 1865.0375695561543,
+    "ttft_s": 12.17
+   },
+   "32000": {
+    "recalled": 4,
+    "prefill_tps": 1805.9388063333906,
+    "ttft_s": 17.94
+   },
+   "60000": {
+    "recalled": 4,
+    "prefill_tps": 1688.865498590277,
+    "ttft_s": 39.37
+   }
+  },
+  "latency": {
+   "n": 10,
+   "errors": 0,
+   "ttft_s": {
+    "p50": 0.06,
+    "p90": 0.16
+   },
+   "first_answer_s": {
+    "p50": 1.45,
+    "p90": 2.46
+   },
+   "total_s": {
+    "p50": 4.86,
+    "p90": 8.11
+   },
+   "mean_decode_tps": 88.5,
+   "mean_prefill_tps": 1203.1,
+   "simplified_drift": "1/10",
+   "empty_answers": 0,
+   "truncated": 0
+  }
+ }
+}

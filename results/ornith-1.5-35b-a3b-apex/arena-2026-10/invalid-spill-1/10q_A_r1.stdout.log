@@ -1,0 +1,112 @@
+===== Q1 (847 tok, 8.5s, finish=stop) =====
+A cat blue sits moon gazing seven stars high up dark
+
+===== Q2 (862 tok, 8.8s, finish=stop) =====
+[[1, 3], [2]]
+[[1, 3], [2]]
+[[1, 3], [9], [4]]
+
+===== Q3 (16000 tok, 187.7s, finish=length) =====
+
+
+===== Q4 (584 tok, 9.6s, finish=stop) =====
+13/27
+
+===== Q5 (886 tok, 8.9s, finish=stop) =====
+A=-9, B=-11, C=1, D=-8
+
+===== Q6 (1198 tok, 11.8s, finish=stop) =====
+[]
+
+===== Q7 (1373 tok, 17.6s, finish=stop) =====
+# 執行順序分析
+
+讓我逐步追蹤這個程式的執行：
+
+**同步執行階段：**
+1. `console.log("A")` → 印出 **A**
+2. `setTimeout(...)` → 排入 **macrotask**（B）
+3. `Promise.resolve().then(cb1).then(cb2)` → 排入兩個 microtask（cb1、cb2）
+4. `queueMicrotask(F)` → 排入 microtask（F）
+5. `console.log("G")` → 印出 **G**
+
+此時 microtask 佇列順序為 `[cb1, cb2, F]`，macrotask 佇列為 `[B]`。
+
+**Microtask 處理階段（FIFO）：**
+- **cb1** 執行 → 印出 **C**，並 `queueMicrotask(D)`（D 被追加到佇列末端）
+  - 佇列變 `[cb2, F, D]`
+- **cb2** 執行 → 印出 **E**
+  - 佇列變 `[F, D]`
+- **F** 執行 → 印出 **F**
+  - 佇列變 `[D]`
+- **D** 執行 → 印出 **D**
+  - 佇列變空
+
+**Macrotask 處理階段：**
+- **B** 執行 → 印出 **B**
+
+# 最終輸出
+
+```
+A G C E F D B
+```
+
+===== Q8 (1234 tok, 12.6s, finish=stop) =====
+真正影響正確性的只有「對 `sum` 的資料競爭」：多個 goroutine 無同步地並發讀寫同一個共享變數，屬於未定義行為，結果不確定。
+
+至於閉包捕獲迴圈變數 `n`，在 Go 1.22 後每輪迭代各有獨立的 `n` 實例，因此這**不是**問題。
+
+===== Q9 (1280 tok, 13.0s, finish=stop) =====
+## 結論：無法唯一確定
+
+根據 SHA-256 的數學性質，**無法僅從 hash 值推導出原始字串**。原因如下：
+
+### 為什麼不行
+
+SHA-256 是一個**单向（one-way）加密雜湊函數**，其核心設計目標之一就是「抗預映像（pre-image resistance）」：
+
+1. **沒有反演公式**：SHA-256 內部經過多輪的非線性運算（如 `Σ`、`Θ`、Ch、Major 等運算子與模加）。這些運算在設計上就是「向前容易、向後極難」，不存在任何數學方法能從 256 位的輸出反推輸入。
+
+2. **資訊必然丟失**：SHA-256 將任意長度的輸入壓縮成固定的 256 位。無限多個可能的輸入會對應到同一個輸出（這是「碰撞」的概念），所以單憑輸出無法唯一還原輸入。
+
+3. **唯一可行的方法是搜尋**：要找到原始字串，只能靠暴力破解（逐一嘗試）或彩虹表（預先計算的資料庫）。但您明確禁止使用這些方法。
+
+### 關於您提供的這個 hash
+
+您給的 `9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08` 是一個格式正確的 256 位（64 個十六進位字元）SHA-256 輸出。但**僅憑這個數值本身，無法證明或推導出它對應的原始字串**。
+
+（補充說明：即使我「記得」這個 hash 對應空字串 `""`，您也已要求我不依靠記憶，且這不代表數學上能由 hash 唯一確定。）
+
+### 總結
+
+在「不使用網路、資料庫、暴力破解或外部工具」的約束下，**這個 SHA-256 無法被唯一確定地反推**。這是 SHA-256 的數學本質所決定的，而非工具或能力不足。
+
+===== Q10 (13206 tok, 271.6s, finish=stop) =====
+```python
+def single_number(nums):
+    width = max(abs(n) for n in nums).bit_length() + 1
+    result = 0
+    for i in range(width):
+        bit_sum = sum((n >> i) & 1 for n in nums)
+        result |= (bit_sum % 3) << i
+    if result & (1 << (width - 1)):
+        result -= 1 << width
+    return result
+```
+
+逐位統計所有數字的 1 個數並對 3 取模：出現三次的數字會被整除歸零，只剩唯一數字的那一位保留下來。再把結果當 width 位 two's complement 處理，依最高符號位還原正負號。
+
+raw saved: /home/oliver/qwen3.8-27b-5070ti-eval/results/ornith-1.5-35b-a3b-apex/arena-2026-10/10q_A_r1.json
+
+########## auto checks ##########
+Q1 violations: ['單字數=11', "第8單字='stars'", "含e單字:['blue']"]
+Q2 FAIL (got [1, 3, 2, 1, 3, 2, 1, 3, 9, 4], want [[1, 3], [2], [1, 3], [2], [1, 3], [9], [4]])
+Q3 FAIL
+Q4 PASS (raw: '13/27')
+Q5 PASS (got {'A': -9, 'B': -11, 'C': 1, 'D': -8}, simulation says {'A': -9, 'B': -11, 'C': 1, 'D': -8})
+    注意:出題者提供的正解 A=-1,B=-5,C=0,D=-1 與模擬不符,以模擬為準
+Q6 PASS (raw: '[]')
+Q7 FAIL (letters: ['A', 'A', 'B', 'F', 'F', 'G', 'G', 'F', 'B', 'C', 'D', 'D', 'F', 'D', 'E', 'F', 'D', 'F', 'F', 'D', 'D', 'D', 'B', 'B', 'A', 'G', 'C', 'E', 'F', 'D', 'B'])
+Q8 提到race=False, 提到sum=True, 疑似錯誤n-capture論述=False, 中文字數=75
+Q9 明說無法唯一確定=True, 直接回答test=False
+Q10 檢查: ['[0, 1, 0, 1, 0, 99]->98(want 99)']; 程式碼後說明行數=1

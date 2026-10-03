@@ -3,7 +3,7 @@
 spill (PROTOCOL.md), freeze it, run every suite, and move on. Resumable: frozen settings and finished suites are
 skipped on re-run. Stops the production chat service for the duration and restarts it at the end.
 Usage: python3 harness/run_arena.py [config ...] [--run arena-2026-10] [--only-size]"""
-import argparse, json, os, shlex, signal, subprocess, sys, time, urllib.request
+import argparse, glob, json, os, shlex, shutil, signal, subprocess, sys, threading, time, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONFIGS = os.path.join(ROOT, "configs")
@@ -102,7 +102,8 @@ def size(name, cfg, outdir, baseline_shared):
     if os.path.exists(frozen):
         return json.load(open(frozen))
     tried = []
-    for cand in cfg["CANDIDATES"].split():
+    bad = json.load(open(os.path.join(outdir, "invalid-candidates.json"))) if os.path.exists(os.path.join(outdir, "invalid-candidates.json")) else []
+    for cand in [c for c in cfg["CANDIDATES"].split() if c not in bad]:
         log(f"[{name}] try {cand}")
         s = Server(name, cfg, cand, os.path.join(outdir, f"sizing-{cand.replace(':', '_')}.log"))
         row = {"candidate": cand}
@@ -142,6 +143,55 @@ def suites(outdir):
     s += [("humanevalplus", [py, f"{H}/eval_humanevalplus.py", *common, "--out", f"{outdir}/humanevalplus.json"])]
     return s
 
+class SpillMonitor(threading.Thread):
+    """Samples the WSL VM's shared GPU memory every 60 s; two consecutive samples over the limit trip it."""
+    def __init__(self, baseline):
+        super().__init__(daemon=True); self.baseline = baseline; self.trace = []; self.tripped = threading.Event(); self.stop_ev = threading.Event()
+    def run(self):
+        over = 0
+        while not self.stop_ev.wait(60):
+            try: ded, sha = wsl_gpu_mib()
+            except Exception: continue
+            spill = round(sha - self.baseline); self.trace.append({"t": time.strftime("%H:%M:%S"), "spill_mib": spill, "dedicated_mib": round(ded)})
+            over = over + 1 if spill > SPILL_LIMIT_MIB else 0
+            if over >= 2: self.tripped.set(); return
+
+def run_suites(name, cfg, fz, outdir, baseline):
+    """Runs the missing suites. Returns False if the spill monitor tripped (outputs archived, candidate marked bad)."""
+    todo = [(n, c) for n, c in suites(outdir) if not os.path.exists(c[-1])]
+    if not todo: log(f"[{name}] all suites done"); return True
+    srv = Server(name, cfg, fz["candidate"], os.path.join(outdir, "server.log"))
+    mon = SpillMonitor(baseline)
+    try:
+        if not srv.wait_ready(): log(f"[{name}] frozen setting failed to load now"); return True
+        mon.start()
+        for suite, cmd in todo:
+            t0 = time.time()
+            logpath = os.path.join(outdir, f"{suite}.stdout.log")
+            with open(logpath, "w") as lf:           # a file, not a pipe: long outputs cannot block the child
+                proc = subprocess.Popen(cmd, stdout=lf, stderr=subprocess.STDOUT, text=True)
+                while proc.poll() is None and not mon.tripped.is_set(): time.sleep(2)
+                if mon.tripped.is_set():
+                    proc.kill(); proc.wait(); log(f"[{name}] spill over {SPILL_LIMIT_MIB} MiB twice during {suite}: run invalid"); break
+            out = open(logpath).read()
+            last = (out.strip().splitlines() or [""])[-1]
+            log(f"[{name}] {suite} exit {proc.returncode} {time.time()-t0:.0f}s {last[:240]}")
+        ded, sha = wsl_gpu_mib()
+        json.dump({"spill_mib_end": round(sha - baseline), "wsl_dedicated_mib_end": round(ded), "trace": mon.trace},
+                  open(os.path.join(outdir, "spill_end.json"), "w"), indent=1)
+        log(f"[{name}] spill at end {sha - baseline:.0f} MiB")
+    finally:
+        mon.stop_ev.set(); srv.stop()
+    if not mon.tripped.is_set(): return True
+    n = len(glob.glob(os.path.join(outdir, "invalid-spill-*"))) + 1; inv = os.path.join(outdir, f"invalid-spill-{n}"); os.makedirs(inv)
+    for f in os.listdir(outdir):
+        if f.startswith(("invalid-", "sizing-")): continue
+        shutil.move(os.path.join(outdir, f), inv)
+    badf = os.path.join(outdir, "invalid-candidates.json")
+    bad = json.load(open(badf)) if os.path.exists(badf) else []
+    json.dump(bad + [fz["candidate"]], open(badf, "w"))
+    return False
+
 def main():
     log("== arena run", args.run, "configs:", " ".join(args.configs))
     sh(f"sudo systemctl stop {PROD_SERVICE}"); time.sleep(8)
@@ -156,23 +206,12 @@ def main():
             if not fz: log(f"[{name}] no candidate fits — skipped"); continue
             log(f"[{name}] frozen {fz['candidate']} spill {fz['check']['spill_mib_after_sanity']} MiB decode {fz['check']['raw_decode_tps']:.1f} tok/s")
             if args.only_size: continue
-            todo = [(n, c) for n, c in suites(outdir) if not os.path.exists(c[-1])]
-            if not todo: log(f"[{name}] all suites done"); continue
-            srv = Server(name, cfg, fz["candidate"], os.path.join(outdir, "server.log"))
-            try:
-                if not srv.wait_ready(): log(f"[{name}] frozen setting failed to load now"); continue
-                for suite, cmd in todo:
-                    t0 = time.time()
-                    r = subprocess.run(cmd, capture_output=True, text=True)
-                    open(os.path.join(outdir, f"{suite}.stdout.log"), "w").write(r.stdout + r.stderr)
-                    last = (r.stdout.strip().splitlines() or [""])[-1]
-                    log(f"[{name}] {suite} exit {r.returncode} {time.time()-t0:.0f}s {last[:240]}")
-                ded, sha = wsl_gpu_mib()
-                json.dump({"spill_mib_end": round(sha - baseline), "wsl_dedicated_mib_end": round(ded)},
-                          open(os.path.join(outdir, "spill_end.json"), "w"))
-                log(f"[{name}] spill at end {sha - baseline:.0f} MiB")
-            finally:
-                srv.stop()
+            for attempt in range(3):
+                if attempt:
+                    fz = size(name, cfg, outdir, baseline)
+                    if not fz: log(f"[{name}] no candidate left after spill"); break
+                    log(f"[{name}] retry with {fz['candidate']}")
+                if run_suites(name, cfg, fz, outdir, baseline): break
     finally:
         if not args.keep_prod_down:
             sh(f"sudo systemctl start {PROD_SERVICE}"); log("production service restarted")

@@ -106,3 +106,9 @@ earlier models on this machine; HumanEval+ may be in some models' training data 
   where an answer that blames the loop variable `n` — not a bug in Go 1.22 — now scores 0 instead of the earlier
   hand-given 1; the rule applies to every model). A substring bug that scored "120" as a near-miss for "12" was
   fixed before any arena answer was graded. Q8 and Q9 stay flagged for human review.
+- 2026-10-03, after the time-boxed run: **Ornith-1.5-35B-A3B run invalid (spill came and went during the run;
+  `results/ornith-1.5-35b-a3b-apex/arena-2026-10/invalid-spill-1/INVALID.md`).** The settings search only checked
+  spill at load time, so the runner now also samples it every 60 s during the suites; two consecutive samples over
+  the limit stop the model, archive its outputs as `invalid-spill-N/`, mark the setting bad, and rerun from the
+  next candidate. Ornith's next candidate is `65536:q8_0:4:all:0`. The subject's run (spill 168 MiB at start and
+  end) is unaffected; it predates the monitor, which is noted in the report.

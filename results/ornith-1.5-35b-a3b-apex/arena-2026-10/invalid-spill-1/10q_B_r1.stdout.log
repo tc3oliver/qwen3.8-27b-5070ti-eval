@@ -1,0 +1,105 @@
+===== Q11 (323 tok, 3.5s, finish=stop) =====
+IMPOSSIBLE
+
+===== Q12 (783 tok, 8.0s, finish=stop) =====
+成本 | 路徑
+3 | A→C→E
+
+===== Q13 (6148 tok, 70.5s, finish=stop) =====
+5
+
+===== Q14 (400 tok, 4.3s, finish=stop) =====
+```python
+return user["active"] and not user["suspended"] and (user["role"] == "admin" or user["owns_resource"])
+```
+
+===== Q15 (397 tok, 7.6s, finish=stop) =====
+run_test → search_docs → read_doc → edit_file → run_test → restart_service
+
+===== Q16 (673 tok, 6.5s, finish=stop) =====
+```json
+["a","c","d","b"]
+```
+
+===== Q17 (490 tok, 5.3s, finish=stop) =====
+[DENY, ALLOW, DENY]
+
+===== Q18 (949 tok, 9.9s, finish=stop) =====
+12
+
+===== Q19 (567 tok, 5.8s, finish=stop) =====
+ROOT_CAUSE=Connection reset caused client retry; without idempotency key, retry duplicated the charge
+FIX=Add idempotency key with deduplication to reject duplicate charges
+
+===== Q20 (9146 tok, 105.9s, finish=stop) =====
+## 分析
+
+版本比較的核心是「逐 component 比較」，但要先做兩項正規化：
+
+1. **去掉前導 0**：`0002` 與 `2` 數值相同（用字串長度 + 字典序比較，不用 `int()`）
+2. **去掉尾端為 0 的 component**：`1.0.0` 與 `1` 相同
+
+比較兩個已去除前導 0 的 component 時，等同比較兩個「無前導 0 的非負整數字串」：
+- 長度不同 → 較長者較大（因為無前導 0，位數越多值越大）
+- 長度相同 → 直接字典序比較（字碼 '0'-'9' 的順序等同數值順序）
+
+## 實作
+
+```python
+def compare_versions(a: str, b: str) -> int:
+    def strip_zeros(s: str) -> str:
+        """去掉前導 0；若全為 0 則回傳 ''。"""
+        i = 0
+        n = len(s)
+        while i < n and s[i] == '0':
+            i += 1
+        return s[i:]
+
+    def normalize(s: str):
+        parts = s.split('.')
+        # 去掉尾端為 0 的 component（例如 "1.0.0" -> "1"）
+        while parts and strip_zeros(parts[-1]) == '':
+            parts.pop()
+        # 每個 component 去掉前導 0
+        return [strip_zeros(p) for p in parts]
+
+    la = normalize(a)
+    lb = normalize(b)
+
+    n = min(len(la), len(lb))
+    for i in range(n):
+        ca = la[i]
+        cb = lb[i]
+        # 比較兩個無前導 0 的整數字串
+        if len(ca) != len(cb):
+            return -1 if len(ca) < len(cb) else 1
+        if ca != cb:
+            return -1 if ca < cb else 1
+
+    # 共同 component 全部相等，component 較多者較大
+    if len(la) < len(lb):
+        return -1
+    if len(la) > len(lb):
+        return 1
+    return 0
+```
+
+## 驗證範例
+
+| 輸入 | 正規化結果 | 比較 |
+|------|-----------|------|
+| `1.0` vs `1` | `["1"]` vs `["1"]` | 0 ✓ |
+| `1.0.0` vs `1` | `["1"]` vs `["1"]` | 0 ✓ |
+| `1.0002` vs `1.2` | `["1","2"]` vs `["1","2"]` | 0 ✓ |
+| `1.10` vs `1.2` | `["1","10"]` vs `["1","2"]` → 長度 2>1 | 1 ✓ |
+| `0001.0000003` vs `1.3` | `["1","3"]` vs `["1","3"]` | 0 ✓ |
+
+## 複雜度說明
+
+- `split`、`strip_zeros` 遍歷各 component：`O(len(a) + len(b))`
+- 尾端 0 component 移除：每個 component 最多掃描一次，合計 `O(len(a) + len(b))`
+- 比較迴圈：各 component 比較開支不超過其長度，合計 `O(len(a) + len(b))`
+
+全程僅用字串與長度比較，未使用 `int()`/`float()`/`Decimal`，可處理 100,000 位 component。
+
+raw saved: /home/oliver/qwen3.8-27b-5070ti-eval/results/ornith-1.5-35b-a3b-apex/arena-2026-10/10q_B_r1.json
