@@ -1,0 +1,30 @@
+:root { --green: #76b900; --blue: #4cc9f0; --amber: #ffb703; --red: #ff4d6d; --ink: #e8edf5; --dim: #8a96aa; }
+* { box-sizing: border-box; margin: 0; }
+html, body { background: #000; overflow: hidden; }
+body { display: grid; place-items: center; min-height: 100vh; }
+#stage { position: relative; width: 1920px; height: 1080px; transform-origin: center; overflow: hidden;
+  font-family: "Microsoft JhengHei", "Noto Sans TC", "PingFang TC", sans-serif; color: var(--ink); }
+#gl { position: absolute; inset: 0; width: 1920px; height: 1080px; display: block; }
+#overlay { position: absolute; inset: 0; pointer-events: none; }
+#fade { position: absolute; inset: 0; background: #000; pointer-events: none; }
+.layer { position: absolute; inset: 0; opacity: 0; }
+.abs { position: absolute; }
+.kicker { font-size: 26px; letter-spacing: 6px; color: var(--green); font-weight: 700; text-transform: uppercase; }
+.h1 { font-size: 84px; font-weight: 800; line-height: 1.15; letter-spacing: 1px; text-shadow: 0 6px 40px rgba(0,0,0,.6); }
+.h2 { font-size: 60px; font-weight: 800; line-height: 1.2; text-shadow: 0 6px 40px rgba(0,0,0,.6); }
+.sub { font-size: 32px; color: #c3cbd8; line-height: 1.5; }
+.small { font-size: 24px; color: var(--dim); line-height: 1.5; }
+.mono { font-family: "Cascadia Code", "Consolas", "DejaVu Sans Mono", monospace; }
+.tag { position: absolute; left: 80px; bottom: 56px; font-size: 22px; color: var(--dim); letter-spacing: 1px; }
+.tag b { color: var(--ink); font-weight: 700; padding: 3px 10px; border-radius: 6px; margin-right: 10px; }
+.tag b.A { background: rgba(118,185,0,.25); border: 1px solid var(--green); }
+.tag b.B { background: rgba(255,183,3,.18); border: 1px solid var(--amber); }
+.label { transform: translate(-50%, -100%); text-align: center; white-space: nowrap; }
+.label .big { font-size: 40px; font-weight: 800; }
+.label .s { font-size: 22px; color: var(--dim); }
+.card { background: rgba(14,20,32,.72); border: 1px solid rgba(255,255,255,.10); border-radius: 18px;
+  padding: 22px 28px; backdrop-filter: blur(6px); box-shadow: 0 20px 60px rgba(0,0,0,.45); }
+.card .num { font-size: 64px; font-weight: 800; line-height: 1.05; }
+.card .what { font-size: 25px; color: #c3cbd8; margin-top: 6px; }
+.card .ev { font-size: 19px; color: var(--dim); margin-top: 6px; }
+.watermark { position: absolute; right: 64px; bottom: 52px; font-size: 22px; color: rgba(232,237,245,.55); letter-spacing: .5px; }

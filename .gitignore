@@ -9,3 +9,6 @@ tools/bin/
 *.log.full
 pip-install.log
 playwright-install.log
+video/node_modules/
+video/dist/
+video/stills/

@@ -28,6 +28,10 @@ RTX 5070 Ti 上，從程式撰寫、agent、長篇中文文件與延遲來衡量
   <img src="results/qwen38-27b-iq3s/pi-2026-10/dashboard-r1/grade-v3/desktop-light.png" width="820" alt="由本機模型建出的 dashboard">
 </p>
 
+**影片（51 秒）：**[第 1 輪重點](media/qwen38-5070ti-round1.mp4) — TypeScript + three.js 逐格渲染，畫面上每個數字都標了證據編號（[`video/`](video/)）。
+
+<p align="center"><a href="media/qwen38-5070ti-round1.mp4"><img src="media/qwen38-5070ti-round1-poster.png" width="820" alt="Round-1 explainer video"></a></p>
+
 ## 我們的發現
 
 每項結論都引用 [`EVIDENCE-INDEX.md`](EVIDENCE-INDEX.md)，其中指向原始資料。**A** = 在預先註冊（pre-registered）的協定下測量；

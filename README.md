@@ -29,6 +29,10 @@ against a reference solution (one run, level B — <a href="EVIDENCE-INDEX.md">E
   <img src="results/qwen38-27b-iq3s/pi-2026-10/dashboard-r1/grade-v3/desktop-light.png" width="820" alt="Dashboard built by the local model">
 </p>
 
+**Video (51 s):** [round-1 explainer](media/qwen38-5070ti-round1.mp4) — TypeScript + three.js, rendered frame by frame; every number on screen carries its evidence ID ([`video/`](video/)).
+
+<p align="center"><a href="media/qwen38-5070ti-round1.mp4"><img src="media/qwen38-5070ti-round1-poster.png" width="820" alt="Round-1 explainer video"></a></p>
+
 ## What we found
 
 Every claim cites [`EVIDENCE-INDEX.md`](EVIDENCE-INDEX.md), which points at the raw data. **A** = measured under the
