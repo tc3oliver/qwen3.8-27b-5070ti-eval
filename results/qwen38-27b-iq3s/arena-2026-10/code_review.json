@@ -1,0 +1,179 @@
+{
+ "summary": {
+  "n": 10,
+  "line_ok": 10,
+  "line_and_cause_ok": 10,
+  "format_ok": 10,
+  "repeats": 1,
+  "per_repeat_ok": [
+   10
+  ]
+ },
+ "results": [
+  {
+   "id": "py-binary-search-bound",
+   "repeat": 1,
+   "expected_lines": [
+    3,
+    4
+   ],
+   "line": 3,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 348,
+   "sec": 2.6,
+   "answer": "LINE: 3\nREASON: `hi` is initialized to `len(a)` instead of `len(a) - 1`, which allows `mid` to equal `len(a)` and cause an out-of-bounds index access on line 6."
+  },
+  {
+   "id": "py-mutable-default",
+   "repeat": 1,
+   "expected_lines": [
+    1
+   ],
+   "line": 1,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 91,
+   "sec": 0.9,
+   "answer": "LINE: 1\nREASON: The mutable default argument `tags=[]` is shared across all calls, so tags accumulate between invocations instead of starting fresh each time."
+  },
+  {
+   "id": "js-foreach-async",
+   "repeat": 1,
+   "expected_lines": [
+    5
+   ],
+   "line": 5,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 128,
+   "sec": 1.3,
+   "answer": "LINE: 5\nREASON: `forEach` does not wait for async callbacks, so `saved` is still 0 when the function logs and returns it."
+  },
+  {
+   "id": "go-defer-in-loop",
+   "repeat": 1,
+   "expected_lines": [
+    16
+   ],
+   "line": 16,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 472,
+   "sec": 4.9,
+   "answer": "LINE: 16\nREASON: `defer f.Close()` is called inside the loop, so file descriptors accumulate and aren't released until the function returns, which can exhaust the file descriptor limit when processing many files."
+  },
+  {
+   "id": "py-sql-injection",
+   "repeat": 1,
+   "expected_lines": [
+    6
+   ],
+   "line": 6,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 122,
+   "sec": 1.1,
+   "answer": "LINE: 6\nREASON: The `username` value is interpolated directly into the SQL string via an f-string, creating a SQL injection vulnerability; it should use a parameterized query (e.g., `cur.execute(\"SELECT id, email FROM users WHERE name = ?\", (username,))`)."
+  },
+  {
+   "id": "c-malloc-nul",
+   "repeat": 1,
+   "expected_lines": [
+    7,
+    13
+   ],
+   "line": 7,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 189,
+   "sec": 1.7,
+   "answer": "LINE: 7\nREASON: `malloc(n)` allocates only `n` bytes, but when `s` contains no spaces `j` equals `n` and `out[j] = '\\0'` writes one byte past the end of the heap buffer; the allocation should be `n + 1`."
+  },
+  {
+   "id": "js-assignment-in-if",
+   "repeat": 1,
+   "expected_lines": [
+    5
+   ],
+   "line": 5,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 99,
+   "sec": 1.1,
+   "answer": "LINE: 5\nREASON: Uses assignment `=` instead of comparison `===`, so the condition is always truthy and mutates `user.role`."
+  },
+  {
+   "id": "py-remove-while-iterating",
+   "repeat": 1,
+   "expected_lines": [
+    12,
+    14
+   ],
+   "line": 14,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 121,
+   "sec": 1.3,
+   "answer": "LINE: 14\nREASON: Removing an item from the list while iterating over it causes the next element to be skipped, leaving some expired sessions unremoved."
+  },
+  {
+   "id": "py-lock-check-then-act",
+   "repeat": 1,
+   "expected_lines": [
+    11,
+    12
+   ],
+   "line": 12,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 142,
+   "sec": 1.3,
+   "answer": "LINE: 12\nREASON: The write `self._counts[key] = current + 1` is outside the `with self._lock:` block, so the read-modify-write is not atomic and a race condition can cause lost updates."
+  },
+  {
+   "id": "sql-not-in-null",
+   "repeat": 1,
+   "expected_lines": [
+    5,
+    6
+   ],
+   "line": 5,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 126,
+   "sec": 1.4,
+   "answer": "LINE: 5\nREASON: Using NOT IN with a nullable column means a single NULL in orders.customer_id will make the subquery return NULL, causing the NOT IN predicate to evaluate to UNKNOWN for every row and returning no customers."
+  }
+ ]
+}

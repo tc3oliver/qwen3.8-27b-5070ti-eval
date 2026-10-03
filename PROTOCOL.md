@@ -100,3 +100,9 @@ earlier models on this machine; HumanEval+ may be in some models' training data 
   one repeat of 10Q and code review, 12 agent episodes (6 scenarios × 2), 10 latency prompts. Repeat-based noise
   margins are therefore unavailable for 10Q and code review in this run; differences there are reported but not
   claimed. The other four frozen configurations are kept for a later run.
+- 2026-10-03, during the time-boxed run: **10Q grading made automatic** (`harness/grade_10q.py`). Written after the
+  subject's 10Q answers were generated but before any arena 10Q answer was read; validated on the hand-graded
+  preliminary answers (agrees exactly on the short-think run; on the thinking-off run it differs on one item, Q8,
+  where an answer that blames the loop variable `n` — not a bug in Go 1.22 — now scores 0 instead of the earlier
+  hand-given 1; the rule applies to every model). A substring bug that scored "120" as a near-miss for "12" was
+  fixed before any arena answer was graded. Q8 and Q9 stay flagged for human review.

@@ -1,0 +1,179 @@
+{
+ "summary": {
+  "n": 10,
+  "line_ok": 10,
+  "line_and_cause_ok": 10,
+  "format_ok": 10,
+  "repeats": 1,
+  "per_repeat_ok": [
+   10
+  ]
+ },
+ "results": [
+  {
+   "id": "py-binary-search-bound",
+   "repeat": 1,
+   "expected_lines": [
+    3,
+    4
+   ],
+   "line": 3,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 1733,
+   "sec": 21.1,
+   "answer": "LINE: 3\nREASON: `hi` should be `len(a) - 1` rather than `len(a)`, because using `len(a)` allows `mid` to equal `len(a)` (or the list to be empty), which makes `a[mid]` access an out-of-bounds index and raises an error."
+  },
+  {
+   "id": "py-mutable-default",
+   "repeat": 1,
+   "expected_lines": [
+    1
+   ],
+   "line": 1,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 336,
+   "sec": 3.6,
+   "answer": "LINE: 1\nREASON: The mutable default argument `tags=[]` is created once at function definition and shared across all calls, so tags accumulate across separate invocations instead of starting fresh each time."
+  },
+  {
+   "id": "js-foreach-async",
+   "repeat": 1,
+   "expected_lines": [
+    5
+   ],
+   "line": 5,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 268,
+   "sec": 2.9,
+   "answer": "LINE: 5\nREASON: forEach does not await the async callback, so saveAll returns before the db.insert promises resolve and the saved count/log are unreliable."
+  },
+  {
+   "id": "go-defer-in-loop",
+   "repeat": 1,
+   "expected_lines": [
+    16
+   ],
+   "line": 16,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 757,
+   "sec": 8.0,
+   "answer": "LINE: 16\nREASON: The `defer f.Close()` is only executed when the function returns, so file descriptors accumulate across every loop iteration and are never closed until the end, which can exhaust the process's file descriptors when many files are processed."
+  },
+  {
+   "id": "py-sql-injection",
+   "repeat": 1,
+   "expected_lines": [
+    6
+   ],
+   "line": 6,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 64,
+   "sec": 0.9,
+   "answer": "LINE: 6\nREASON: The username value is directly interpolated into the SQL query, creating a SQL injection vulnerability that allows attackers to manipulate the database query."
+  },
+  {
+   "id": "c-malloc-nul",
+   "repeat": 1,
+   "expected_lines": [
+    7,
+    13
+   ],
+   "line": 7,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 276,
+   "sec": 3.1,
+   "answer": "LINE: 7\nREASON: `malloc(n)` allocates only n bytes but the output needs n+1 bytes to hold up to n characters plus the null terminator, causing a one-byte buffer overflow when writing `out[j] = '\\0'`."
+  },
+  {
+   "id": "js-assignment-in-if",
+   "repeat": 1,
+   "expected_lines": [
+    5
+   ],
+   "line": 5,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 223,
+   "sec": 2.3,
+   "answer": "LINE: 5\nREASON: The single equals sign performs an assignment (`user.role = 'admin'`) instead of a comparison, so it always evaluates as truthy and incorrectly grants delete access."
+  },
+  {
+   "id": "py-remove-while-iterating",
+   "repeat": 1,
+   "expected_lines": [
+    12,
+    14
+   ],
+   "line": 12,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 102,
+   "sec": 1.1,
+   "answer": "LINE: 12\nREASON: Modifying the list with `sessions.remove(s)` while iterating over it causes some elements to be skipped, so not all expired sessions are reliably removed."
+  },
+  {
+   "id": "py-lock-check-then-act",
+   "repeat": 1,
+   "expected_lines": [
+    11,
+    12
+   ],
+   "line": 12,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 126,
+   "sec": 1.4,
+   "answer": "LINE: 12\nREASON: The assignment `self._counts[key] = current + 1` is outside the locked block, creating a race condition where concurrent `incr` calls can read the same value and lose updates."
+  },
+  {
+   "id": "sql-not-in-null",
+   "repeat": 1,
+   "expected_lines": [
+    5,
+    6
+   ],
+   "line": 5,
+   "line_ok": true,
+   "cause_ok": true,
+   "ok": true,
+   "format_ok": true,
+   "finish": "stop",
+   "tok": 172,
+   "sec": 5.4,
+   "answer": "LINE: 5\nREASON: Using `NOT IN` with a nullable column that can contain NULL (guest checkouts) causes the entire query to return no rows because any comparison against NULL evaluates to UNKNOWN."
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+server n_ctx=65536
+size 16000: document 15905 tokens (-0.6%); needle depth (token position) = [0.116, 0.406, 0.706, 0.96]
+size 16000 rep 0: recalled 4/4 [True, True, True, True] prompt=15958 prefill=1865.0375695561543 decode=171.696186627695 ttft=12.17s total=13.2s finish=stop
+size 32000: document 32241 tokens (+0.8%); needle depth (token position) = [0.101, 0.403, 0.702, 0.95]
+size 32000 rep 0: recalled 4/4 [True, True, True, True] prompt=32294 prefill=1805.9388063333906 decode=149.78777992756736 ttft=17.94s total=19.5s finish=stop
+size 60000: document 60213 tokens (+0.4%); needle depth (token position) = [0.106, 0.403, 0.701, 0.95]
+size 60000 rep 0: recalled 4/4 [True, True, True, True] prompt=60266 prefill=1688.865498590277 decode=128.7920534319887 ttft=39.37s total=41.4s finish=stop

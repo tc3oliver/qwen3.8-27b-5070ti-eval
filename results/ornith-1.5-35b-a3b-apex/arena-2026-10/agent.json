@@ -1,0 +1,305 @@
+{
+ "summary": {
+  "n": 12,
+  "success": 12,
+  "success_rate": 1.0,
+  "per_scenario": {
+   "calc": "2/2",
+   "files": "2/2",
+   "weather": "2/2",
+   "orders": "2/2",
+   "no_tool": "2/2",
+   "retry": "2/2"
+  },
+  "malformed_calls": 0,
+  "episodes_with_malformed": 0,
+  "server_errors": 0,
+  "leaked_episodes": 0,
+  "median_turns": 2.5,
+  "median_wall_sec": 2.5
+ },
+ "episodes": [
+  {
+   "scenario": "calc",
+   "repeat": 1,
+   "ok": true,
+   "turns": 2,
+   "tool_calls": [
+    {
+     "name": "calculator",
+     "arguments": "{\"expression\":\"(1234 * 5678) - (98765 / 5)\"}"
+    }
+   ],
+   "malformed": 0,
+   "server_error": null,
+   "leaked": [],
+   "finish_reason": "stop",
+   "completion_tokens": 118,
+   "answer": "6986899",
+   "wall_sec": 1.5
+  },
+  {
+   "scenario": "files",
+   "repeat": 1,
+   "ok": true,
+   "turns": 4,
+   "tool_calls": [
+    {
+     "name": "list_dir",
+     "arguments": "{\"path\":\"/app\"}"
+    },
+    {
+     "name": "read_file",
+     "arguments": "{\"path\":\"/app/README.md\"}"
+    },
+    {
+     "name": "list_dir",
+     "arguments": "{\"path\":\"/app/config\"}"
+    },
+    {
+     "name": "read_file",
+     "arguments": "{\"path\":\"/app/config/base.yaml\"}"
+    },
+    {
+     "name": "read_file",
+     "arguments": "{\"path\":\"/app/config/prod.yaml\"}"
+    }
+   ],
+   "malformed": 0,
+   "server_error": null,
+   "leaked": [],
+   "finish_reason": "stop",
+   "completion_tokens": 447,
+   "answer": "Based on the files in the `/app` project:\n\n- **`config/base.yaml`** sets `payment_timeout: 30` (the default/base value)\n- **`config/prod.yaml`** explicitly overrides this with `payment_timeout: 45` and notes \"# overrides base.yaml\"\n\nSince `prod.yaml` is the production configuration and it overrides the base value, the **payment_timeout used in production is 45**.",
+   "wall_sec": 5.3
+  },
+  {
+   "scenario": "weather",
+   "repeat": 1,
+   "ok": true,
+   "turns": 2,
+   "tool_calls": [
+    {
+     "name": "get_weather",
+     "arguments": "{\"city\":\"台北\"}"
+    },
+    {
+     "name": "get_weather",
+     "arguments": "{\"city\":\"東京\"}"
+    },
+    {
+     "name": "get_weather",
+     "arguments": "{\"city\":\"首爾\"}"
+    }
+   ],
+   "malformed": 0,
+   "server_error": null,
+   "leaked": [],
+   "finish_reason": "stop",
+   "completion_tokens": 272,
+   "answer": "根據實際天氣資料：\n\n| 城市 | 溫度 |\n|------|------|\n| **台北** | **31°C** 🔥 |\n| 東京 | 26°C |\n| 首爾 | 22°C |\n\n**台北**現在最熱，為 31°C，其次是東京 26°C，首爾最涼爽，僅 22°C。",
+   "wall_sec": 3.2
+  },
+  {
+   "scenario": "orders",
+   "repeat": 1,
+   "ok": true,
+   "turns": 3,
+   "tool_calls": [
+    {
+     "name": "find_user",
+     "arguments": "{\"email\":\"amy@example.com\"}"
+    },
+    {
+     "name": "list_orders",
+     "arguments": "{\"user_id\":\"u_8812\"}"
+    }
+   ],
+   "malformed": 0,
+   "server_error": null,
+   "leaked": [],
+   "finish_reason": "stop",
+   "completion_tokens": 341,
+   "answer": "amy@example.com 這位客戶的訂單總金額為 **4620**。\n\n以下是各訂單明細：\n- 訂單 o_1：1250\n- 訂單 o_2：380\n- 訂單 o_3：2990\n- **合計：4620**",
+   "wall_sec": 7.7
+  },
+  {
+   "scenario": "no_tool",
+   "repeat": 1,
+   "ok": true,
+   "turns": 1,
+   "tool_calls": [],
+   "malformed": 0,
+   "server_error": null,
+   "leaked": [],
+   "finish_reason": "stop",
+   "completion_tokens": 79,
+   "answer": "HTTP 404 是伺服器回應的一種狀態碼，表示**請求的網頁或資源在該服务器上找不到**（通常顯示「404 Not Found」錯誤頁面）。",
+   "wall_sec": 1.3
+  },
+  {
+   "scenario": "retry",
+   "repeat": 1,
+   "ok": true,
+   "turns": 3,
+   "tool_calls": [
+    {
+     "name": "get_stock_price",
+     "arguments": "{\"symbol\":\"NVDA\"}"
+    },
+    {
+     "name": "get_stock_price",
+     "arguments": "{\"symbol\":\"NVDA\"}"
+    }
+   ],
+   "malformed": 0,
+   "server_error": null,
+   "leaked": [],
+   "finish_reason": "stop",
+   "completion_tokens": 130,
+   "answer": "NVDA's current stock price is **$187.40**.",
+   "wall_sec": 1.8
+  },
+  {
+   "scenario": "calc",
+   "repeat": 2,
+   "ok": true,
+   "turns": 2,
+   "tool_calls": [
+    {
+     "name": "calculator",
+     "arguments": "{\"expression\":\"(1234 * 5678) - (98765 / 5)\"}"
+    }
+   ],
+   "malformed": 0,
+   "server_error": null,
+   "leaked": [],
+   "finish_reason": "stop",
+   "completion_tokens": 122,
+   "answer": "6986899",
+   "wall_sec": 1.6
+  },
+  {
+   "scenario": "files",
+   "repeat": 2,
+   "ok": true,
+   "turns": 4,
+   "tool_calls": [
+    {
+     "name": "list_dir",
+     "arguments": "{\"path\":\"/app\"}"
+    },
+    {
+     "name": "list_dir",
+     "arguments": "{\"path\":\"/app/config\"}"
+    },
+    {
+     "name": "read_file",
+     "arguments": "{\"path\":\"/app/README.md\"}"
+    },
+    {
+     "name": "read_file",
+     "arguments": "{\"path\":\"/app/config/base.yaml\"}"
+    },
+    {
+     "name": "read_file",
+     "arguments": "{\"path\":\"/app/config/prod.yaml\"}"
+    }
+   ],
+   "malformed": 0,
+   "server_error": null,
+   "leaked": [],
+   "finish_reason": "stop",
+   "completion_tokens": 375,
+   "answer": "In production, **`payment_timeout` is 45**.\n\nThis comes from `/app/config/prod.yaml`, which explicitly overrides the base config:\n\n- `/app/config/base.yaml` sets `payment_timeout: 30`\n- `/app/config/prod.yaml` overrides it to `payment_timeout: 45` (the comment confirms it \"overrides base.yaml\")\n\nSince the production environment uses `prod.yaml`, the effective `payment_timeout` in production is **45**.",
+   "wall_sec": 4.7
+  },
+  {
+   "scenario": "weather",
+   "repeat": 2,
+   "ok": true,
+   "turns": 2,
+   "tool_calls": [
+    {
+     "name": "get_weather",
+     "arguments": "{\"city\":\"台北\"}"
+    },
+    {
+     "name": "get_weather",
+     "arguments": "{\"city\":\"東京\"}"
+    },
+    {
+     "name": "get_weather",
+     "arguments": "{\"city\":\"首爾\"}"
+    }
+   ],
+   "malformed": 0,
+   "server_error": null,
+   "leaked": [],
+   "finish_reason": "stop",
+   "completion_tokens": 277,
+   "answer": "根據實際天氣查詢結果：\n\n| 城市 | 氣溫 |\n|------|------|\n| **台北** | **31°C** 🔥 |\n| 東京 | 26°C |\n| 首爾 | 22°C |\n\n**台北現在最熱**，氣溫為 31°C，其次是東京 26°C，首爾最涼爽，只有 22°C。",
+   "wall_sec": 3.3
+  },
+  {
+   "scenario": "orders",
+   "repeat": 2,
+   "ok": true,
+   "turns": 3,
+   "tool_calls": [
+    {
+     "name": "find_user",
+     "arguments": "{\"email\":\"amy@example.com\"}"
+    },
+    {
+     "name": "list_orders",
+     "arguments": "{\"user_id\":\"u_8812\"}"
+    }
+   ],
+   "malformed": 0,
+   "server_error": null,
+   "leaked": [],
+   "finish_reason": "stop",
+   "completion_tokens": 259,
+   "answer": "amy@example.com 這位客戶的訂單總金額計算如下：\n\n| 訂單 ID | 金額 |\n|---------|------|\n| o_1 | 1250 |\n| o_2 | 380 |\n| o_3 | 2990 |\n| **總計** | **4620** |\n\n這位客戶的訂單總金額為 **4620**。",
+   "wall_sec": 3.3
+  },
+  {
+   "scenario": "no_tool",
+   "repeat": 2,
+   "ok": true,
+   "turns": 1,
+   "tool_calls": [],
+   "malformed": 0,
+   "server_error": null,
+   "leaked": [],
+   "finish_reason": "stop",
+   "completion_tokens": 75,
+   "answer": "HTTP 404 是伺服器回應的一種狀態碼，表示**客戶端請求的資源（網頁、檔案等）在伺服器上找不到**。",
+   "wall_sec": 1.3
+  },
+  {
+   "scenario": "retry",
+   "repeat": 2,
+   "ok": true,
+   "turns": 3,
+   "tool_calls": [
+    {
+     "name": "get_stock_price",
+     "arguments": "{\"symbol\":\"NVDA\"}"
+    },
+    {
+     "name": "get_stock_price",
+     "arguments": "{\"symbol\":\"NVDA\"}"
+    }
+   ],
+   "malformed": 0,
+   "server_error": null,
+   "leaked": [],
+   "finish_reason": "stop",
+   "completion_tokens": 126,
+   "answer": "NVDA's current stock price is **$187.40**.",
+   "wall_sec": 1.8
+  }
+ ]
+}

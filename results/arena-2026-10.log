@@ -25,3 +25,19 @@
 12:09:52 [ornith-1.5-9b-q6k] 65536:q8_0:0:all:0: {"candidate": "65536:q8_0:0:all:0", "spill_mib_after_load": 146, "raw_decode_tps": 75.87321406701338, "chat_answer": "台北是台灣的首都，一座融合歷史古蹟與現代繁華、夜市小吃與科技創新交織的活力城市。", "chat_reasoning_chars": 115, "chat_finish": "stop", "spill_mib_after_sanity": 146, "wsl_dedicated_mib": 7999, "result": "chosen"}
 12:09:57 [ornith-1.5-9b-q6k] frozen 65536:q8_0:0:all:0 spill 146 MiB decode 75.9 tok/s
 12:09:57 production service restarted
+12:25:22 == arena run arena-2026-10 configs: qwen38-27b-iq3s ornith-1.5-35b-a3b-apex
+12:25:33 baseline WSL shared GPU memory 1 MiB
+12:25:36 [qwen38-27b-iq3s] frozen 65536:q4_0:0:all:1 spill 168 MiB decode 81.5 tok/s
+12:26:37 [qwen38-27b-iq3s] latency exit 0 51s {"n": 10, "errors": 0, "ttft_s": {"p50": 0.06, "p90": 0.16}, "first_answer_s": {"p50": 1.45, "p90": 2.46}, "total_s": {"p50": 4.86, "p90": 8.11}, "mean_decode_tps": 88.5, "mean_prefill_tps": 1203.1, "simplified_drift": "1/10", "empty_answer
+12:26:57 [qwen38-27b-iq3s] agent exit 0 20s {"n": 12, "success": 12, "success_rate": 1.0, "per_scenario": {"calc": "2/2", "files": "2/2", "weather": "2/2", "orders": "2/2", "no_tool": "2/2", "retry": "2/2"}, "malformed_calls": 0, "episodes_with_malformed": 0, "server_errors": 0, "lea
+12:27:14 [qwen38-27b-iq3s] code_review exit 0 18s {"n": 10, "line_ok": 10, "line_and_cause_ok": 10, "format_ok": 10, "repeats": 1, "per_repeat_ok": [10]}
+12:28:31 [qwen38-27b-iq3s] longctx exit 0 76s size 60000 rep 0: recalled 4/4 [True, True, True, True] prompt=60266 prefill=1688.865498590277 decode=128.7920534319887 ttft=39.37s total=41.4s finish=stop
+12:29:40 [qwen38-27b-iq3s] 10q_A_r1 exit 0 69s Q10 檢查: ['[0, 1, 0, 1, 0, 99]->98(want 99)']; 程式碼後說明行數=1
+12:30:16 [qwen38-27b-iq3s] 10q_B_r1 exit 0 35s raw saved: /home/oliver/qwen3.8-27b-5070ti-eval/results/qwen38-27b-iq3s/arena-2026-10/10q_B_r1.json
+12:40:29 [qwen38-27b-iq3s] humanevalplus exit 0 613s {"n": 164, "pass": 151, "pass_at_1": 0.9207317073170732, "empty_or_truncated": 0, "median_tok": 266, "total_sec": 510.6}
+12:40:31 [qwen38-27b-iq3s] spill at end 168 MiB
+12:40:36 [ornith-1.5-35b-a3b-apex] frozen 65536:q8_0:0:all:0 spill 294 MiB decode 103.4 tok/s
+12:44:46 [ornith-1.5-35b-a3b-apex] latency exit 0 234s {"n": 10, "errors": 0, "ttft_s": {"p50": 0.08, "p90": 0.17}, "first_answer_s": {"p50": 8.14, "p90": 17.79}, "total_s": {"p50": 26.48, "p90": 40.13}, "mean_decode_tps": 56.3, "mean_prefill_tps": 543.3, "simplified_drift": "3/10", "empty_answ
+12:45:23 [ornith-1.5-35b-a3b-apex] agent exit 0 37s {"n": 12, "success": 12, "success_rate": 1.0, "per_scenario": {"calc": "2/2", "files": "2/2", "weather": "2/2", "orders": "2/2", "no_tool": "2/2", "retry": "2/2"}, "malformed_calls": 0, "episodes_with_malformed": 0, "server_errors": 0, "lea
+12:46:13 [ornith-1.5-35b-a3b-apex] code_review exit 0 50s {"n": 10, "line_ok": 10, "line_and_cause_ok": 10, "format_ok": 10, "repeats": 1, "per_repeat_ok": [10]}
+12:48:21 [ornith-1.5-35b-a3b-apex] longctx exit 0 128s size 60000 rep 0: recalled 4/4 [True, True, True, True] prompt=60223 prefill=1042.2188720894605 decode=71.23927520377546 ttft=61.45s total=71.1s finish=stop

@@ -1,0 +1,11 @@
+[1/10] explain          ttft=0.28 ans=14.64 total=36.09 tok=824 tps=25.5 
+[2/10] explain          ttft=0.07 ans=26.64 total=43.74 tok=1146 tps=28.6 SIMPL:没
+[3/10] explain          ttft=0.07 ans=3.11 total=7.84 tok=550 tps=70.7 SIMPL:据数级
+[4/10] explain          ttft=0.07 ans=3.96 total=32.64 tok=713 tps=24.6 SIMPL:线
+[5/10] code             ttft=0.09 ans=16.8 total=39.73 tok=958 tps=26.5 
+[6/10] code             ttft=0.15 ans=8.49 total=36.07 tok=862 tps=26.6 
+[7/10] code             ttft=0.07 ans=10.66 total=20.33 tok=1033 tps=61.9 
+[8/10] code             ttft=0.06 ans=7.8 total=11.76 tok=1156 tps=98.7 
+[9/10] summary          ttft=0.14 ans=1.81 total=2.77 tok=264 tps=100.0 
+[10/10] summary          ttft=0.16 ans=1.9 total=3.45 tok=329 tps=99.7 
+{"n": 10, "errors": 0, "ttft_s": {"p50": 0.08, "p90": 0.17}, "first_answer_s": {"p50": 8.14, "p90": 17.79}, "total_s": {"p50": 26.48, "p90": 40.13}, "mean_decode_tps": 56.3, "mean_prefill_tps": 543.3, "simplified_drift": "3/10", "empty_answers": 0, "truncated": 0}

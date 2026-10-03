@@ -1,0 +1,47 @@
+===== Q11 (68 tok, 0.6s, finish=stop) =====
+IMPOSSIBLE
+
+===== Q12 (256 tok, 1.9s, finish=stop) =====
+3 | A→C→E
+
+===== Q13 (2158 tok, 19.9s, finish=stop) =====
+11
+
+===== Q14 (164 tok, 1.3s, finish=stop) =====
+```python
+return user["active"] and not user["suspended"] and (user["role"] == "admin" or user["owns_resource"])
+```
+
+===== Q15 (179 tok, 1.6s, finish=stop) =====
+run_test → search_docs → read_doc → edit_file → run_test → restart_service
+
+===== Q16 (269 tok, 1.8s, finish=stop) =====
+["a","c","d","b"]
+
+===== Q17 (327 tok, 2.2s, finish=stop) =====
+[DENY, ALLOW, DENY]
+
+===== Q18 (272 tok, 2.1s, finish=stop) =====
+12
+
+===== Q19 (325 tok, 2.6s, finish=stop) =====
+ROOT_CAUSE=No idempotency key prevents duplicate charge on retry
+FIX=Add idempotency key for request deduplication
+
+===== Q20 (171 tok, 1.4s, finish=stop) =====
+```python
+def compare_versions(a: str, b: str) -> int:
+    pa = a.split(".")
+    pb = b.split(".")
+    n = max(len(pa), len(pb))
+    for i in range(n):
+        ca = pa[i].lstrip("0") if i < len(pa) else ""
+        cb = pb[i].lstrip("0") if i < len(pb) else ""
+        if len(ca) != len(cb):
+            return 1 if len(ca) > len(cb) else -1
+        if ca != cb:
+            return 1 if ca > cb else -1
+    return 0
+```
+
+raw saved: /home/oliver/qwen3.8-27b-5070ti-eval/results/qwen38-27b-iq3s/arena-2026-10/10q_B_r1.json

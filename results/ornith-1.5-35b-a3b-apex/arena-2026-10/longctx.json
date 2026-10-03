@@ -1,0 +1,95 @@
+{
+ "n_ctx": 65536,
+ "results": [
+  {
+   "size": 16000,
+   "repeat": 0,
+   "status": "ok",
+   "doc_tokens": 15905,
+   "needle_depth": [
+    0.116,
+    0.406,
+    0.706,
+    0.96
+   ],
+   "max_tokens": 16000,
+   "note": null,
+   "prompt_tokens": 15915,
+   "completion_tokens": 291,
+   "recalled": 4,
+   "per_needle": {
+    "專案代號『青嵐』的年度預": true,
+    "倉庫 B7 的備用鑰匙由": true,
+    "伺服器 kestrel-": true,
+    "供應商『曜石光電』的合約": true
+   },
+   "prefill_tps": 1093.0811295597503,
+   "decode_tps": 88.62436045299884,
+   "ttft_s": 14.59,
+   "total_s": 17.9,
+   "finish": "stop",
+   "reasoning_chars": 444,
+   "answer": "1. 3,870 萬元\n2. 林佩珊\n3. 每週四凌晨 2:15\n4. HX-55210"
+  },
+  {
+   "size": 32000,
+   "repeat": 0,
+   "status": "ok",
+   "doc_tokens": 32241,
+   "needle_depth": [
+    0.101,
+    0.403,
+    0.702,
+    0.95
+   ],
+   "max_tokens": 16000,
+   "note": null,
+   "prompt_tokens": 32251,
+   "completion_tokens": 311,
+   "recalled": 4,
+   "per_needle": {
+    "專案代號『青嵐』的年度預": true,
+    "倉庫 B7 的備用鑰匙由": true,
+    "伺服器 kestrel-": true,
+    "供應商『曜石光電』的合約": true
+   },
+   "prefill_tps": 1112.3719134835335,
+   "decode_tps": 79.7471757280467,
+   "ttft_s": 32.7,
+   "total_s": 36.6,
+   "finish": "stop",
+   "reasoning_chars": 517,
+   "answer": "1. 3,870 萬元\n2. 林佩珊\n3. 每週四凌晨 2:15\n4. HX-55210"
+  },
+  {
+   "size": 60000,
+   "repeat": 0,
+   "status": "ok",
+   "doc_tokens": 60213,
+   "needle_depth": [
+    0.106,
+    0.403,
+    0.701,
+    0.95
+   ],
+   "max_tokens": 4967,
+   "note": "max_tokens lowered to 4967 (n_ctx 65536)",
+   "prompt_tokens": 60223,
+   "completion_tokens": 310,
+   "recalled": 4,
+   "per_needle": {
+    "專案代號『青嵐』的年度預": true,
+    "倉庫 B7 的備用鑰匙由": true,
+    "伺服器 kestrel-": true,
+    "供應商『曜石光電』的合約": true
+   },
+   "prefill_tps": 1042.2188720894605,
+   "decode_tps": 71.23927520377546,
+   "ttft_s": 61.45,
+   "total_s": 71.1,
+   "finish": "stop",
+   "reasoning_chars": 508,
+   "answer": "1. 3,870 萬元\n2. 林佩珊\n3. 每週四凌晨 2:15\n4. HX-55210"
+  }
+ ]
+}
