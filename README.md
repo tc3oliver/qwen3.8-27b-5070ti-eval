@@ -2,23 +2,28 @@
 
 **English** | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md)
 
-![Evidence: pre-registered](https://img.shields.io/badge/protocol-pre--registered-2ea44f)
-![Hardware: RTX 5070 Ti 16 GB](https://img.shields.io/badge/GPU-RTX%205070%20Ti%2016%20GB-76b900)
-![Runtime: llama.cpp](https://img.shields.io/badge/runtime-llama.cpp%20%2B%20recipe%20v3-blue)
+![Protocol: pre-registered](https://img.shields.io/badge/protocol-pre--registered-2ea44f)
+![GPU: RTX 5070 Ti 16 GB](https://img.shields.io/badge/GPU-RTX%205070%20Ti%2016%20GB-76b900)
+![Runtime: llama.cpp + recipe v3](https://img.shields.io/badge/runtime-llama.cpp%20%2B%20recipe%20v3-blue)
 [![License: Apache-2.0 / CC BY 4.0](https://img.shields.io/badge/license-Apache--2.0%20%7C%20CC%20BY%204.0-lightgrey)](LICENSE-CONTENT.md)
 
-The [feveromo recipe](https://github.com/feveromo/recipes-qwen3.8-27b-5070ti) makes a 27B model decode at about
-twice the speed of stock llama.cpp on a 16 GB card. Speed was never the open question. This repository asks the
-other one: on a single RTX 5070 Ti, measured end to end — coding, agents, long Chinese documents, real latency —
-is it the model you should run? And what does it take to measure that honestly on a desktop GPU?
+The [feveromo recipe](https://github.com/feveromo/recipes-qwen3.8-27b-5070ti) runs a 27B model on a 16 GB card;
+its author reports 1.9× the decode speed of stock llama.cpp on real agent sessions with the same weights
+([C01](EVIDENCE-INDEX.md)). Speed was never the open question. This repository asks the other one: on a single
+RTX 5070 Ti, measured on coding, agents, long Chinese documents and latency, is it the model you should run — and
+what does it take to measure that honestly on a desktop GPU?
+
+**Status: round 1 (2026-10-03).** The subject has a complete, valid run; the first competitor's run was invalidated
+by VRAM spill and is being repeated. Round 1 therefore contains **no comparative claim** — only measurements of the
+subject and what we learned about measuring on this card.
 
 <p align="center">
-  <img src="results/qwen38-27b-iq3s/pi-2026-10/recording/pi.gif" width="820" alt="Pi coding agent driven by Qwen3.8-27B on an RTX 5070 Ti, writing the dashboard below">
+  <img src="results/qwen38-27b-iq3s/pi-2026-10/recording/pi.gif" width="820" alt="The Pi coding agent driven by Qwen3.8-27B on an RTX 5070 Ti, writing the dashboard below">
 </p>
 
-<p align="center"><i>The <a href="https://github.com/badlogic/pi-mono">Pi</a> coding agent driven by the local model,
-building a dashboard of this study's own results. It finished in 5 min 20 s and passed 20/20 hidden browser
-checks (<a href="EVIDENCE-INDEX.md">E30</a>):</i></p>
+<p align="center"><i>The <a href="https://github.com/badlogic/pi-mono">Pi</a> coding agent, driven by the local model,
+building a dashboard of this study's own results in 5 min 20 s; it passes 20/20 checks of a grader validated
+against a reference solution (one run, level B — <a href="EVIDENCE-INDEX.md">E30, E31</a>):</i></p>
 
 <p align="center">
   <img src="results/qwen38-27b-iq3s/pi-2026-10/dashboard-r1/grade-v3/desktop-light.png" width="820" alt="Dashboard built by the local model">
@@ -26,30 +31,33 @@ checks (<a href="EVIDENCE-INDEX.md">E30</a>):</i></p>
 
 ## What we found
 
-Every claim links to its entry in [`EVIDENCE-INDEX.md`](EVIDENCE-INDEX.md), which points at the raw data. Evidence
-levels: **A** measured under the pre-registered protocol · **B** measured here outside it (context only) — see
-[`EVIDENCE.md`](EVIDENCE.md).
+Every claim cites [`EVIDENCE-INDEX.md`](EVIDENCE-INDEX.md), which points at the raw data. **A** = measured under the
+pre-registered protocol; **B** = measured here outside it (context, not ranking) — see [`EVIDENCE.md`](EVIDENCE.md).
 
-1. **Temperature 0 is not enough to reproduce an answer.** With the recipe's adaptive speculative decoding, the
-   same request to a freshly started server came back as 885, 918, 1,219, 962 and 918 tokens. With the draft
-   length fixed it was 3,080 tokens five times out of five — and a server that had been running for hours gave
-   that same fixed-length output exactly. The two paths even reached different answers to the same question
-   (5 and 7). A one-shot benchmark of such a server samples its warm-up state. [E25, B]
-2. **One 16 GB card, one 27B model, a real coding workload.** HumanEval+ 151/164 (92.1 %, 95 % CI 86.9–95.3),
-   10 of 10 planted bugs found with the right cause, 12 of 12 tool-calling episodes with no malformed call, all
-   four facts recalled from a 60K-token Chinese document, first answer token after 1.45 s (p50) on everyday
-   Chinese prompts at 88.5 tok/s. [E01–E07, A]
-3. **"It loaded" is not "it works" — and not "it keeps working".** At 128K context the model loads and then
-   decodes at 5.9 tok/s, because Windows silently pages the overflow into system RAM. A MoE competitor passed the
-   settings check at 294 MiB of spill, then spilled further mid-run and swung between 99 and 27 tok/s; its run
-   was thrown out, and the harness now samples spill every minute. [E21, E23, B]
-4. **The vendor's default thinking budget was the worst-value setting.** Effort `medium` plus a one-line
-   short-think instruction scored 35/40 on our reasoning set with 9,878 tokens; the vendor default `xhigh` scored
-   30/40 with 25,688. [E24, B]
-5. **Quant size buys context, not just quality.** The community-default Unsloth UD-Q3_K_XL is 1 GB larger than
-   the recipe's IQ3_S, and on this card that is the difference between 64K and 32K of usable context. [E20, A]
+1. **On one 16 GB card the subject scores 92.1 % on HumanEval+** (151/164, 95 % CI 86.9–95.3), finds all 10
+   planted bugs with the right cause, completes 12/12 tool-calling episodes without a malformed call, recalls all
+   four facts planted in a 60K-token Chinese document, and starts answering everyday Chinese prompts after 1.45 s
+   (p50). [E01–E07, A]
+2. **The same model writes code about twice as fast as it writes Chinese prose.** Decode speed follows how many of
+   the speculative-decoding drafts are accepted: on HumanEval+ the median acceptance was 0.74 and decode 155 tok/s;
+   on Chinese explanations and summaries acceptance was 0.28–0.41 and decode 74–81 tok/s. The draft vocabulary that
+   ships with the recipe is ranked from English text and code. [E09, A — correlation within one run]
+3. **On one prompt, temperature 0 did not reproduce the output.** With the recipe's adaptive draft length, the same
+   request to a freshly started server came back as 885, 918, 1,219, 962 and 918 tokens. With the draft length
+   fixed it was 3,080 tokens five times out of five, and a server that had been running (still adaptive) for hours
+   gave exactly that output — we infer its controller had settled on the same width; widths were not logged. The
+   two paths reached different answers (5 and 7). One prompt, five runs per condition. [E25, B]
+4. **"It loaded" is not "it works".** At 131,072 tokens of context the subject loads and decoded a test request at
+   5.9 tok/s; at 122,880 the shared-memory counter read 485 MiB and decode was 6–8 tok/s, which we attribute to the
+   Windows driver placing the overflow in system RAM. 64K is the largest healthy setting. A MoE competitor passed the
+   settings check, then spilled further mid-run and swung between 99 and 27 tok/s; its run was declared invalid and
+   excluded from the comparison (outputs kept), and the harness now samples spill every minute. [E21, E23, B]
+5. **A preliminary hint on thinking budgets.** In a single-run sweep on our reasoning set (4× token budget), the
+   vendor-default effort `xhigh` used 25,688 tokens and scored 30/40; effort `medium` plus a one-line short-think
+   instruction used 9,878 tokens and scored 35/40. Five `xhigh` answers hit the token cap, and the same `medium`
+   setting scored 33/40 in the round-1 run — this shows token cost, not a proven quality ranking. [E24, B]
 
-## Results so far (round 1, 2026-10-03)
+## Round 1 results (2026-10-03)
 
 | | Qwen3.8-27B IQ3_S + MTP (subject) | Ornith-1.5-35B-A3B (MoE) |
 |---|---:|---:|
@@ -60,29 +68,38 @@ levels: **A** measured under the pre-registered protocol · **B** measured here 
 | Agent tool calling | 12/12, 0 malformed | 12/12, 0 malformed |
 | Long-context recall 16K / 32K / 60K | 4/4 · 4/4 · 4/4 | 4/4 · 4/4 · 4/4 |
 | 60K prompt: prefill, first token | 1,689 tok/s, 39.4 s | not valid |
-| Everyday prompts: first answer token p50 / p90 | 1.45 s / 2.46 s | not valid |
-| Decode | 88.5 tok/s | not valid |
-| Pi agent builds the dashboard | 320 s, 20/20 checks | not run |
+| Everyday Chinese prompts: first answer token p50 / p90 | 1.45 s / 2.46 s | not valid |
+| Decode, Chinese prose / code | 88.5 tok/s mean (74–106) / 155 tok/s median | not valid |
+
+**Coding agent, one run (level B):** Pi + the subject built the dashboard task in 320 s — 28 turns, 27 tool calls,
+0 tool errors, 25,678 output tokens, 20/20 grader checks ([E30](EVIDENCE-INDEX.md)).
 
 Raw results: [`results/`](results/) · combined table: [`results/arena-2026-10-summary.md`](results/arena-2026-10-summary.md).
-Four more configurations (official non-abliterated weights, Unsloth quant, Muse-Glimmer-30B, Ornith-1.5-9B) have
-frozen settings and are queued; the Ornith-35B rerun uses the next pre-registered setting.
+Four more configurations (official non-abliterated weights, the Unsloth quant, Muse-Glimmer-30B, Ornith-1.5-9B)
+have frozen settings and are queued; the Ornith-35B rerun uses its next pre-registered setting. Already measured in
+the settings search: the community-default Unsloth UD-Q3_K_XL (13.15 GB, stock llama.cpp) spilled 452–484 MiB at
+48K and 64K and was usable only at 32K, while the recipe's IQ3_S (12.12 GB) fits 64K; file size is one of several
+differences between the two setups, and quality was not measured. [E20, A]
 
 ## How it is measured
 
 - **Pre-registered.** [`PROTOCOL.md`](PROTOCOL.md) fixed the suites, the settings search and the definition of
-  "best" before any comparison run; every later change is logged there with its reason, and invalid runs stay in
-  the repository.
-- **Every model on its own best footing.** Each runs its model card's sampler and reasoning mode, the largest
-  context that fits without spilling (checked against the Windows driver's counters, not just "it loaded"), and
-  its own speculative decoding if it ships one. Settings are frozen per model in `frozen.json` before the suites.
+  "best" before any comparison run; every later change and deviation is logged there with its reason, and invalid
+  runs stay in the repository.
+- **Settings per model.** Each model runs its model card's sampler and reasoning mode — except the subject and its
+  official-weights control, which use the tuned effort-`medium` + short-think setting (see Limits) — and the first
+  context size on a fixed list, starting at 64K, that loads with at most 300 MiB of spill as read from the Windows
+  driver's counters. Speculative decoding follows each model's own published usage. Settings are frozen in
+  `frozen.json` before the suites.
 - **Suites.** HumanEval+ (all 164, executed), 20 hand-written Chinese reasoning questions graded by code,
   10 planted-bug code reviews, multi-turn tool calling with real tool execution and leak detection, needle recall
-  in 16K–60K-token Traditional-Chinese Wikipedia text, streaming latency on everyday prompts, and a coding-agent
-  task with hidden browser tests.
-- **Graders are tested before they are trusted.** HumanEval+'s checker passes all 164 reference solutions; every
-  planted bug is reproduced; the 10Q grader matches earlier hand grading; the dashboard grader passes a reference solution 20/20 and
-  catches all six defects planted in a broken copy.
+  in 16K–60K-token Traditional-Chinese Wikipedia text, streaming latency on everyday Chinese prompts, and a
+  coding-agent task with a browser-based grader.
+- **Graders are tested before they are trusted.** The HumanEval+ checker passes all 164 canonical solutions
+  [E32]; the six Python/SQL planted bugs reproduce when run (the four JS/Go/C ones were not executed) [E33]; the
+  10Q grader agrees with earlier hand grading on one run and differs on one item (Q8) on another, documented in
+  `PROTOCOL.md` — Q8 and Q9 are flagged for human review and counted unreviewed in 33/40; the dashboard grader
+  passes a reference solution 20/20 and catches all six defects planted in a broken copy [E31].
 
 ## Reproduce
 
@@ -91,22 +108,26 @@ git clone https://github.com/tc3oliver/qwen3.8-27b-5070ti-eval && cd qwen3.8-27b
 data/fetch.sh                                   # HumanEval+ (checksum verified)
 data/fetch_models.sh ~/models                    # pinned GGUF revisions, SHA-256 verified
 # build llama.cpp: the recipe's instructions for the subject, stock master for the others (ENVIRONMENT.md)
-python3 harness/run_arena.py --quick qwen38-27b-iq3s      # settings search + all suites for one model
-python3 harness/summarize.py                              # results/<run>-summary.md
+python3 harness/run_arena.py --quick qwen38-27b-iq3s   # --quick = round 1's time-boxed subset; omit for the full scope
+python3 harness/summarize.py                           # results/<run>-summary.md
 ```
 
-Paths to the builds are set at the top of `harness/run_arena.py`; the runner stops a production service named
-`llm-chat` while it runs and restarts it afterwards — change `PROD_SERVICE` if yours differs.
+Build paths are set at the top of `harness/run_arena.py`. The runner stops a production service named `llm-chat`
+while it runs and restarts it afterwards — change `PROD_SERVICE` if yours differs.
 
 ## Limits and known biases
 
 - One machine, Windows 11 + WSL2, with the desktop sharing the card: absolute speeds and context limits are lower
-  than on bare Linux (the recipe reaches 128K there).
-- Round 1 is time-boxed: one run of 10Q and code review, 12 agent episodes, 10 latency prompts.
-- The subject's reasoning setting was tuned on the 10Q set before the protocol, which favours it on 10Q.
-- The 10Q questions were written on this machine while testing earlier models; HumanEval+ may be in training data.
-- Gemma-4-26B-A4B and gpt-oss-20b were not measured (no further downloads); see the candidate survey for
-  published numbers.
+  than on bare Linux (the recipe's author reaches 128K there [C01, published, not re-checked]).
+- Round 1 is time-boxed: one run of 10Q and code review, 12 agent episodes, 10 latency prompts; HumanEval+ is one
+  sample per task at the production sampler (temperature 1.0), not greedy; the 60K item ran with `max_tokens` 4,967.
+- The subject's reasoning setting was tuned on the 10Q set before the protocol, which favours it on 10Q; the 10Q
+  questions were written on this machine while testing earlier models; HumanEval+ may be in training data.
+- The subject's spill was sampled only before and after its run; the one-minute monitor was added afterwards.
+- The dashboard grader was tightened twice after the Pi run (18/18 → 19/19 → 20/20); TASK.md gave the model every
+  selector, so only the grader code was hidden. 1 of 10 latency answers drifted into Simplified Chinese.
+- Gemma-4-26B-A4B and gpt-oss-20b were not measured (no further downloads); published numbers are in the
+  candidate survey.
 
 ## Credits
 
@@ -119,5 +140,5 @@ Benchmark: [EvalPlus HumanEval+](https://github.com/evalplus/evalplus). Filler t
 
 ## License and citation
 
-Code under Apache-2.0, prose, results and hand-written data under CC BY 4.0 ([`LICENSE-CONTENT.md`](LICENSE-CONTENT.md)).
+Code under Apache-2.0; prose, results and hand-written data under CC BY 4.0 ([`LICENSE-CONTENT.md`](LICENSE-CONTENT.md)).
 If you use the results, please cite [`CITATION.cff`](CITATION.cff) and carry the evidence level with the number.

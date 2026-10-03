@@ -41,8 +41,8 @@ spill after load; **a run with spill > 300 MiB is invalid** and is redone at a s
 | Latency (zh) | 20 everyday Chinese prompts | time to first token, time to first answer token, total time (p50 / p90); decode tok/s; prefill tok/s | streaming; Simplified-Chinese drift rate recorded |
 
 Generation settings for all suites: the server's production sampler, `max_tokens` 16000, prompt cache off
-between independent items. Because speculative decoding makes even temperature-0 output non-deterministic,
-single-item differences are not interpreted; only suite-level numbers with repeats are.
+between independent items. Single-item differences are not interpreted; only suite-level numbers with repeats are (see the 2026-10-03
+changelog entry on adaptive speculative decoding).
 
 ## What "best" means
 
@@ -112,3 +112,11 @@ earlier models on this machine; HumanEval+ may be in some models' training data 
   the limit stop the model, archive its outputs as `invalid-spill-N/`, mark the setting bad, and rerun from the
   next candidate. Ornith's next candidate is `65536:q8_0:4:all:0`. The subject's run (spill 168 MiB at start and
   end) is unaffected; it predates the monitor, which is noted in the report.
+- 2026-10-03, after round 1 (no rule change, disclosures): **(a) correction** — temperature-0 variation comes from the
+  recipe's *adaptive* draft length and the server's warm-up state, not from speculative decoding as such: a fixed
+  draft length reproduces bit for bit (`results/qwen38-27b-iq3s/determinism-2026-10/`, EVIDENCE-INDEX E25).
+  **(b) round-1 deviations** — the 60K long-context item ran with `max_tokens` 4,967 (the harness lowers it to fit
+  65,536); HumanEval+ is one sample per task under each model's production sampler (temperature 1.0 for the subject),
+  not greedy; the subject's spill was sampled only at start and end (the 60 s monitor came after its run).
+  **(c) grader revisions after seeing results** — the dashboard grader was tightened twice after the Pi run
+  (`harness/tests/dashboard/README.md`); every revision only made checks stricter.
