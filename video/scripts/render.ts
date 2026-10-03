@@ -15,7 +15,7 @@ const { values: a } = parseArgs({ options: {
   chrome: { type: "string" },
 } });
 const dist = resolve("dist");
-const types: Record<string, string> = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".png": "image/png", ".json": "application/json" };
+const types: Record<string, string> = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".png": "image/png", ".jpg": "image/jpeg", ".json": "application/json" };
 const server = createServer((req, res) => {
   const p = join(dist, decodeURIComponent(new URL(req.url!, "http://x").pathname));
   const f = existsSync(p) && statSync(p).isDirectory() ? join(p, "index.html") : p;

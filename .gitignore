@@ -12,3 +12,4 @@ playwright-install.log
 video/node_modules/
 video/dist/
 video/stills/
+video/public/pi/

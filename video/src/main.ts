@@ -1,4 +1,4 @@
-// A 51-second explainer of round 1, rendered deterministically: every frame is a pure function of time t, so
+// A 61-second explainer of round 1, rendered deterministically: every frame is a pure function of time t, so
 // scripts/render.ts can seek frame by frame. Numbers on screen are quoted from EVIDENCE-INDEX.md (IDs shown in
 // each scene's tag); the HumanEval+ ring is drawn from the per-task results via src/data.json.
 import * as THREE from "three";
@@ -148,10 +148,10 @@ function makeGpu() {
 }
 
 // ---------- segments ----------
-interface Seg { start: number; dur: number; group: THREE.Group; layer: HTMLElement; update(p: number): void }
+interface Seg { start: number; dur: number; group: THREE.Group; layer: HTMLElement; update(p: number): void | Promise<unknown> }
 const segs: Seg[] = [];
 let cursor = 0;
-function seg(dur: number, group: THREE.Group, layer: HTMLElement, update: (p: number) => void) {
+function seg(dur: number, group: THREE.Group, layer: HTMLElement, update: (p: number) => void | Promise<unknown>) {
   scene.add(group);
   segs.push({ start: cursor, dur, group, layer, update });
   cursor += dur;
@@ -366,7 +366,77 @@ function seg(dur: number, group: THREE.Group, layer: HTMLElement, update: (p: nu
   });
 }
 
-// 5. Pi coding agent builds the dashboard (E30, E31)
+// 5. The Pi terminal at 1× real time: frames 0–299 = pi.cast 3.0–13.0 s (scripts/extract-pi.ts → public/pi/).
+// Frames load on demand; update() returns a Promise when the needed frame is not decoded yet, and seek() passes it
+// on so the renderer waits for it.
+{
+  const group = new THREE.Group();
+  const FRAMES = 300, FPS = 30, PH = 6.1, PW = PH * (1618 / 1109);
+  // drawn after the (transparent) dust and without depth test, so no particle sits on top of the text
+  const mat = new THREE.MeshBasicMaterial({ color: 0xffffff, toneMapped: false, transparent: true, depthTest: false });
+  const screen = new THREE.Mesh(new THREE.PlaneGeometry(PW, PH), mat);
+  screen.renderOrder = 10;
+  const bezel = new THREE.Mesh(new RoundedBoxGeometry(PW + 0.24, PH + 0.5, 0.12, 3, 0.06), new THREE.MeshStandardMaterial({ color: 0x161c26, metalness: 0.6, roughness: 0.35 }));
+  bezel.position.set(0, 0.13, -0.08);
+  const dots = [0xff5f57, 0xfebc2e, 0x28c840].map((c, i) => {
+    const d = new THREE.Mesh(new THREE.CircleGeometry(0.055, 20), new THREE.MeshBasicMaterial({ color: c }));
+    d.position.set(-PW / 2 + 0.18 + i * 0.18, PH / 2 + 0.19, 0); return d;
+  });
+  const title = new THREE.Mesh(new THREE.PlaneGeometry(4, 0.25),
+    new THREE.MeshBasicMaterial({ map: textTexture("pi — qwen38-27b-iq3s · RTX 5070 Ti", 1024, 64, "500 34px monospace", "#8a96aa"), transparent: true, toneMapped: false }));
+  title.position.set(0, PH / 2 + 0.19, 0.001);
+  const monitor = new THREE.Group(); monitor.add(bezel, screen, title, ...dots);
+  group.add(monitor);
+
+  const loader = new THREE.TextureLoader();
+  const loading = new Map<number, Promise<THREE.Texture>>();
+  const frame = (j: number) => {
+    let pr = loading.get(j);
+    if (!pr) {
+      pr = loader.loadAsync(`${import.meta.env.BASE_URL}pi/f${String(j).padStart(3, "0")}.jpg`).then((t) => {
+        t.colorSpace = THREE.SRGBColorSpace; t.generateMipmaps = false; t.minFilter = THREE.LinearFilter; t.userData.i = j;
+        return t;
+      });
+      loading.set(j, pr);
+    }
+    return pr;
+  };
+  let want = -1, shown = -1;
+  const show = (t: THREE.Texture) => {
+    if (t.userData.i !== want || t.userData.i === shown) return;
+    const old = mat.map;
+    mat.map = t; mat.needsUpdate = true; shown = t.userData.i;
+    if (old && !loading.has(old.userData.i)) old.dispose();
+  };
+
+  const { el, q } = makeLayer(`
+    <div class="abs" style="left:110px;top:120px;width:470px">
+      <div class="kicker" data-k="k">Coding agent · Pi · 實錄</div>
+      <div class="h2" data-k="h" style="margin-top:14px">1× 原速<br>沒有加速</div>
+      <div class="sub" data-k="s" style="margin-top:22px;font-size:28px">讀完資料 → 串流寫出計畫<br>→ 開始 <span class="mono" style="color:#a6e22e">write index.html</span></div>
+      <div class="card mono" data-k="c" style="margin-top:40px;padding:14px 24px;display:inline-block;font-size:44px;font-weight:700">
+        <span style="color:#ff4d6d;font-size:30px;vertical-align:middle">●</span> <span data-k="clk">00:00.0</span><span style="color:#8a96aa;font-size:28px"> / 00:10</span>
+      </div>
+      <div class="small" data-k="n" style="margin-top:14px">錄影時間戳 = 真實時間，未剪接、未加速</div>
+    </div>
+    <div class="tag" data-k="t" style="bottom:20px"><b class="B">B</b>錄影：同一個 dashboard 任務另一次執行的開頭（results/qwen38-27b-iq3s/pi-2026-10/recording/pi.cast，3–13 s）</div>`);
+  seg(10, group, el, (p) => {
+    aim([0, 0.2, 11], [0, 0, 0]);
+    const k = easeOut(win(p, 0, 1.0)), e = easeInOut(win(p, 9.0, 10));
+    monitor.position.set(lerp(2.6, 1.95, k) + e * 0.4, -0.22, lerp(-2.2, 0, k) - e * 1.6);
+    monitor.rotation.set(-0.02, lerp(-0.35, -0.05, k) - e * 0.2, 0);
+    reveal(q("k"), p, 0.2); reveal(q("h"), p, 0.4); reveal(q("s"), p, 0.9); reveal(q("c"), p, 0.6, 0.5, 0); reveal(q("n"), p, 1.4);
+    reveal(q("t"), p, 1.0, 0.6, 0);
+    q("clk").textContent = `00:${p.toFixed(1).padStart(4, "0")}`;
+    want = Math.min(FRAMES - 1, Math.floor(p * FPS));
+    for (let j = want + 1; j < Math.min(FRAMES, want + 4); j++) frame(j); // prefetch for live preview
+    for (const [j, pr] of loading) if (j < want - 2 || j > want + 8) { loading.delete(j); pr.then((t) => { if (mat.map !== t) t.dispose(); }); }
+    if (shown === want) return;
+    return frame(want).then(show);
+  });
+}
+
+// 6. Pi coding agent builds the dashboard (E30, E31)
 const dashTex = new THREE.TextureLoader().loadAsync(`${import.meta.env.BASE_URL}dashboard.png`);
 {
   const group = new THREE.Group();
@@ -418,7 +488,7 @@ const dashTex = new THREE.TextureLoader().loadAsync(`${import.meta.env.BASE_URL}
   });
 }
 
-// 6. Outro
+// 7. Outro
 {
   const group = new THREE.Group();
   const gpu = makeGpu(); gpu.scale.setScalar(0.85); group.add(gpu);
@@ -441,12 +511,13 @@ const dashTex = new THREE.TextureLoader().loadAsync(`${import.meta.env.BASE_URL}
 
 // ---------- timeline ----------
 const DURATION = cursor;
-function seek(t: number) {
+/** draws time t; returns a Promise when the frame needs an asset that is still loading (render.ts awaits it) */
+function seek(t: number): Promise<void> | void {
   t = clamp(t, 0, DURATION - 1e-6);
   const i = segs.findIndex((s) => t < s.start + s.dur);
   segs.forEach((s, j) => { s.group.visible = j === i; s.layer.style.opacity = j === i ? "1" : "0"; });
   const s = segs[i], p = t - s.start;
-  s.update(p);
+  const wait = s.update(p);
   const fin = i === 0 ? 0.8 : 0.35, fout = i === segs.length - 1 ? 1.0 : 0.35;
   fadeEl.style.opacity = String(Math.max(1 - p / fin, 1 - (s.dur - p) / fout, 0));
   watermark.style.opacity = i === segs.length - 1 ? "0" : "1";
@@ -454,9 +525,10 @@ function seek(t: number) {
   dust.position.y = Math.sin(t * 0.2) * 0.2;
   grid.position.z = (t * 0.6) % 1;
   renderer.render(scene, camera);
+  if (wait) return wait.then(() => renderer.render(scene, camera));
 }
 
-declare global { interface Window { __seek: (t: number) => void; __duration: number; __ready: Promise<unknown> } }
+declare global { interface Window { __seek: (t: number) => Promise<void> | void; __duration: number; __ready: Promise<unknown> } }
 window.__seek = seek;
 window.__duration = DURATION;
 window.__ready = Promise.all([dashTex, document.fonts.ready]);
