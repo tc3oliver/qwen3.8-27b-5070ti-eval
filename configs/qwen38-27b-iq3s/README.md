@@ -10,6 +10,7 @@
 - Draft vocabulary: recipe's `draft-vocab-generic.txt`
 - Thinking: on (template default), effort medium + injected short-think instruction
 
-Why effort medium + short-think: on the 10Q suite it scored 39/40 vs 37/40 for the recipe's xhigh, with about
-half the thinking tokens (`results/qwen38-27b-iq3s/2026-10-03-prelim/`). This choice was made before the
+Why effort medium + short-think: in the preliminary sweep (E24, grade B, one run per setting) it scored 35/40
+with 9,878 tokens (38 % of xhigh's) vs 30/40 with 25,688 tokens for the recipe's xhigh
+(`results/qwen38-27b-iq3s/2026-10-03-prelim/effort-sweep.md`). This choice was made before the
 protocol and is frozen for the comparison.

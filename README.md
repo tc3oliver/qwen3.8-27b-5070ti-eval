@@ -49,8 +49,8 @@ pre-registered protocol; **B** = measured here outside it (context, not ranking)
 3. **On one prompt, temperature 0 did not reproduce the output.** With the recipe's adaptive draft length, the same
    request to a freshly started server came back as 885, 918, 1,219, 962 and 918 tokens. With the draft length
    fixed it was 3,080 tokens five times out of five, and a server that had been running (still adaptive) for hours
-   gave exactly that output — we infer its controller had settled on the same width; widths were not logged. The
-   two paths reached different answers (5 and 7). One prompt, five runs per condition. [E25, B]
+   gave the same length and answer — we infer its controller had settled on the same width; widths were not
+   logged. The two paths reached different answers (5 and 7). One prompt, five runs per condition. [E25, B]
 4. **"It loaded" is not "it works".** At 131,072 tokens of context the subject loads and decoded a test request at
    5.9 tok/s; at 122,880 the shared-memory counter read 485 MiB and decode was 6–8 tok/s, which we attribute to the
    Windows driver placing the overflow in system RAM. 64K is the largest healthy setting. A MoE competitor passed the

@@ -16,11 +16,14 @@ short-think). RTX 5070 Ti, 2026-10-03.
 
 What it shows:
 
-1. With a fixed draft length the output is bit-for-bit reproducible from a fresh process.
-2. With the adaptive draft length, a fresh process gives a different completion on every run. The adaptive
-   controller picks 1–5 draft tokens per cycle from online estimates of acceptance and verify cost, so the
-   verify batch width — and with it the floating-point path through the model — changes from cycle to cycle.
-3. After enough traffic the long-running production server reproduced the fixed-5 output exactly
+1. With a fixed draft length, every fresh-process run gave the same output length and the same answer. Only
+   token counts, the first 20 characters of each answer and the draft counters were saved, and `draft_n` differs
+   between the fixed runs, so byte-level identity is not shown.
+2. With the adaptive draft length, the output length varied across fresh-process runs (885–1,219 tokens; two
+   runs both came to 918), while the answer stayed 5. The adaptive controller picks 1–5 draft tokens per cycle
+   from online estimates of acceptance and verify cost, so the verify batch width — and with it the
+   floating-point path through the model — changes from cycle to cycle.
+3. After enough traffic the long-running production server gave the same length and answer as the fixed-5 runs
    (3,080 tokens, answer 7), consistent with the controller having settled on width 5.
 4. Seed, prompt cache and the preceding requests made no difference in the settled state.
 5. The two paths end in different answers to the same question (5 vs 7). Speculative decoding is lossless in

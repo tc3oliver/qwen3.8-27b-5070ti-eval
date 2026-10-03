@@ -114,7 +114,8 @@ earlier models on this machine; HumanEval+ may be in some models' training data 
   end) is unaffected; it predates the monitor, which is noted in the report.
 - 2026-10-03, after round 1 (no rule change, disclosures): **(a) correction** — temperature-0 variation comes from the
   recipe's *adaptive* draft length and the server's warm-up state, not from speculative decoding as such: a fixed
-  draft length reproduces bit for bit (`results/qwen38-27b-iq3s/determinism-2026-10/`, EVIDENCE-INDEX E25).
+  draft length gave the same length and answer in all five fresh-server runs
+  (`results/qwen38-27b-iq3s/determinism-2026-10/`, EVIDENCE-INDEX E25).
   **(b) round-1 deviations** — the 60K long-context item ran with `max_tokens` 4,967 (the harness lowers it to fit
   65,536); HumanEval+ is one sample per task under each model's production sampler (temperature 1.0 for the subject),
   not greedy; the subject's spill was sampled only at start and end (the 60 s monitor came after its run).
