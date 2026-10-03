@@ -1,0 +1,31 @@
+{
+ "what": "Q13, temperature 0, prompt cache off, different seeds (None = server picks a random seed)",
+ "date": "2026-10-03 14:11",
+ "runs": [
+  {
+   "seed": 1,
+   "completion_tokens": 3080,
+   "answer": "7"
+  },
+  {
+   "seed": 2,
+   "completion_tokens": 3080,
+   "answer": "7"
+  },
+  {
+   "seed": 3,
+   "completion_tokens": 3080,
+   "answer": "7"
+  },
+  {
+   "seed": null,
+   "completion_tokens": 3080,
+   "answer": "7"
+  },
+  {
+   "seed": null,
+   "completion_tokens": 3080,
+   "answer": "7"
+  }
+ ]
+}

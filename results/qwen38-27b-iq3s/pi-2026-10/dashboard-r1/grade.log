@@ -1,0 +1,19 @@
+PASS  files exist                          index.html, style.css, app.js
+PASS  title text                           header title present
+PASS  kpi humaneval                        '最高 HumanEval 通過率\n92.1%\nQwen3.8-27B IQ3_S + MTP' should contain '92.1%'
+PASS  kpi decode                           '最高解碼速度\n88.5 tok/s\nQwen3.8-27B IQ3_S + MTP' should contain '88.5tok/s'
+PASS  kpi models                           '評測模型數\n2\n本輪 + 先前實測' should contain '2'
+PASS  bar chart humaneval_pass_pct         1 bars, proportional
+PASS  bar chart tenq_score                 2 bars, proportional
+PASS  bar chart tenq_tokens                2 bars, proportional
+PASS  line chart series and points         2 series, 198 points, colours {'rgb(245, 158, 11)', 'rgb(59, 130, 246)'}
+PASS  tooltip on hover                     hidden before=True visible on hover=True text='Qwen3.8-27B IQ3_S + MTP\n181.1 tok/s'
+PASS  table sort                           desc [57346.0, 11886.0] asc [11886.0, 57346.0]
+PASS  table rows                           one row per model
+PASS  empty cells shown as —               missing values rendered as —
+PASS  evidence labels                      A/B explained
+PASS  dark mode + persistence              dark=True stored='dark' kept after reload=True
+PASS  mobile 375px no horizontal scroll    scrollWidth=375
+PASS  no console errors                    
+PASS  no external requests                 
+score 18/18

@@ -1,0 +1,57 @@
+{
+ "what": "10Q Q13 (partial-order counting, correct answer 5), identical request 5 times: temperature 0, seed 3407, prompt cache off",
+ "server": "production llm-chat = subject config (recipe v3, MTP adaptive 1-5, effort medium + short-think)",
+ "date": "2026-10-03 14:07",
+ "runs": [
+  {
+   "run": 1,
+   "completion_tokens": 3080,
+   "reasoning_chars": 7399,
+   "answer": "7",
+   "finish": "stop",
+   "draft_n": 3775,
+   "draft_accepted": 2324,
+   "sec": 26.1
+  },
+  {
+   "run": 2,
+   "completion_tokens": 3080,
+   "reasoning_chars": 7399,
+   "answer": "7",
+   "finish": "stop",
+   "draft_n": 3710,
+   "draft_accepted": 2338,
+   "sec": 25.7
+  },
+  {
+   "run": 3,
+   "completion_tokens": 3080,
+   "reasoning_chars": 7399,
+   "answer": "7",
+   "finish": "stop",
+   "draft_n": 3690,
+   "draft_accepted": 2341,
+   "sec": 22.0
+  },
+  {
+   "run": 4,
+   "completion_tokens": 3080,
+   "reasoning_chars": 7399,
+   "answer": "7",
+   "finish": "stop",
+   "draft_n": 3710,
+   "draft_accepted": 2338,
+   "sec": 25.7
+  },
+  {
+   "run": 5,
+   "completion_tokens": 3080,
+   "reasoning_chars": 7399,
+   "answer": "7",
+   "finish": "stop",
+   "draft_n": 3690,
+   "draft_accepted": 2341,
+   "sec": 25.6
+  }
+ ]
+}

@@ -1,0 +1,126 @@
+{
+ "total": 16,
+ "max": 40,
+ "items": {
+  "Q1": {
+   "score": 0,
+   "why": "words=10 w3=['sits'] w8=['seven'] e-words=['the']",
+   "tok": 12,
+   "review": false
+  },
+  "Q2": {
+   "score": 2,
+   "why": "exact",
+   "tok": 33,
+   "review": false
+  },
+  "Q3": {
+   "score": 1,
+   "why": "D with explanation",
+   "tok": 660,
+   "review": false
+  },
+  "Q4": {
+   "score": 2,
+   "why": "exact",
+   "tok": 6,
+   "review": false
+  },
+  "Q5": {
+   "score": 0,
+   "why": "values {'A': '15', 'B': '1', 'C': '1', 'D': '16'}",
+   "tok": 18,
+   "review": false
+  },
+  "Q6": {
+   "score": 2,
+   "why": "exact",
+   "tok": 2,
+   "review": false
+  },
+  "Q7": {
+   "score": 0,
+   "why": "wrong",
+   "tok": 8,
+   "review": false
+  },
+  "Q8": {
+   "score": 0,
+   "why": "misses the sum race or blames n",
+   "tok": 33,
+   "review": true
+  },
+  "Q9": {
+   "score": 0,
+   "why": "empty/truncated (finish=length)",
+   "tok": 1200,
+   "review": true
+  },
+  "Q10": {
+   "score": 2,
+   "why": "passes 306",
+   "tok": 144,
+   "review": false
+  },
+  "Q11": {
+   "score": 0,
+   "why": "wrong",
+   "tok": 10,
+   "review": false
+  },
+  "Q12": {
+   "score": 0,
+   "why": "wrong",
+   "tok": 10,
+   "review": false
+  },
+  "Q13": {
+   "score": 0,
+   "why": "wrong: '12'",
+   "tok": 3,
+   "review": false
+  },
+  "Q14": {
+   "score": 2,
+   "why": "single correct return",
+   "tok": 29,
+   "review": false
+  },
+  "Q15": {
+   "score": 2,
+   "why": "exact",
+   "tok": 18,
+   "review": false
+  },
+  "Q16": {
+   "score": 0,
+   "why": "wrong",
+   "tok": 24,
+   "review": false
+  },
+  "Q17": {
+   "score": 0,
+   "why": "wrong",
+   "tok": 10,
+   "review": false
+  },
+  "Q18": {
+   "score": 0,
+   "why": "wrong: '120'",
+   "tok": 4,
+   "review": false
+  },
+  "Q19": {
+   "score": 1,
+   "why": "only one part right",
+   "tok": 28,
+   "review": false
+  },
+  "Q20": {
+   "score": 2,
+   "why": "passes 12 + 100k",
+   "tok": 232,
+   "review": false
+  }
+ }
+}

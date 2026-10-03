@@ -1,0 +1,21 @@
+{
+ "providers": {
+  "local": {
+   "baseUrl": "http://127.0.0.1:8080/v1",
+   "api": "openai-completions",
+   "apiKey": "[redacted]",
+   "compat": {
+    "supportsDeveloperRole": false,
+    "supportsReasoningEffort": false
+   },
+   "models": [
+    {
+     "id": "qwen38-27b-iq3s",
+     "reasoning": true,
+     "contextWindow": 65536,
+     "maxTokens": 16000
+    }
+   ]
+  }
+ }
+}

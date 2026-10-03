@@ -2,3 +2,10 @@ data/*.gz
 __pycache__/
 *.pyc
 .omc/
+results/**/events.jsonl
+tools/pi/
+tools/venv/
+tools/bin/
+*.log.full
+pip-install.log
+playwright-install.log

@@ -1,0 +1,126 @@
+{
+ "total": 28,
+ "max": 40,
+ "items": {
+  "Q1": {
+   "score": 0,
+   "why": "empty/truncated (finish=length)",
+   "tok": 600,
+   "review": false
+  },
+  "Q2": {
+   "score": 2,
+   "why": "exact",
+   "tok": 461,
+   "review": false
+  },
+  "Q3": {
+   "score": 1,
+   "why": "D with explanation",
+   "tok": 1936,
+   "review": false
+  },
+  "Q4": {
+   "score": 0,
+   "why": "empty/truncated (finish=length)",
+   "tok": 400,
+   "review": false
+  },
+  "Q5": {
+   "score": 0,
+   "why": "empty/truncated (finish=length)",
+   "tok": 400,
+   "review": false
+  },
+  "Q6": {
+   "score": 2,
+   "why": "exact",
+   "tok": 398,
+   "review": false
+  },
+  "Q7": {
+   "score": 1,
+   "why": "correct with extra text",
+   "tok": 1400,
+   "review": false
+  },
+  "Q8": {
+   "score": 0,
+   "why": "empty/truncated (finish=length)",
+   "tok": 1000,
+   "review": true
+  },
+  "Q9": {
+   "score": 2,
+   "why": "cannot determine",
+   "tok": 1056,
+   "review": true
+  },
+  "Q10": {
+   "score": 0,
+   "why": "empty/truncated (finish=length)",
+   "tok": 2400,
+   "review": false
+  },
+  "Q11": {
+   "score": 2,
+   "why": "exact",
+   "tok": 877,
+   "review": false
+  },
+  "Q12": {
+   "score": 2,
+   "why": "exact",
+   "tok": 475,
+   "review": false
+  },
+  "Q13": {
+   "score": 2,
+   "why": "exact",
+   "tok": 2004,
+   "review": false
+  },
+  "Q14": {
+   "score": 2,
+   "why": "single correct return",
+   "tok": 281,
+   "review": false
+  },
+  "Q15": {
+   "score": 2,
+   "why": "exact",
+   "tok": 494,
+   "review": false
+  },
+  "Q16": {
+   "score": 2,
+   "why": "exact",
+   "tok": 417,
+   "review": false
+  },
+  "Q17": {
+   "score": 2,
+   "why": "exact",
+   "tok": 483,
+   "review": false
+  },
+  "Q18": {
+   "score": 2,
+   "why": "exact",
+   "tok": 740,
+   "review": false
+  },
+  "Q19": {
+   "score": 2,
+   "why": "both",
+   "tok": 813,
+   "review": false
+  },
+  "Q20": {
+   "score": 2,
+   "why": "passes 12 + 100k",
+   "tok": 2771,
+   "review": false
+  }
+ }
+}

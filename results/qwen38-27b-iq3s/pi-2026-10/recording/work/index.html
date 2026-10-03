@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RTX 5070 Ti 本機模型評測</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <h1>RTX 5070 Ti 本機模型評測</h1>
+  <button id="theme-toggle" type="button" aria-label="切換主題">🌙 深色模式</button>
+</header>
+
+<main>
+  <section class="kpi-grid" aria-label="重點數據">
+    <div class="kpi-card"><span class="kpi-label">最高 HumanEval 通過率</span><span class="kpi-value" data-kpi="humaneval">–</span></div>
+    <div class="kpi-card"><span class="kpi-label">最高解碼速度</span><span class="kpi-value" data-kpi="decode">–</span></div>
+    <div class="kpi-card"><span class="kpi-label">評測模型數</span><span class="kpi-value" data-kpi="models">–</span></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>模型指標比較</h2>
+      <label>指標
+        <select id="metric">
+          <option value="humaneval_pass_pct">HumanEval 通過率（%）</option>
+          <option value="tenq_score">TEnQ 分數</option>
+          <option value="tenq_tokens">TEnQ 代碼量（token）</option>
+        </select>
+      </label>
+    </div>
+    <div class="chart-wrap"><svg id="bar-chart" role="img" aria-label="模型指標長條圖"></svg></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>解碼速度隨時間變化（tok/s）</h2>
+    </div>
+    <div class="legend" id="line-legend"></div>
+    <div class="chart-wrap"><svg id="line-chart" role="img" aria-label="解碼速度時間序列圖"></svg></div>
+    <div id="tooltip" hidden></div>
+  </section>
+
+  <section class="panel">
+    <h2>完整結果</h2>
+    <div class="table-wrap">
+      <table id="results-table"></table>
+    </div>
+    <p class="footnote">空白欄位以「—」表示未量測。點擊表頭可排序（第一次降冪、第二次升冪）。</p>
+  </section>
+</main>
+
+<footer>RTX 5070 Ti 本機模型評測 · 資料來源：data/</footer>
+<script src="app.js"></script>
+</body>
+</html>

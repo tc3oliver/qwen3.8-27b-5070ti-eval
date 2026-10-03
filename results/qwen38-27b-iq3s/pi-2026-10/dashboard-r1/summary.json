@@ -1,0 +1,34 @@
+{
+ "task": "dashboard",
+ "model": "qwen38-27b-iq3s",
+ "exit": 0,
+ "wall_s": 320.3,
+ "assistant_turns": 28,
+ "tool_calls": {
+  "read": 2,
+  "bash": 16,
+  "write": 5,
+  "edit": 4
+ },
+ "tool_errors": 0,
+ "tokens": {
+  "input": 6380,
+  "output": 25678,
+  "cacheRead": 565291
+ },
+ "output_tps_wall": 80.2,
+ "compactions": 0,
+ "retries": 0,
+ "files": [
+  "TASK.md",
+  "app.js",
+  "data",
+  "index.html",
+  "style.css"
+ ],
+ "final_message": "ates, tooltip, responsive down to 375 px.\n\n**`app.js`** — No frameworks/libraries:\n- Fetches both CSVs at runtime with a hand-written quoted-CSV parser; empty cells render as `—`.\n- **KPI cards**: `data-kpi=\"humaneval\"` → `92.1%`, `data-kpi=\"decode\"` → `88.5 tok/s`, `data-kpi=\"models\"` → `2`, each with the achieving model as subtitle.\n- **Bar chart** (`#bar-chart`): horizontal bars drawn as inline SVG `<rect class=\"bar\" data-model data-value>`, one per model *with a value* for the selected metric (switchable: humaneval / tenq_score / tenq_tokens), zero-based shared scale with gridlines, value label per bar; re-renders on metric change and window resize.\n- **Line chart** (`#line-chart`): one `<path class=\"series\" data-model>` per model in distinct colors, a `<circle class=\"point\" data-model data-value>` per data point (198 points), labelled axes (時間（分鐘）/ decode tok/s), legend, and a hover tooltip (`#tooltip`, visible only while hovering) showing model + tok/s (touch-friendly too).\n- **Results table**: one row per model, `th[data-sort=\"<column>\"]` headers — first click descending, second ascending, empty cells always last; numeric-aware sorting.\n- **Theme toggle**: flips `.dark` on `<html>` and persists to `localStorage[\"theme\"]` (verified to survive reload).\n\nVerified by script: bar widths exactly proportional to values, sort order, tooltip show/hide, theme persistence, and no console errors at both 375 px and 1280 px. Serve with `python3 -m http.server` and open `index.html`.",
+ "grade": {
+  "passed": 18,
+  "total": 18
+ }
+}

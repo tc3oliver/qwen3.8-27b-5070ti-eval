@@ -1,0 +1,55 @@
+{
+ "what": "Q13 asked with prompt cache ON, interleaved with other questions; temperature 0, seed 3407",
+ "date": "2026-10-03 14:09",
+ "runs": [
+  {
+   "q": "Q11",
+   "cache_prompt": true,
+   "completion_tokens": 68,
+   "cached_tokens": 0,
+   "answer": "IMPOSSIBLE"
+  },
+  {
+   "q": "Q13",
+   "cache_prompt": true,
+   "completion_tokens": 3080,
+   "cached_tokens": 0,
+   "answer": "7"
+  },
+  {
+   "q": "Q13",
+   "cache_prompt": true,
+   "completion_tokens": 3080,
+   "cached_tokens": 0,
+   "answer": "7"
+  },
+  {
+   "q": "Q12",
+   "cache_prompt": true,
+   "completion_tokens": 256,
+   "cached_tokens": 0,
+   "answer": "3 | A→C→E"
+  },
+  {
+   "q": "Q13",
+   "cache_prompt": true,
+   "completion_tokens": 3080,
+   "cached_tokens": 0,
+   "answer": "7"
+  },
+  {
+   "q": "Q14",
+   "cache_prompt": true,
+   "completion_tokens": 164,
+   "cached_tokens": 0,
+   "answer": "```python\nreturn use"
+  },
+  {
+   "q": "Q13",
+   "cache_prompt": true,
+   "completion_tokens": 3080,
+   "cached_tokens": 0,
+   "answer": "7"
+  }
+ ]
+}

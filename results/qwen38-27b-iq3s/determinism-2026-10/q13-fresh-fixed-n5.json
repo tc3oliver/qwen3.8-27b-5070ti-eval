@@ -1,0 +1,42 @@
+{
+ "condition": "fixed-n5",
+ "what": "Q13 from a freshly started server, temperature 0, seed 3407, cache off",
+ "date": "2026-10-03 14:17",
+ "runs": [
+  {
+   "run": 1,
+   "completion_tokens": 3080,
+   "answer": "7",
+   "draft_n": 3805,
+   "draft_accepted": 2318
+  },
+  {
+   "run": 2,
+   "completion_tokens": 3080,
+   "answer": "7",
+   "draft_n": 3710,
+   "draft_accepted": 2338
+  },
+  {
+   "run": 3,
+   "completion_tokens": 3080,
+   "answer": "7",
+   "draft_n": 3690,
+   "draft_accepted": 2341
+  },
+  {
+   "run": 4,
+   "completion_tokens": 3080,
+   "answer": "7",
+   "draft_n": 3710,
+   "draft_accepted": 2338
+  },
+  {
+   "run": 5,
+   "completion_tokens": 3080,
+   "answer": "7",
+   "draft_n": 3690,
+   "draft_accepted": 2341
+  }
+ ]
+}

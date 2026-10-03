@@ -1,0 +1,126 @@
+{
+ "total": 30,
+ "max": 40,
+ "items": {
+  "Q1": {
+   "score": 0,
+   "why": "empty/truncated (finish=length)",
+   "tok": 600,
+   "review": false
+  },
+  "Q2": {
+   "score": 2,
+   "why": "exact",
+   "tok": 418,
+   "review": false
+  },
+  "Q3": {
+   "score": 2,
+   "why": "only the option",
+   "tok": 3103,
+   "review": false
+  },
+  "Q4": {
+   "score": 2,
+   "why": "exact",
+   "tok": 393,
+   "review": false
+  },
+  "Q5": {
+   "score": 2,
+   "why": "exact",
+   "tok": 392,
+   "review": false
+  },
+  "Q6": {
+   "score": 2,
+   "why": "exact",
+   "tok": 351,
+   "review": false
+  },
+  "Q7": {
+   "score": 2,
+   "why": "exact",
+   "tok": 1579,
+   "review": false
+  },
+  "Q8": {
+   "score": 0,
+   "why": "empty/truncated (finish=length)",
+   "tok": 1000,
+   "review": true
+  },
+  "Q9": {
+   "score": 0,
+   "why": "empty/truncated (finish=length)",
+   "tok": 4800,
+   "review": true
+  },
+  "Q10": {
+   "score": 0,
+   "why": "empty/truncated (finish=length)",
+   "tok": 2400,
+   "review": false
+  },
+  "Q11": {
+   "score": 2,
+   "why": "exact",
+   "tok": 439,
+   "review": false
+  },
+  "Q12": {
+   "score": 2,
+   "why": "exact",
+   "tok": 367,
+   "review": false
+  },
+  "Q13": {
+   "score": 2,
+   "why": "exact",
+   "tok": 852,
+   "review": false
+  },
+  "Q14": {
+   "score": 2,
+   "why": "single correct return",
+   "tok": 238,
+   "review": false
+  },
+  "Q15": {
+   "score": 2,
+   "why": "exact",
+   "tok": 564,
+   "review": false
+  },
+  "Q16": {
+   "score": 2,
+   "why": "exact",
+   "tok": 274,
+   "review": false
+  },
+  "Q17": {
+   "score": 2,
+   "why": "exact",
+   "tok": 311,
+   "review": false
+  },
+  "Q18": {
+   "score": 2,
+   "why": "exact",
+   "tok": 908,
+   "review": false
+  },
+  "Q19": {
+   "score": 2,
+   "why": "both",
+   "tok": 699,
+   "review": false
+  },
+  "Q20": {
+   "score": 0,
+   "why": "empty/truncated (finish=length)",
+   "tok": 6000,
+   "review": false
+  }
+ }
+}

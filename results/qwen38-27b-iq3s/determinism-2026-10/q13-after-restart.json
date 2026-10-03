@@ -1,0 +1,24 @@
+{
+ "what": "Q13 after restarting the server process (same flags), temperature 0, seed 3407, cache off",
+ "date": "2026-10-03 14:14",
+ "runs": [
+  {
+   "run": 1,
+   "completion_tokens": 2215,
+   "answer": "5",
+   "draft_n": 2532
+  },
+  {
+   "run": 2,
+   "completion_tokens": 1875,
+   "answer": "5",
+   "draft_n": 2142
+  },
+  {
+   "run": 3,
+   "completion_tokens": 845,
+   "answer": "5",
+   "draft_n": 1116
+  }
+ ]
+}

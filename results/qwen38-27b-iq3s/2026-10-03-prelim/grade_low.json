@@ -1,0 +1,126 @@
+{
+ "total": 32,
+ "max": 40,
+ "items": {
+  "Q1": {
+   "score": 0,
+   "why": "empty/truncated (finish=length)",
+   "tok": 600,
+   "review": false
+  },
+  "Q2": {
+   "score": 2,
+   "why": "exact",
+   "tok": 502,
+   "review": false
+  },
+  "Q3": {
+   "score": 1,
+   "why": "D with explanation",
+   "tok": 2570,
+   "review": false
+  },
+  "Q4": {
+   "score": 0,
+   "why": "empty/truncated (finish=length)",
+   "tok": 400,
+   "review": false
+  },
+  "Q5": {
+   "score": 2,
+   "why": "exact",
+   "tok": 378,
+   "review": false
+  },
+  "Q6": {
+   "score": 2,
+   "why": "exact",
+   "tok": 535,
+   "review": false
+  },
+  "Q7": {
+   "score": 1,
+   "why": "correct with extra text",
+   "tok": 1373,
+   "review": false
+  },
+  "Q8": {
+   "score": 2,
+   "why": "37 chars",
+   "tok": 583,
+   "review": true
+  },
+  "Q9": {
+   "score": 2,
+   "why": "cannot determine",
+   "tok": 925,
+   "review": true
+  },
+  "Q10": {
+   "score": 0,
+   "why": "empty/truncated (finish=length)",
+   "tok": 2400,
+   "review": false
+  },
+  "Q11": {
+   "score": 2,
+   "why": "exact",
+   "tok": 975,
+   "review": false
+  },
+  "Q12": {
+   "score": 2,
+   "why": "exact",
+   "tok": 266,
+   "review": false
+  },
+  "Q13": {
+   "score": 2,
+   "why": "exact",
+   "tok": 1230,
+   "review": false
+  },
+  "Q14": {
+   "score": 2,
+   "why": "single correct return",
+   "tok": 254,
+   "review": false
+  },
+  "Q15": {
+   "score": 2,
+   "why": "exact",
+   "tok": 384,
+   "review": false
+  },
+  "Q16": {
+   "score": 2,
+   "why": "exact",
+   "tok": 520,
+   "review": false
+  },
+  "Q17": {
+   "score": 2,
+   "why": "exact",
+   "tok": 429,
+   "review": false
+  },
+  "Q18": {
+   "score": 2,
+   "why": "exact",
+   "tok": 264,
+   "review": false
+  },
+  "Q19": {
+   "score": 2,
+   "why": "both",
+   "tok": 682,
+   "review": false
+  },
+  "Q20": {
+   "score": 2,
+   "why": "passes 12 + 100k",
+   "tok": 1972,
+   "review": false
+  }
+ }
+}

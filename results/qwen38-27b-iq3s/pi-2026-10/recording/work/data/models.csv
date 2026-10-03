@@ -1,0 +1,3 @@
+model,params,active_params,evidence,humaneval_pass_pct,tenq_score,tenq_tokens,code_review,agent,longctx_60k,first_answer_p50_s,decode_tps
+Qwen3.8-27B IQ3_S + MTP,27B,27B,A,92.1,33,11886,10,12,4,1.45,88.5
+Ornith-1.5-35B-A3B,35B,3B,B,,32,57346,10,12,4,,

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RTX 5070 Ti 本機模型評測</title>
+<script>
+try {
+  var t = localStorage.getItem('theme');
+  if (t === 'dark' || (!t && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+  }
+} catch (e) {}
+</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="app-header">
+  <div class="header-inner">
+    <h1>RTX 5070 Ti 本機模型評測</h1>
+    <button id="theme-toggle" type="button" aria-label="切換主題">夜間模式</button>
+  </div>
+</header>
+
+<main class="container">
+  <section class="kpi-grid" id="kpi-grid" aria-label="關鍵指標"></section>
+
+  <section class="card">
+    <div class="card-head">
+      <h2>模型指標比較</h2>
+      <label class="metric-select">
+        指標
+        <select id="metric">
+          <option value="humaneval_pass_pct">HumanEval 通過率</option>
+          <option value="tenq_score">TenQ 分數</option>
+          <option value="tenq_tokens">TenQ token 數</option>
+        </select>
+      </label>
+    </div>
+    <div class="chart-box">
+      <svg id="bar-chart" role="img" aria-label="模型指標長條圖"></svg>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <h2>解碼速度時間序列（tok/s）</h2>
+    </div>
+    <div class="legend" id="line-legend"></div>
+    <div class="chart-box">
+      <svg id="line-chart" role="img" aria-label="解碼速度時間序列折線圖"></svg>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <h2>完整結果</h2>
+      <p class="hint">點擊表頭可排序（第一次降序、第二次升序）；「—」表示未量測。</p>
+    </div>
+    <div class="table-wrap">
+      <table id="results-table">
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="app-footer">資料來源：data/models.csv、data/timeline.csv</footer>
+</main>
+
+<div id="tooltip" class="tooltip" role="status" aria-hidden="true"></div>
+<script src="app.js"></script>
+</body>
+</html>

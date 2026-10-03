@@ -1,0 +1,36 @@
+{
+ "what": "Q13 before/after unrelated requests (history dependence), temperature 0, seed 3407, cache off",
+ "date": "2026-10-03 14:13",
+ "runs": [
+  {
+   "request": "Q13",
+   "prompt_tokens": 143,
+   "completion_tokens": 3080,
+   "answer": "7"
+  },
+  {
+   "request": "long Chinese summary",
+   "prompt_tokens": 8094,
+   "completion_tokens": 542,
+   "answer": "上文涵蓋廣泛主題：自然科學方面涉及月球特"
+  },
+  {
+   "request": "Q13 after long doc",
+   "prompt_tokens": 143,
+   "completion_tokens": 3080,
+   "answer": "7"
+  },
+  {
+   "request": "Q20 (code)",
+   "prompt_tokens": 301,
+   "completion_tokens": 171,
+   "answer": "```python\ndef compar"
+  },
+  {
+   "request": "Q13 after code",
+   "prompt_tokens": 143,
+   "completion_tokens": 3080,
+   "answer": "7"
+  }
+ ]
+}

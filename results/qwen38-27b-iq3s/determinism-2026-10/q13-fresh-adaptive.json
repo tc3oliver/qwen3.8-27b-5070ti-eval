@@ -1,0 +1,42 @@
+{
+ "condition": "adaptive",
+ "what": "Q13 from a freshly started server, temperature 0, seed 3407, cache off",
+ "date": "2026-10-03 14:18",
+ "runs": [
+  {
+   "run": 1,
+   "completion_tokens": 885,
+   "answer": "5",
+   "draft_n": 1171,
+   "draft_accepted": 651
+  },
+  {
+   "run": 2,
+   "completion_tokens": 918,
+   "answer": "5",
+   "draft_n": 1016,
+   "draft_accepted": 706
+  },
+  {
+   "run": 3,
+   "completion_tokens": 1219,
+   "answer": "5",
+   "draft_n": 1432,
+   "draft_accepted": 919
+  },
+  {
+   "run": 4,
+   "completion_tokens": 962,
+   "answer": "5",
+   "draft_n": 1037,
+   "draft_accepted": 749
+  },
+  {
+   "run": 5,
+   "completion_tokens": 918,
+   "answer": "5",
+   "draft_n": 1035,
+   "draft_accepted": 709
+  }
+ ]
+}
