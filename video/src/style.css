@@ -28,3 +28,4 @@ body { display: grid; place-items: center; min-height: 100vh; }
 .card .what { font-size: 25px; color: #c3cbd8; margin-top: 6px; }
 .card .ev { font-size: 19px; color: var(--dim); margin-top: 6px; }
 .watermark { position: absolute; right: 64px; bottom: 52px; font-size: 22px; color: rgba(232,237,245,.55); letter-spacing: .5px; }
+.tag b.C { background: rgba(76,201,240,.16); border: 1px solid var(--blue); }

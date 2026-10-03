@@ -27,7 +27,7 @@ Levels: **A** measured here under `PROTOCOL.md` · **B** measured here, outside 
 
 | ID | Claim | Value | Level | Source |
 |---|---|---|---|---|
-| E20 | Unsloth UD-Q3_K_XL (13.15 GB) context on this machine | fits 32K only; 64K and 48K spill 452–484 MiB | A | `results/qwen38-27b-unsloth-q3kxl/arena-2026-10/frozen.json` (`tried`) |
+| E20 | Unsloth UD-Q3_K_XL (13.15 GB) context on this machine; the subject's IQ3_S file (12.12 GB) for comparison | Unsloth fits 32K only; 64K and 48K spill 452–484 MiB. IQ3_S (12,120,016,416 bytes) fits 64K | A | `results/qwen38-27b-unsloth-q3kxl/arena-2026-10/frozen.json` (`tried`); `results/qwen38-27b-iq3s/arena-2026-10/frozen.json`; file size in `configs/qwen38-27b-iq3s/README.md` |
 | E21 | Ornith-1.5-35B-A3B passed the settings check, then spilled mid-run | shared memory 294 → 359 MiB; decode ~99 tok/s, falling to ~27 tok/s in two windows | B (invalid run) | `results/ornith-1.5-35b-a3b-apex/arena-2026-10/invalid-spill-1/INVALID.md`, `decode-over-time.txt` |
 | E22 | Ornith-1.5-35B-A3B 10Q (from the invalid run; correctness is unaffected by speed) | 32/40 using 57,346 tokens (4.8× the subject) | B | `…/invalid-spill-1/10q_grades_r1.json` |
 | E24 | Reasoning effort: `medium` + short-think vs the vendor default `xhigh` (10Q, 4× budget, 1 run each) | 35/40 with 9,878 tokens vs 30/40 with 25,688 tokens (38 % of the tokens); thinking off 16/40 | B (preliminary) | `results/qwen38-27b-iq3s/2026-10-03-prelim/effort-sweep.md` |

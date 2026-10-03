@@ -28,7 +28,7 @@ RTX 5070 Ti，從寫程式、agent、中文長文件和延遲來看，它是不�
   <img src="results/qwen38-27b-iq3s/pi-2026-10/dashboard-r1/grade-v3/desktop-light.png" width="820" alt="本機模型做出來的 dashboard">
 </p>
 
-**影片（61 秒）：**[第 1 輪重點](media/qwen38-5070ti-round1.mp4)，用 TypeScript + three.js 逐格渲染，畫面上每個數字都標了證據編號（[`video/`](video/)）。
+**影片（51 秒）：**[第 1 輪重點](media/qwen38-5070ti-round1.mp4)，用 TypeScript + three.js 逐格渲染，畫面上每個數字都標了證據編號（[`video/`](video/)）。
 
 <p align="center"><a href="media/qwen38-5070ti-round1.mp4"><img src="media/qwen38-5070ti-round1-poster.png" width="820" alt="Round-1 explainer video"></a></p>
 

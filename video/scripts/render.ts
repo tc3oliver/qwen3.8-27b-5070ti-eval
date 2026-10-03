@@ -1,5 +1,6 @@
 // Renders dist/ frame by frame in headless Chromium (software WebGL, so the GPU stays free for the model) and
 // encodes H.264 with ffmpeg-static. Usage: npm run render [-- --fps 30 --from 0 --to <s> --out ../media/x.mp4]
+// Stills: --still 3,22 → stills/t3.0.png …; --poster 17 → stills/poster-candidate.png (media/ is not touched).
 import { spawn } from "node:child_process";
 import { createReadStream, existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
 import { createServer } from "node:http";
@@ -11,7 +12,7 @@ import { chromium } from "playwright-core";
 
 const { values: a } = parseArgs({ options: {
   fps: { type: "string", default: "30" }, from: { type: "string", default: "0" }, to: { type: "string" },
-  out: { type: "string", default: "../media/qwen38-5070ti-round1.mp4" }, still: { type: "string" },
+  out: { type: "string", default: "../media/qwen38-5070ti-round1.mp4" }, still: { type: "string" }, poster: { type: "string" },
   chrome: { type: "string" },
 } });
 const dist = resolve("dist");
@@ -38,7 +39,12 @@ await page.evaluate(() => (window as any).__ready);
 const duration: number = await page.evaluate(() => (window as any).__duration);
 
 const shot = async (t: number) => { await page.evaluate((t) => (window as any).__seek(t), t); return page.screenshot({ type: "png" }); };
-if (a.still) {
+if (a.poster) {
+  mkdirSync("stills", { recursive: true });
+  await page.evaluate((t) => (window as any).__seek(t), Number(a.poster));
+  await page.screenshot({ path: "stills/poster-candidate.png" });
+  console.log(`stills/poster-candidate.png (t = ${a.poster} s)`);
+} else if (a.still) {
   for (const t of a.still.split(",").map(Number)) {
     mkdirSync("stills", { recursive: true });
     await page.evaluate((t) => (window as any).__seek(t), t);
