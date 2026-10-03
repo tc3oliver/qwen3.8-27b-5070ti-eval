@@ -14,6 +14,7 @@ p.add_argument("--thinking", action="store_true", help="per-request chat_templat
 p.add_argument("--no-thinking", action="store_true", help="per-request enable_thinking=false（server 預設 --reasoning on 時用）")
 p.add_argument("--effort", choices=["xhigh","medium","low"], help="per-request reasoning_effort（Qwen3.8 template；搭配 --thinking）")
 p.add_argument("--system", help="每題前加這段 system prompt（例：短思考指令）")
+p.add_argument("--max-tokens", type=int, help="fixed max_tokens for every question (overrides the per-question budget × --tok-scale)")
 p.add_argument("--tok-scale", type=float, default=1.0, help="max_tokens 倍率；開 thinking 時要放大")
 p.add_argument("--out", default="/tmp/eval10q_raw.json")
 args = p.parse_args()
@@ -34,7 +35,7 @@ Q = [
 results = {}
 for qid, prompt, mt in Q:
     body = {"model": args.model, "messages": ([{"role": "system", "content": args.system}] if args.system else []) + [{"role": "user", "content": prompt}],
-            "max_tokens": int(mt * args.tok_scale), "temperature": 0, "stream": False}
+            "max_tokens": (args.max_tokens or int(mt * args.tok_scale)), "temperature": 0, "stream": False}
     if args.thinking or args.no_thinking:
         body["chat_template_kwargs"] = {"enable_thinking": args.thinking}
         if args.effort:

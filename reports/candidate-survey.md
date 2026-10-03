@@ -33,4 +33,19 @@ its own quants and no measurements.
 
 ## Selection
 
-_To be filled when the candidate set is chosen (before the first comparison run)._
+Chosen 2026-10-03, before any comparison run: all six candidates, plus the subject.
+
+| Config | Model / quant | Build | Role |
+|---|---|---|---|
+| `qwen38-27b-iq3s` | Huihui Qwen3.8-27B abliterated GSQ-RCO IQ3_S-mtp | recipe v3 | subject |
+| `qwen38-27b-official-iq3s` | ISTA-DASLab Qwen3.8-27B GSQ-RCO IQ3_S-mtp | recipe v3 | control: cost of abliteration |
+| `qwen38-27b-unsloth-q3kxl` | Unsloth Qwen3.8-27B UD-Q3_K_XL | stock | community-default Qwen3.8 setup |
+| `ornith-1.5-35b-a3b-apex` | SC117 Ornith-1.5-35B-A3B APEX-I-Mini (14.37 GB) | stock | MoE competitor |
+| `gemma-4-26b-a4b-iq4xs` | AtomicChat Gemma-4-26B-A4B-it IQ4_XS | stock | MoE competitor |
+| `muse-glimmer-30b-iq3m` | bartowski Muse-Glimmer-30B IQ3_M + DFlash Q4_0 | stock | dense competitor |
+| `gpt-oss-20b-mxfp4` | ggml-org gpt-oss-20b MXFP4 | stock | tool-calling reference |
+
+Quant choice rule: the largest quant listed by the survey that leaves room for ≥ 32K context on this machine;
+APEX-I-Mini was preferred over AtomicChat's smaller IQ3_XXS-IQ2_S for Ornith because it is the larger
+(higher-quality) file and MoE expert offload covers the difference. Revisions and SHA-256: `data/models.tsv`,
+verified by `data/fetch_models.sh`.

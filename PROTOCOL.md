@@ -62,5 +62,20 @@ earlier models on this machine; HumanEval+ may be in some models' training data 
 
 ## Changelog
 
-- 2026-10-03: protocol written. Preliminary Qwen3.8 numbers in `results/qwen38-27b-iq3s/2026-10-03-prelim/`
+- 2026-10-03: protocol written.
+- 2026-10-03 (before any comparison run): candidate set and configurations fixed — see
+  `reports/candidate-survey.md` (Selection) and `configs/*/config.env`. Decisions recorded here:
+  - **Settings search.** Each config lists candidate settings `ctx:kv:n_cpu_moe:ngl:spec` in a fixed order of
+    preference (65,536 context first, then higher-precision KV, then fewer MoE expert layers on the CPU / fewer
+    offloaded layers, speculation kept if possible). `harness/run_arena.py` uses the first candidate that loads,
+    spills ≤ 200 MiB over the idle baseline, and answers a chat turn; it is frozen in `frozen.json` before the suites.
+  - **Reasoning settings — known asymmetry.** Competitors run their model card's sampler and template-default
+    reasoning level. The subject (and the official-weights control, to isolate abliteration) runs effort `medium`
+    + short-think, a setting chosen on the 10Q suite before this protocol; this favours the subject on 10Q and
+    is reported as such. The Unsloth Qwen3.8 config runs the vendor default (`xhigh`, stock llama.cpp, upstream
+    MTP n=2) and shows Qwen3.8 without that tuning.
+  - **Speculative decoding** follows each model's own published llama.cpp usage: recipe MTP (subject/control),
+    upstream MTP n=2 (Unsloth), DFlash drafter (Muse); none for Ornith (its card's llama.cpp example has none),
+    Gemma and gpt-oss.
+  - **Uniform `max_tokens` 16000** for every suite item, including 10Q (whose per-question budgets are overridden). Preliminary Qwen3.8 numbers in `results/qwen38-27b-iq3s/2026-10-03-prelim/`
   were measured before this protocol and are kept for reference only; they are not part of the comparison.
