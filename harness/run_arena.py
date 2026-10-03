@@ -22,6 +22,7 @@ p.add_argument("configs", nargs="*", default=ORDER)
 p.add_argument("--run", default="arena-2026-10")
 p.add_argument("--only-size", action="store_true", help="choose and freeze settings, skip the suites")
 p.add_argument("--keep-prod-down", action="store_true")
+p.add_argument("--quick", action="store_true", help="time-boxed run: 1 repeat of 10Q and code review, 12 agent episodes, 10 latency prompts; full HumanEval+")
 args = p.parse_args()
 
 LOG = open(os.path.join(ROOT, "results", f"{args.run}.log"), "a", buffering=1)
@@ -130,11 +131,12 @@ def size(name, cfg, outdir, baseline_shared):
 def suites(outdir):
     py, H = sys.executable, os.path.join(ROOT, "harness")
     common = ["--url", URL, "--key", KEY]
-    s = [("latency", [py, f"{H}/eval_latency_zh.py", *common, "--out", f"{outdir}/latency.json"]),
-         ("agent", [py, f"{H}/eval_agent_tools.py", *common, "--out", f"{outdir}/agent.json"]),
-         ("code_review", [py, f"{H}/eval_code_review.py", *common, "--repeats", "3", "--out", f"{outdir}/code_review.json"]),
+    q = args.quick
+    s = [("latency", [py, f"{H}/eval_latency_zh.py", *common, *(["--limit", "10"] if q else []), "--out", f"{outdir}/latency.json"]),
+         ("agent", [py, f"{H}/eval_agent_tools.py", *common, "--repeats", "2" if q else "5", "--out", f"{outdir}/agent.json"]),
+         ("code_review", [py, f"{H}/eval_code_review.py", *common, "--repeats", "1" if q else "3", "--out", f"{outdir}/code_review.json"]),
          ("longctx", [py, f"{H}/eval_longctx_zh.py", *common, "--out", f"{outdir}/longctx.json"])]
-    for r in (1, 2, 3):
+    for r in ((1,) if q else (1, 2, 3)):
         s += [(f"10q_A_r{r}", [py, f"{H}/eval_10q.py", "--base", URL, "--key", KEY, "--max-tokens", "16000", "--out", f"{outdir}/10q_A_r{r}.json"]),
               (f"10q_B_r{r}", [py, f"{H}/eval_10q_b.py", "--base", URL, "--key", KEY, "--max-tokens", "16000", "--out", f"{outdir}/10q_B_r{r}.json"])]
     s += [("humanevalplus", [py, f"{H}/eval_humanevalplus.py", *common, "--out", f"{outdir}/humanevalplus.json"])]

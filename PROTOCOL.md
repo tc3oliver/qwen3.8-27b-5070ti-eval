@@ -95,3 +95,8 @@ earlier models on this machine; HumanEval+ may be in some models' training data 
   healthy settings 136–232 MiB with normal decode; real spill 421–485 MiB with decode collapsing to 6–73 tok/s
   (`results/qwen38-27b-iq3s/2026-10-03-prelim/ctx-sweep/summary.txt`). 300 MiB separates the two groups. The
   settings search was rerun from scratch with the new limit.
+- 2026-10-03, before any suite had run: **time-boxed first run (owner: about one hour).** Only the subject and
+  Ornith-1.5-35B-A3B are measured now, with `run_arena.py --quick`: full HumanEval+ (164), long context (16K/32K/60K),
+  one repeat of 10Q and code review, 12 agent episodes (6 scenarios × 2), 10 latency prompts. Repeat-based noise
+  margins are therefore unavailable for 10Q and code review in this run; differences there are reported but not
+  claimed. The other four frozen configurations are kept for a later run.
